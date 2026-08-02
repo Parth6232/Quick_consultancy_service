@@ -1,0 +1,270 @@
+Here is how your website looks when rendered. You can interact with the live design directly below:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Consulting Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        html { scroll-behavior: smooth; }
+        .tab-btn.active { border-bottom: 3px solid #2563eb; color: #2563eb; font-weight: 600; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-slate-900 text-gray-300 text-xs md:text-sm py-2 px-4 md:px-6">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-2 text-center sm:text-left">
+                <i class="fa-solid fa-location-dot text-blue-400"></i>
+                <span>M9, Bapat Road, Near Brilliant Aura, Vijay Nagar, Indore</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="tel:+918109101811" class="hover:text-white flex items-center gap-1">
+                    <i class="fa-solid fa-phone text-blue-400"></i> +91 81091 01811
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <nav class="sticky top-0 bg-white shadow-sm z-50">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center">
+            <a href="#" class="text-xl md:text-2xl font-extrabold text-slate-900 tracking-tight">
+                QUICK<span class="text-blue-600">CONSULTING</span>
+            </a>
+            <div class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#about" class="hover:text-blue-600 transition">About</a>
+                <a href="#services" class="hover:text-blue-600 transition">Services</a>
+                <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
+            </div>
+            <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm font-semibold px-4 py-2 rounded-lg shadow-sm transition">
+                Get a Quote
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-12 md:py-20 px-4 md:px-6 text-center">
+        <div class="max-w-4xl mx-auto space-y-4 md:space-y-6">
+            <span class="bg-blue-600/30 text-blue-300 border border-blue-500/30 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider inline-block">
+                Comprehensive Business Solutions
+            </span>
+            <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
+                Accelerate Your Business Growth with Expert Consulting
+            </h1>
+            <p class="text-gray-300 text-sm md:text-lg max-w-2xl mx-auto">
+                From Tax & Compliance to cutting-edge AI Automation and Digital Transformation, we provide end-to-end services to scale your organization.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-3 pt-4">
+                <a href="https://wa.me/918109101811" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg flex items-center justify-center gap-2 text-sm transition">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Chat on WhatsApp
+                </a>
+                <a href="#services" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-lg border border-white/20 text-sm transition">
+                    Explore Our Services
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Interactive Services Section -->
+    <section id="services" class="py-12 md:py-16 px-4 md:px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-8 md:mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Our Comprehensive Services</h2>
+            <p class="text-gray-600 text-xs md:text-sm mt-2">Explore our full suite of tax, legal, IT, AI, and business growth solutions.</p>
+        </div>
+
+        <!-- Service Category Tabs -->
+        <div class="flex overflow-x-auto border-b border-gray-200 mb-8 space-x-2 md:space-x-4 pb-2 no-scrollbar" id="tabContainer">
+            <button onclick="filterServices(event, 'all')" class="tab-btn active px-3 py-2 text-xs md:text-sm whitespace-nowrap">All Services</button>
+            <button onclick="filterServices(event, 'tax')" class="tab-btn px-3 py-2 text-xs md:text-sm whitespace-nowrap">Tax & Compliance</button>
+            <button onclick="filterServices(event, 'reg')" class="tab-btn px-3 py-2 text-xs md:text-sm whitespace-nowrap">Registration</button>
+            <button onclick="filterServices(event, 'acc')" class="tab-btn px-3 py-2 text-xs md:text-sm whitespace-nowrap">Accounting</button>
+            <button onclick="filterServices(event, 'it')" class="tab-btn px-3 py-2 text-xs md:text-sm whitespace-nowrap">IT & Cloud</button>
+            <button onclick="filterServices(event, 'ai')" class="tab-btn px-3 py-2 text-xs md:text-sm whitespace-nowrap">AI & Automation</button>
+            <button onclick="filterServices(event, 'web')" class="tab-btn px-3 py-2 text-xs md:text-sm whitespace-nowrap">Web & Digital</button>
+            <button onclick="filterServices(event, 'biz')" class="tab-btn px-3 py-2 text-xs md:text-sm whitespace-nowrap">Business Growth</button>
+        </div>
+
+        <!-- Services Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="servicesGrid">
+            
+            <!-- Tax & Compliance -->
+            <div class="service-card tax bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                <div class="text-blue-600 text-2xl mb-3"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                <h3 class="font-bold text-lg mb-2 text-slate-900">Tax & Compliance</h3>
+                <ul class="text-xs md:text-sm text-gray-600 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Income Tax Return (ITR) Filing</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>GST Registration & GST Return Filing</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>TDS Return Filing & TDS Compliance</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Tax Planning & Advisory</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Income Tax Notices & Assessments</li>
+                </ul>
+            </div>
+
+            <!-- Business Registration -->
+            <div class="service-card reg bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                <div class="text-blue-600 text-2xl mb-3"><i class="fa-solid fa-building"></i></div>
+                <h3 class="font-bold text-lg mb-2 text-slate-900">Business Registration</h3>
+                <ul class="text-xs md:text-sm text-gray-600 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Proprietorship & Partnership Firm</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>LLP & Private Limited Company</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Startup India & MSME (Udyam)</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>PAN, TAN & Digital Signature (DSC)</li>
+                </ul>
+            </div>
+
+            <!-- Accounting & Finance -->
+            <div class="service-card acc bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                <div class="text-blue-600 text-2xl mb-3"><i class="fa-solid fa-calculator"></i></div>
+                <h3 class="font-bold text-lg mb-2 text-slate-900">Accounting & Finance</h3>
+                <ul class="text-xs md:text-sm text-gray-600 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Bookkeeping & Accounting</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Payroll Processing</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Financial Statements</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Internal Audit & Virtual CFO</li>
+                </ul>
+            </div>
+
+            <!-- IT Consulting -->
+            <div class="service-card it bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                <div class="text-blue-600 text-2xl mb-3"><i class="fa-solid fa-network-wired"></i></div>
+                <h3 class="font-bold text-lg mb-2 text-slate-900">IT Consulting</h3>
+                <ul class="text-xs md:text-sm text-gray-600 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>ERP & SAP Consulting</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Power BI & Business Intelligence</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Data Analytics</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Cloud & Digital Transformation</li>
+                </ul>
+            </div>
+
+            <!-- AI & Automation -->
+            <div class="service-card ai bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                <div class="text-blue-600 text-2xl mb-3"><i class="fa-solid fa-robot"></i></div>
+                <h3 class="font-bold text-lg mb-2 text-slate-900">AI & Automation</h3>
+                <ul class="text-xs md:text-sm text-gray-600 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>AI Voice Agents</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>WhatsApp Business Automation</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Chatbot Development</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Workflow Automation & GenAI</li>
+                </ul>
+            </div>
+
+            <!-- Web & Digital -->
+            <div class="service-card web bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                <div class="text-blue-600 text-2xl mb-3"><i class="fa-solid fa-code"></i></div>
+                <h3 class="font-bold text-lg mb-2 text-slate-900">Web & Digital</h3>
+                <ul class="text-xs md:text-sm text-gray-600 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Website Design & Development</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>E-commerce Development</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>SEO & Google Business Profile</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Digital Marketing & Social Media</li>
+                </ul>
+            </div>
+
+            <!-- Business Consulting -->
+            <div class="service-card biz bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+                <div class="text-blue-600 text-2xl mb-3"><i class="fa-solid fa-chart-line"></i></div>
+                <h3 class="font-bold text-lg mb-2 text-slate-900">Business Consulting</h3>
+                <ul class="text-xs md:text-sm text-gray-600 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Startup Consulting & Strategy</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Business Process Improvement</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Project Management Consulting</li>
+                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Government Schemes & Subsidies</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-slate-100 py-12 md:py-16 px-4 md:px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+            
+            <!-- Address & Phone -->
+            <div class="space-y-6">
+                <span class="text-blue-600 text-xs font-semibold uppercase tracking-wider">Get in Touch</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Visit Our Office or Schedule a Consultation</h2>
+                <p class="text-gray-600 text-xs md:text-sm">Have questions about registration, tax compliance, or implementing AI in your business? Speak with our specialists today.</p>
+
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-600 text-white p-3 rounded-lg"><i class="fa-solid fa-location-dot"></i></div>
+                        <div>
+                            <h4 class="font-semibold text-slate-900 text-sm md:text-base">Office Address</h4>
+                            <p class="text-xs md:text-sm text-gray-600">M9, Bapat Road, Near Brilliant Aura, Above Apple Kitchens, Vijay Nagar, Indore</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-600 text-white p-3 rounded-lg"><i class="fa-solid fa-phone"></i></div>
+                        <div>
+                            <h4 class="font-semibold text-slate-900 text-sm md:text-base">Direct Phone</h4>
+                            <p class="text-xs md:text-sm text-gray-600">+91 81091 01811</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inquiry Form -->
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-md border border-gray-100">
+                <h3 class="text-lg md:text-xl font-bold mb-4 text-slate-900">Request a Consultation</h3>
+                <form class="space-y-4" onsubmit="alert('Thank you! We will get back to you shortly.'); return false;">
+                    <div>
+                        <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                        <input type="text" required class="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                        <input type="tel" required class="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1">Service Required</label>
+                        <select class="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 outline-none">
+                            <option>Tax & Compliance</option>
+                            <option>Business Registration</option>
+                            <option>Accounting & Finance</option>
+                            <option>IT & Data Analytics</option>
+                            <option>AI & Automation</option>
+                            <option>Web Development</option>
+                            <option>Business Consulting</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2.5 rounded-lg transition">Submit Request</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-gray-400 py-6 text-center text-xs md:text-sm">
+        <p>&copy; Quick Consulting Services. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function filterServices(evt, category) {
+            const cards = document.querySelectorAll('.service-card');
+            const buttons = document.querySelectorAll('.tab-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            evt.currentTarget.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
+```
