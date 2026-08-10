@@ -1,0 +1,211 @@
+/**
+ * animations.css
+ * Responsibility: All keyframe definitions, reveal animations, hero float,
+ * glossy hover effects (btn + card), pulse-glow, nav link underline hover,
+ * and the prefers-reduced-motion override block.
+ */
+
+/* ---------- Scroll-reveal ---------- */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---------- Hero floating icon ---------- */
+@keyframes hero-float {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+.hero-icon-animate {
+    animation: hero-float 3s ease-in-out infinite;
+    display: inline-block;
+}
+
+/* ---------- Glossy button shine sweep ---------- */
+.btn-glossy {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate; /* creates stacking context so pseudo-el stays clipped */
+}
+.btn-glossy::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.45) 50%, transparent 70%);
+    transform: skewX(-20deg);
+    transition: left 0.55s ease-in-out;
+    z-index: 1;
+    pointer-events: none;
+}
+.btn-glossy:hover::before {
+    left: 150%;
+}
+/* Make sure button text is above the shine */
+.btn-glossy > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* ---------- Glossy card top-highlight ---------- */
+.card-glossy {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+.card-glossy::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+.card-glossy:hover::after {
+    opacity: 1;
+}
+.dark .card-glossy::after {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+}
+
+/* ---------- Nav text-link animated underline ---------- */
+.nav-link {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 2px;
+    color: inherit;
+    transition: color 0.25s ease;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 100%;
+    height: 2px;
+    background: #2563eb; /* blue-600 */
+    border-radius: 1px;
+    transition: transform 0.3s ease;
+    transform-origin: center;
+}
+.dark .nav-link::after {
+    background: #60a5fa; /* blue-400 */
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+    transform: translateX(-50%) scaleX(1);
+}
+.nav-link:hover {
+    color: #2563eb;
+}
+.dark .nav-link:hover {
+    color: #60a5fa;
+}
+
+/* ---------- Service card hover lift ---------- */
+.service-card {
+    transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.3s ease;
+}
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+/* ---------- Chat toggle button pulse-glow ---------- */
+@keyframes pulse-glow {
+    0%   { box-shadow: 0 0 0 0   rgba(37, 99, 235, 0.45); }
+    70%  { box-shadow: 0 0 0 14px rgba(37, 99, 235, 0);   }
+    100% { box-shadow: 0 0 0 0   rgba(37, 99, 235, 0);    }
+}
+.chat-glow-pulse {
+    animation: pulse-glow 3s infinite;
+}
+
+/* ---------- Reduced-motion overrides ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+    .btn-glossy::before,
+    .card-glossy::after,
+    .nav-link::after { display: none !important; }
+    .chat-glow-pulse { animation: none !important; }
+    /* Carousel: stop scroll, show static layout */
+    .carousel-track { animation: none !important; }
+}
+
+/* ---------- Carousel — infinite-scroll keyframe ---------- */
+@keyframes carousel-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Wrapper must clip overflow so edge-fade gradients work */
+.carousel-container {
+    overflow: hidden;
+    position: relative;
+}
+
+/* The scrolling track */
+.carousel-track {
+    display: flex;
+    width: max-content;
+    animation: carousel-scroll 32s linear infinite;
+    /* JS sets animationPlayState on hover; CSS rule is the fallback */
+}
+.carousel-track:hover {
+    animation-play-state: paused;
+}
+
+/* Each card — JS (carousel.js) injects per-card rotate/translateY/scale */
+.carousel-card {
+    flex-shrink: 0;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.3s ease;
+    transform-origin: bottom center;
+    position: relative;   /* needed for z-index stacking */
+}
+.carousel-card:hover {
+    /* Lift card on hover; JS-set transform will be overridden by this */
+    transform: translateY(-20px) rotate(0deg) scale(1.07) !important;
+    z-index: 20 !important;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+}
+
+/* ---------- Carousel — static grid (prefers-reduced-motion) ---------- */
+.carousel-static-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 1rem 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+@media (min-width: 640px) {
+    .carousel-static-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (min-width: 1024px) {
+    .carousel-static-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

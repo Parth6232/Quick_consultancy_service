@@ -1,30 +1,91 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quick Consulting Services</title>
+    <title>Quick Consulting Services | Indore Business Consultants</title>
+    <meta name="description" content="Quick Consulting Services — Tax, GST, Business Registration, IT, AI Automation and Web solutions in Indore. Your Vision + Our Expertise = Successful Business.">
+    <meta name="keywords" content="Indore business consulting, tax, GST, company registration, AI automation, web development">
+    <meta name="robots" content="index, follow">
+    <!-- TODO: Update canonical URL and OG image when domain is live -->
+    <link rel="canonical" href="https://www.quickconsulting.in/">
+    <!-- <link rel="icon" type="image/x-icon" href="/favicon.ico"> TODO: add favicon -->
+    
+    <meta property="og:title" content="Quick Consulting Services | Indore Business Consultants">
+    <meta property="og:description" content="Tax, GST, Business Registration, IT, AI Automation and Web solutions in Indore.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.quickconsulting.in/">
+    <meta property="og:image" content="/assets/og-image.jpg"> <!-- TODO: add real image -->
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Quick Consulting Services | Indore Business Consultants">
+    <meta name="twitter:description" content="Tax, GST, Business Registration, IT, AI Automation and Web solutions in Indore.">
+    <meta name="twitter:image" content="/assets/og-image.jpg">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Quick Consulting Services",
+      "image": "https://www.quickconsulting.in/assets/og-image.jpg",
+      "@id": "https://www.quickconsulting.in/",
+      "url": "https://www.quickconsulting.in/",
+      "telephone": "+918109101811",
+      "email": "indore@quickconsulting.in",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "M9, Bapat Road, Near Brilliant Aura, Above Apple Kitchens, Vijay Nagar",
+        "addressLocality": "Indore",
+        "addressRegion": "MP",
+        "postalCode": "452010",
+        "addressCountry": "IN"
+      }
+    }
+    </script>
+    
+    <!-- NOTE: If Hindi becomes a primary distinct route, add hreflang tags here -->
+    
+    <!-- THEME DETECTION: must run before Tailwind to prevent flash of wrong theme -->
+    <script>
+        (function(){
+            var t = localStorage.getItem('theme');
+            if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+    <!-- Tailwind must load AFTER theme detection script above -->
+    <script>
+        tailwind = { config: { darkMode: 'class' } };
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        html { scroll-behavior: smooth; }
-        .tab-btn.active { border-bottom: 3px solid #2563eb; color: #2563eb; font-weight: 600; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/components.css">
 </head>
+
 <body class="bg-gray-50 text-gray-800 font-sans antialiased">
 
     <!-- Top Announcement Bar -->
-    <div class="bg-slate-900 text-gray-300 text-xs md:text-sm py-2 px-4 md:px-6">
+    <div class="bg-slate-900 dark:bg-black text-gray-300 dark:text-gray-400 text-xs md:text-sm py-2 px-4 md:px-6 transition-colors duration-300">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
             <div class="flex items-center gap-2 text-center sm:text-left">
                 <i class="fa-solid fa-location-dot text-blue-400"></i>
                 <span>M9, Bapat Road, Near Brilliant Aura, Vijay Nagar, Indore</span>
             </div>
-            <div class="flex items-center gap-4">
-                <a href="tel:+918109101811" class="hover:text-white flex items-center gap-1">
+            <div class="flex items-center gap-4 flex-wrap justify-center sm:justify-end">
+                <a href="mailto:indore@quickconsulting.in" class="hover:text-white dark:hover:text-gray-200 flex items-center gap-1 transition">
+                    <i class="fa-solid fa-envelope text-blue-400"></i> indore@quickconsulting.in
+                </a>
+                <a href="https://www.quickconsulting.in" target="_blank" class="hover:text-white dark:hover:text-gray-200 flex items-center gap-1 transition">
+                    <i class="fa-solid fa-globe text-blue-400"></i> www.quickconsulting.in
+                </a>
+                <a href="tel:+918109101811" class="hover:text-white dark:hover:text-gray-200 flex items-center gap-1 transition">
                     <i class="fa-solid fa-phone text-blue-400"></i> +91 81091 01811
                 </a>
             </div>
@@ -32,24 +93,34 @@
     </div>
 
     <!-- Navigation Header -->
-    <nav class="sticky top-0 bg-white shadow-sm z-50">
+    <nav class="sticky top-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:border-b dark:border-slate-800 z-50 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center">
-            <a href="#" class="text-xl md:text-2xl font-extrabold text-slate-900 tracking-tight">
-                QUICK<span class="text-blue-600">CONSULTING</span>
-            </a>
-            <div class="hidden md:flex space-x-6 text-sm font-medium">
-                <a href="#about" class="hover:text-blue-600 transition">About</a>
-                <a href="#services" class="hover:text-blue-600 transition">Services</a>
-                <a href="#contact" class="hover:text-blue-600 transition">Contact</a>
+            <div class="flex flex-col">
+                <a href="#" class="text-xl md:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                    QUICK<span class="text-blue-600">CONSULTING</span>
+                </a>
+                <span class="text-[0.65rem] md:text-xs text-gray-500 dark:text-gray-400 font-medium tracking-wide">Find the Problem. Fix the Problem. Grow the Business.</span>
             </div>
-            <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm font-semibold px-4 py-2 rounded-lg shadow-sm transition">
-                Get a Quote
-            </a>
+            <div class="hidden md:flex space-x-6 text-sm font-medium text-slate-700 dark:text-gray-300">
+                <a href="#" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;" class="nav-link cursor-pointer">About</a>
+                <a href="#services" class="nav-link cursor-pointer">Services</a>
+                <a href="#contact" class="nav-link cursor-pointer">Contact</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleTheme()" class="cursor-pointer text-gray-500 hover:text-slate-900 dark:text-gray-400 dark:hover:text-white transition w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-slate-800 active:scale-95">
+                    <i id="theme-icon-moon" class="fa-solid fa-moon"></i>
+                    <i id="theme-icon-sun" class="fa-solid fa-sun hidden text-yellow-400"></i>
+                </button>
+                <a href="#contact" class="cursor-pointer btn-glossy bg-blue-600 hover:bg-blue-700 text-white text-xs md:text-sm font-semibold px-4 py-2 rounded-lg shadow-sm transition active:scale-95">
+                    Get a Quote
+                </a>
+            </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-12 md:py-20 px-4 md:px-6 text-center">
+    <header class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-12 md:py-20 px-4 md:px-6 text-center relative overflow-hidden transition-colors duration-300">
+        <div class="absolute top-10 left-10 opacity-20 text-4xl hero-icon-animate"><i class="fa-solid fa-chart-pie"></i></div>
         <div class="max-w-4xl mx-auto space-y-4 md:space-y-6">
             <span class="bg-blue-600/30 text-blue-300 border border-blue-500/30 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider inline-block">
                 Comprehensive Business Solutions
@@ -58,173 +129,537 @@
                 Accelerate Your Business Growth with Expert Consulting
             </h1>
             <p class="text-gray-300 text-sm md:text-lg max-w-2xl mx-auto">
-                From Tax & Compliance to cutting-edge AI Automation and Digital Transformation, we provide end-to-end services to scale your organization.
+                You have the idea. We help you implement it. From Tax & Compliance to cutting-edge AI Automation and Digital Transformation, we provide end-to-end services to scale your organization.
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-3 pt-4">
-                <a href="https://wa.me/918109101811" target="_blank" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg flex items-center justify-center gap-2 text-sm transition">
+                <a href="https://wa.me/918109101811" target="_blank" class="btn-glossy bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg flex items-center justify-center gap-2 text-sm transition">
                     <i class="fa-brands fa-whatsapp text-lg"></i> Chat on WhatsApp
                 </a>
-                <a href="#services" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-lg border border-white/20 text-sm transition">
+                <a href="#services" class="btn-glossy bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-lg border border-white/20 text-sm transition">
                     Explore Our Services
                 </a>
             </div>
         </div>
     </header>
 
+    <!-- Stats / Trust Bar -->
+    <section id="stats-section" class="py-8 md:py-12 bg-white dark:bg-slate-900 border-b border-gray-100 dark:border-slate-800 reveal transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+            <div class="p-4">
+                <div class="text-xl md:text-2xl font-extrabold text-blue-600 dark:text-blue-400 mb-2"><i class="fa-solid fa-check-double"></i></div>
+                <div class="text-xs md:text-sm text-gray-700 dark:text-gray-300 font-semibold">100% Transparent Pricing</div>
+            </div>
+            <div class="p-4">
+                <div class="text-xl md:text-2xl font-extrabold text-blue-600 dark:text-blue-400 mb-2"><i class="fa-solid fa-user-shield"></i></div>
+                <div class="text-xs md:text-sm text-gray-700 dark:text-gray-300 font-semibold">Personalized Attention</div>
+            </div>
+            <div class="p-4">
+                <div class="text-xl md:text-2xl font-extrabold text-blue-600 dark:text-blue-400 mb-2"><i class="fa-solid fa-globe"></i></div>
+                <div class="text-xs md:text-sm text-gray-700 dark:text-gray-300 font-semibold">Pan-India Support</div>
+            </div>
+            <div class="p-4">
+                <div class="text-3xl md:text-4xl font-extrabold text-blue-600 dark:text-blue-400 mb-1"><span class="stat-counter" data-target="7">0</span>+</div>
+                <div class="text-xs md:text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wide font-semibold">Services Offered</div>
+                <!-- TODO: confirm real number -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="about" class="py-12 md:py-16 px-4 md:px-6 bg-slate-50 dark:bg-slate-950 reveal transition-colors duration-300" style="scroll-margin-top:72px">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-10 md:mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">Why Choose Us?</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-xs md:text-sm mt-2">Partner with industry experts dedicated to your growth.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card-glossy bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 text-center hover:shadow-md transition">
+                    <div class="text-blue-600 dark:text-blue-400 text-3xl mb-4"><i class="fa-solid fa-user-tie"></i></div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-2">Expert Team</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Certified professionals with deep industry knowledge.</p>
+                </div>
+                <div class="card-glossy bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 text-center hover:shadow-md transition">
+                    <div class="text-blue-600 dark:text-blue-400 text-3xl mb-4"><i class="fa-solid fa-stopwatch"></i></div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-2">Fast Turnaround</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Quick and efficient service delivery without compromising quality.</p>
+                </div>
+                <div class="card-glossy bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 text-center hover:shadow-md transition">
+                    <div class="text-blue-600 dark:text-blue-400 text-3xl mb-4"><i class="fa-solid fa-handshake-angle"></i></div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-2">End-to-End Support</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">From planning to execution, we are with you at every step.</p>
+                </div>
+                <div class="card-glossy bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 text-center hover:shadow-md transition">
+                    <div class="text-blue-600 dark:text-blue-400 text-3xl mb-4"><i class="fa-solid fa-tags"></i></div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-2">Transparent Pricing</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">No hidden fees, just clear and honest pricing models.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works / Process -->
+    <section class="py-12 md:py-16 px-4 md:px-6 bg-white dark:bg-slate-900 reveal transition-colors duration-300">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-10 md:mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">Our Process</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-xs md:text-sm mt-2">A simple 5-step journey to business success.</p>
+            </div>
+            <div class="flex flex-col md:flex-row justify-center items-center md:items-start gap-8 md:gap-4 relative">
+                <!-- Line connector for desktop -->
+                <div class="hidden md:block absolute top-6 left-12 right-12 h-0.5 bg-blue-100 dark:bg-slate-700 -z-10"></div>
+                
+                <div class="flex-1 text-center max-w-[200px] relative z-10">
+                    <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold shadow-lg">1</div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-1">Understand</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">We define your goals.</p>
+                </div>
+                <div class="flex-1 text-center max-w-[200px] relative z-10">
+                    <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold shadow-lg">2</div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-1">Analyze</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">We assess the landscape.</p>
+                </div>
+                <div class="flex-1 text-center max-w-[200px] relative z-10">
+                    <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold shadow-lg">3</div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-1">Plan</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">We build a custom strategy.</p>
+                </div>
+                <div class="flex-1 text-center max-w-[200px] relative z-10">
+                    <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold shadow-lg">4</div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-1">Implement</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">We execute the solutions.</p>
+                </div>
+                <div class="flex-1 text-center max-w-[200px] relative z-10">
+                    <div class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold shadow-lg">5</div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-1">Grow</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Ongoing guidance & scaling.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Our Approach Carousel Section -->
+    <section class="carousel-section py-12 md:py-16 bg-slate-900 dark:bg-black text-white overflow-hidden relative reveal transition-colors duration-300">
+        <div class="text-center mb-8 md:mb-12 px-4">
+            <span class="text-blue-400 text-xs font-semibold uppercase tracking-widest mb-3 inline-block">How We Work</span>
+            <h2 class="text-2xl md:text-3xl font-bold">Our Approach <span class="text-blue-400">in Action</span></h2>
+            <p class="text-gray-400 text-xs md:text-sm mt-2">Delivering excellence across every business domain — <em>Your Vision + Our Expertise.</em></p>
+        </div>
+        
+        <!-- Carousel Track Wrapper -->
+        <div class="carousel-container relative w-full h-[280px] md:h-[320px] flex items-center">
+            <!-- Fade masks for smooth edges -->
+            <div class="absolute top-0 bottom-0 left-0 w-12 md:w-32 bg-gradient-to-r from-slate-900 dark:from-black to-transparent z-20 pointer-events-none"></div>
+            <div class="absolute top-0 bottom-0 right-0 w-12 md:w-32 bg-gradient-to-l from-slate-900 dark:from-black to-transparent z-20 pointer-events-none"></div>
+            
+            <div class="carousel-track flex gap-6 px-6">
+                <!-- Cards (Set 1 — unique) -->
+                <div class="carousel-card bg-slate-800 border border-slate-700 p-6 rounded-2xl w-56 h-52 md:w-64 md:h-56 shrink-0 flex flex-col justify-center items-center text-center shadow-xl">
+                    <div class="text-blue-400 text-3xl mb-3"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                    <h4 class="font-bold text-base md:text-lg mb-1">Tax Strategy</h4>
+                    <p class="text-xs text-gray-400">Optimizing liabilities legally and safely.</p>
+                </div>
+                <div class="carousel-card bg-slate-800 border border-slate-700 p-6 rounded-2xl w-56 h-52 md:w-64 md:h-56 shrink-0 flex flex-col justify-center items-center text-center shadow-xl">
+                    <div class="text-blue-400 text-3xl mb-3"><i class="fa-solid fa-code"></i></div>
+                    <h4 class="font-bold text-base md:text-lg mb-1">Web Dev</h4>
+                    <p class="text-xs text-gray-400">High-performance digital storefronts.</p>
+                </div>
+                <div class="carousel-card bg-slate-800 border border-slate-700 p-6 rounded-2xl w-56 h-52 md:w-64 md:h-56 shrink-0 flex flex-col justify-center items-center text-center shadow-xl">
+                    <div class="text-blue-400 text-3xl mb-3"><i class="fa-solid fa-robot"></i></div>
+                    <h4 class="font-bold text-base md:text-lg mb-1">AI Automation</h4>
+                    <p class="text-xs text-gray-400">Streamlining operations with smart tech.</p>
+                </div>
+                <div class="carousel-card bg-slate-800 border border-slate-700 p-6 rounded-2xl w-56 h-52 md:w-64 md:h-56 shrink-0 flex flex-col justify-center items-center text-center shadow-xl">
+                    <div class="text-blue-400 text-3xl mb-3"><i class="fa-solid fa-building"></i></div>
+                    <h4 class="font-bold text-base md:text-lg mb-1">Registration</h4>
+                    <p class="text-xs text-gray-400">Fast-tracking your legal entity setup.</p>
+                </div>
+                <div class="carousel-card bg-slate-800 border border-slate-700 p-6 rounded-2xl w-56 h-52 md:w-64 md:h-56 shrink-0 flex flex-col justify-center items-center text-center shadow-xl">
+                    <div class="text-blue-400 text-3xl mb-3"><i class="fa-solid fa-calculator"></i></div>
+                    <h4 class="font-bold text-base md:text-lg mb-1">Accounting</h4>
+                    <p class="text-xs text-gray-400">Precision bookkeeping and reporting.</p>
+                </div>
+                <div class="carousel-card bg-slate-800 border border-slate-700 p-6 rounded-2xl w-56 h-52 md:w-64 md:h-56 shrink-0 flex flex-col justify-center items-center text-center shadow-xl">
+                    <div class="text-blue-400 text-3xl mb-3"><i class="fa-solid fa-receipt"></i></div>
+                    <h4 class="font-bold text-base md:text-lg mb-1">GST Compliance</h4>
+                    <p class="text-xs text-gray-400">End-to-end GST registration &amp; returns.</p>
+                </div>
+                <div class="carousel-card bg-slate-800 border border-slate-700 p-6 rounded-2xl w-56 h-52 md:w-64 md:h-56 shrink-0 flex flex-col justify-center items-center text-center shadow-xl">
+                    <div class="text-blue-400 text-3xl mb-3"><i class="fa-solid fa-chart-line"></i></div>
+                    <h4 class="font-bold text-base md:text-lg mb-1">Business Strategy</h4>
+                    <p class="text-xs text-gray-400">Growth plans tailored to your market.</p>
+                </div>
+                
+                <!-- Cards (Set 2 — exact duplicate for seamless loop) -->
+                <div class="carousel-card bg-slate-800 border border-slate-700 p-6 rounded-2xl w-56 h-52 md:w-64 md:h-56 shrink-0 flex flex-col justify-center items-center text-center shadow-xl">
+                    <div class="text-blue-400 text-3xl mb-3"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                    <h4 class="font-bold text-base md:text-lg mb-1">Tax Strategy</h4>
+                    <p class="text-xs text-gray-400">Optimizing liabilities legally and safely.</p>
+                </div>
+                <div class="carousel-card bg-slate-800 border border-slate-700 p-6 rounded-2xl w-56 h-52 md:w-64 md:h-56 shrink-0 flex flex-col justify-center items-center text-center shadow-xl">
+                    <div class="text-blue-400 text-3xl mb-3"><i class="fa-solid fa-code"></i></div>
+                    <h4 class="font-bold text-base md:text-lg mb-1">Web Dev</h4>
+                    <p class="text-xs text-gray-400">High-performance digital storefronts.</p>
+                </div>
+                <div class="carousel-card bg-slate-800 border border-slate-700 p-6 rounded-2xl w-56 h-52 md:w-64 md:h-56 shrink-0 flex flex-col justify-center items-center text-center shadow-xl">
+                    <div class="text-blue-400 text-3xl mb-3"><i class="fa-solid fa-robot"></i></div>
+                    <h4 class="font-bold text-base md:text-lg mb-1">AI Automation</h4>
+                    <p class="text-xs text-gray-400">Streamlining operations with smart tech.</p>
+                </div>
+                <div class="carousel-card bg-slate-800 border border-slate-700 p-6 rounded-2xl w-56 h-52 md:w-64 md:h-56 shrink-0 flex flex-col justify-center items-center text-center shadow-xl">
+                    <div class="text-blue-400 text-3xl mb-3"><i class="fa-solid fa-building"></i></div>
+                    <h4 class="font-bold text-base md:text-lg mb-1">Registration</h4>
+                    <p class="text-xs text-gray-400">Fast-tracking your legal entity setup.</p>
+                </div>
+                <div class="carousel-card bg-slate-800 border border-slate-700 p-6 rounded-2xl w-56 h-52 md:w-64 md:h-56 shrink-0 flex flex-col justify-center items-center text-center shadow-xl">
+                    <div class="text-blue-400 text-3xl mb-3"><i class="fa-solid fa-calculator"></i></div>
+                    <h4 class="font-bold text-base md:text-lg mb-1">Accounting</h4>
+                    <p class="text-xs text-gray-400">Precision bookkeeping and reporting.</p>
+                </div>
+                <div class="carousel-card bg-slate-800 border border-slate-700 p-6 rounded-2xl w-56 h-52 md:w-64 md:h-56 shrink-0 flex flex-col justify-center items-center text-center shadow-xl">
+                    <div class="text-blue-400 text-3xl mb-3"><i class="fa-solid fa-receipt"></i></div>
+                    <h4 class="font-bold text-base md:text-lg mb-1">GST Compliance</h4>
+                    <p class="text-xs text-gray-400">End-to-end GST registration &amp; returns.</p>
+                </div>
+                <div class="carousel-card bg-slate-800 border border-slate-700 p-6 rounded-2xl w-56 h-52 md:w-64 md:h-56 shrink-0 flex flex-col justify-center items-center text-center shadow-xl">
+                    <div class="text-blue-400 text-3xl mb-3"><i class="fa-solid fa-chart-line"></i></div>
+                    <h4 class="font-bold text-base md:text-lg mb-1">Business Strategy</h4>
+                    <p class="text-xs text-gray-400">Growth plans tailored to your market.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <!-- Interactive Services Section -->
-    <section id="services" class="py-12 md:py-16 px-4 md:px-6 max-w-7xl mx-auto">
+    <section id="services" class="py-12 md:py-16 px-4 md:px-6 max-w-7xl mx-auto bg-gray-50 dark:bg-slate-950 reveal transition-colors duration-300" style="scroll-margin-top:72px">
         <div class="text-center mb-8 md:mb-12">
-            <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Our Comprehensive Services</h2>
-            <p class="text-gray-600 text-xs md:text-sm mt-2">Explore our full suite of tax, legal, IT, AI, and business growth solutions.</p>
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">Our Comprehensive Services</h2>
+            <p class="text-gray-600 dark:text-gray-400 text-xs md:text-sm mt-2">Explore our full suite of tax, legal, IT, AI, and business
+                growth solutions.</p>
         </div>
 
         <!-- Service Category Tabs -->
-        <div class="flex overflow-x-auto border-b border-gray-200 mb-8 space-x-2 md:space-x-4 pb-2 no-scrollbar" id="tabContainer">
-            <button onclick="filterServices(event, 'all')" class="tab-btn active px-3 py-2 text-xs md:text-sm whitespace-nowrap">All Services</button>
-            <button onclick="filterServices(event, 'tax')" class="tab-btn px-3 py-2 text-xs md:text-sm whitespace-nowrap">Tax & Compliance</button>
-            <button onclick="filterServices(event, 'reg')" class="tab-btn px-3 py-2 text-xs md:text-sm whitespace-nowrap">Registration</button>
-            <button onclick="filterServices(event, 'acc')" class="tab-btn px-3 py-2 text-xs md:text-sm whitespace-nowrap">Accounting</button>
-            <button onclick="filterServices(event, 'it')" class="tab-btn px-3 py-2 text-xs md:text-sm whitespace-nowrap">IT & Cloud</button>
-            <button onclick="filterServices(event, 'ai')" class="tab-btn px-3 py-2 text-xs md:text-sm whitespace-nowrap">AI & Automation</button>
-            <button onclick="filterServices(event, 'web')" class="tab-btn px-3 py-2 text-xs md:text-sm whitespace-nowrap">Web & Digital</button>
-            <button onclick="filterServices(event, 'biz')" class="tab-btn px-3 py-2 text-xs md:text-sm whitespace-nowrap">Business Growth</button>
+        <div class="flex overflow-x-auto border-b border-gray-200 dark:border-slate-800 mb-8 space-x-2 md:space-x-4 pb-2 no-scrollbar"
+            id="tabContainer">
+            <button onclick="filterServices(event, 'all')"
+                class="tab-btn active cursor-pointer active:scale-95 dark:text-gray-400 px-3 py-2 text-xs md:text-sm whitespace-nowrap">All Services</button>
+            <button onclick="filterServices(event, 'tax')"
+                class="tab-btn cursor-pointer active:scale-95 dark:text-gray-400 px-3 py-2 text-xs md:text-sm whitespace-nowrap">Tax & Compliance</button>
+            <button onclick="filterServices(event, 'reg')"
+                class="tab-btn cursor-pointer active:scale-95 dark:text-gray-400 px-3 py-2 text-xs md:text-sm whitespace-nowrap">Registration</button>
+            <button onclick="filterServices(event, 'acc')"
+                class="tab-btn cursor-pointer active:scale-95 dark:text-gray-400 px-3 py-2 text-xs md:text-sm whitespace-nowrap">Accounting</button>
+            <button onclick="filterServices(event, 'it')"
+                class="tab-btn cursor-pointer active:scale-95 dark:text-gray-400 px-3 py-2 text-xs md:text-sm whitespace-nowrap">IT & Cloud</button>
+            <button onclick="filterServices(event, 'ai')"
+                class="tab-btn cursor-pointer active:scale-95 dark:text-gray-400 px-3 py-2 text-xs md:text-sm whitespace-nowrap">AI & Automation</button>
+            <button onclick="filterServices(event, 'web')"
+                class="tab-btn cursor-pointer active:scale-95 dark:text-gray-400 px-3 py-2 text-xs md:text-sm whitespace-nowrap">Web & Digital</button>
+            <button onclick="filterServices(event, 'biz')"
+                class="tab-btn cursor-pointer active:scale-95 dark:text-gray-400 px-3 py-2 text-xs md:text-sm whitespace-nowrap">Business Growth</button>
         </div>
 
         <!-- Services Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="servicesGrid">
-            
+
             <!-- Tax & Compliance -->
-            <div class="service-card tax bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div class="text-blue-600 text-2xl mb-3"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                <h3 class="font-bold text-lg mb-2 text-slate-900">Tax & Compliance</h3>
-                <ul class="text-xs md:text-sm text-gray-600 space-y-1.5">
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Income Tax Return (ITR) Filing</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>GST Registration & GST Return Filing</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>TDS Return Filing & TDS Compliance</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Tax Planning & Advisory</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Income Tax Notices & Assessments</li>
+            <div
+                class="service-card card-glossy tax bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition">
+                <div class="text-blue-600 dark:text-blue-400 text-2xl mb-3"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">Tax & Compliance</h3>
+                <ul class="text-xs md:text-sm text-gray-600 dark:text-gray-400 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Income Tax Return (ITR) Filing</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>GST Registration & GST Return Filing</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>TDS Return Filing & TDS Compliance</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Tax Planning & Advisory</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Income Tax Notices & Assessments</li>
                 </ul>
             </div>
 
             <!-- Business Registration -->
-            <div class="service-card reg bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div class="text-blue-600 text-2xl mb-3"><i class="fa-solid fa-building"></i></div>
-                <h3 class="font-bold text-lg mb-2 text-slate-900">Business Registration</h3>
-                <ul class="text-xs md:text-sm text-gray-600 space-y-1.5">
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Proprietorship & Partnership Firm</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>LLP & Private Limited Company</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Startup India & MSME (Udyam)</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>PAN, TAN & Digital Signature (DSC)</li>
+            <div
+                class="service-card card-glossy reg bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition">
+                <div class="text-blue-600 dark:text-blue-400 text-2xl mb-3"><i class="fa-solid fa-building"></i></div>
+                <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">Business Registration</h3>
+                <ul class="text-xs md:text-sm text-gray-600 dark:text-gray-400 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Proprietorship & Partnership Firm</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>LLP & Private Limited Company</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Startup India & MSME (Udyam)</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>PAN, TAN & Digital Signature (DSC)</li>
                 </ul>
             </div>
 
             <!-- Accounting & Finance -->
-            <div class="service-card acc bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div class="text-blue-600 text-2xl mb-3"><i class="fa-solid fa-calculator"></i></div>
-                <h3 class="font-bold text-lg mb-2 text-slate-900">Accounting & Finance</h3>
-                <ul class="text-xs md:text-sm text-gray-600 space-y-1.5">
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Bookkeeping & Accounting</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Payroll Processing</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Financial Statements</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Internal Audit & Virtual CFO</li>
+            <div
+                class="service-card card-glossy acc bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition">
+                <div class="text-blue-600 dark:text-blue-400 text-2xl mb-3"><i class="fa-solid fa-calculator"></i></div>
+                <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">Accounting & Finance</h3>
+                <ul class="text-xs md:text-sm text-gray-600 dark:text-gray-400 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Bookkeeping & Accounting</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Payroll Processing</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Financial Statements</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Internal Audit & Virtual CFO</li>
                 </ul>
             </div>
 
             <!-- IT Consulting -->
-            <div class="service-card it bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div class="text-blue-600 text-2xl mb-3"><i class="fa-solid fa-network-wired"></i></div>
-                <h3 class="font-bold text-lg mb-2 text-slate-900">IT Consulting</h3>
-                <ul class="text-xs md:text-sm text-gray-600 space-y-1.5">
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>ERP & SAP Consulting</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Power BI & Business Intelligence</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Data Analytics</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Cloud & Digital Transformation</li>
+            <div
+                class="service-card card-glossy it bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition">
+                <div class="text-blue-600 dark:text-blue-400 text-2xl mb-3"><i class="fa-solid fa-network-wired"></i></div>
+                <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">IT Consulting</h3>
+                <ul class="text-xs md:text-sm text-gray-600 dark:text-gray-400 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>ERP & SAP Consulting</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Power BI & Business Intelligence</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Data Analytics</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Cloud & Digital Transformation</li>
                 </ul>
             </div>
 
             <!-- AI & Automation -->
-            <div class="service-card ai bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div class="text-blue-600 text-2xl mb-3"><i class="fa-solid fa-robot"></i></div>
-                <h3 class="font-bold text-lg mb-2 text-slate-900">AI & Automation</h3>
-                <ul class="text-xs md:text-sm text-gray-600 space-y-1.5">
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>AI Voice Agents</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>WhatsApp Business Automation</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Chatbot Development</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Workflow Automation & GenAI</li>
+            <div
+                class="service-card card-glossy ai bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition">
+                <div class="text-blue-600 dark:text-blue-400 text-2xl mb-3"><i class="fa-solid fa-robot"></i></div>
+                <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">AI & Automation</h3>
+                <ul class="text-xs md:text-sm text-gray-600 dark:text-gray-400 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>AI Voice Agents</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>WhatsApp Business Automation</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Chatbot Development</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Workflow Automation & GenAI</li>
                 </ul>
             </div>
 
             <!-- Web & Digital -->
-            <div class="service-card web bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div class="text-blue-600 text-2xl mb-3"><i class="fa-solid fa-code"></i></div>
-                <h3 class="font-bold text-lg mb-2 text-slate-900">Web & Digital</h3>
-                <ul class="text-xs md:text-sm text-gray-600 space-y-1.5">
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Website Design & Development</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>E-commerce Development</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>SEO & Google Business Profile</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Digital Marketing & Social Media</li>
+            <div
+                class="service-card card-glossy web bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition">
+                <div class="text-blue-600 dark:text-blue-400 text-2xl mb-3"><i class="fa-solid fa-code"></i></div>
+                <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">Web & Digital</h3>
+                <ul class="text-xs md:text-sm text-gray-600 dark:text-gray-400 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Website Design & Development</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>E-commerce Development</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>SEO & Google Business Profile</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Digital Marketing & Social Media</li>
                 </ul>
             </div>
 
             <!-- Business Consulting -->
-            <div class="service-card biz bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
-                <div class="text-blue-600 text-2xl mb-3"><i class="fa-solid fa-chart-line"></i></div>
-                <h3 class="font-bold text-lg mb-2 text-slate-900">Business Consulting</h3>
-                <ul class="text-xs md:text-sm text-gray-600 space-y-1.5">
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Startup Consulting & Strategy</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Business Process Improvement</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Project Management Consulting</li>
-                    <li><i class="fa-solid fa-check text-blue-500 mr-1.5"></i>Government Schemes & Subsidies</li>
+            <div
+                class="service-card card-glossy biz bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-md transition">
+                <div class="text-blue-600 dark:text-blue-400 text-2xl mb-3"><i class="fa-solid fa-chart-line"></i></div>
+                <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">Business Consulting</h3>
+                <ul class="text-xs md:text-sm text-gray-600 dark:text-gray-400 space-y-1.5">
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Startup Consulting & Strategy</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Business Process Improvement</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Project Management Consulting</li>
+                    <li><i class="fa-solid fa-check text-blue-500 dark:text-blue-400 mr-1.5"></i>Government Schemes & Subsidies</li>
                 </ul>
             </div>
 
         </div>
     </section>
 
+    <!-- Testimonials -->
+    <section class="py-12 md:py-16 px-4 md:px-6 bg-white dark:bg-slate-900 reveal transition-colors duration-300">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-10 md:mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">Client Reviews</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-xs md:text-sm mt-2">What our partners say about us.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="card-glossy bg-slate-50 dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700">
+                    <div class="flex text-yellow-400 text-sm mb-3"><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 italic mb-4">"Quick Consulting helped us set up our Private Limited
+                        company seamlessly and handled all GST registrations. Highly recommended!"</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center font-bold">
+                            R</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white text-sm">Rahul Sharma</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Founder, TechSolutions</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-glossy bg-slate-50 dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700">
+                    <div class="flex text-yellow-400 text-sm mb-3"><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 italic mb-4">"Their AI automation service transformed how we handle
+                        customer inquiries on WhatsApp. It saved us countless hours."</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center font-bold">
+                            A</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white text-sm">Anita Desai</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Director, RetailCorp</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-glossy bg-slate-50 dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700">
+                    <div class="flex text-yellow-400 text-sm mb-3"><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
+                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 italic mb-4">"Excellent tax planning and advisory. They are always
+                        available to answer my queries and ensure we stay compliant."</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center font-bold">
+                            V</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white text-sm">Vikram Singh</h4>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">CEO, BuildRight Infra</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-12 md:py-16 px-4 md:px-6 bg-slate-50 dark:bg-slate-950 reveal transition-colors duration-300">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-10 md:mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">Frequently Asked Questions</h2>
+            </div>
+            <div class="space-y-6">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item bg-white dark:bg-slate-800 border-l-4 border-l-transparent active-border-blue border-y border-r border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden shadow-sm transition-all duration-300">
+                    <button
+                        class="cursor-pointer w-full px-6 py-4 text-left flex justify-between items-center font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition outline-none"
+                        onclick="toggleFaq(this.parentElement)">
+                        <span>How long does business registration take?</span>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer bg-gray-50 dark:bg-slate-800/50 border-t border-gray-100 dark:border-slate-700">
+                        <div class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Typically, a Private Limited Company or LLP
+                            registration takes 7-10 working days, provided all documents are in order. Proprietorships
+                            can be faster.</div>
+                    </div>
+                </div>
+                <!-- FAQ Item 2 -->
+                <div class="faq-item bg-white dark:bg-slate-800 border-l-4 border-l-transparent active-border-blue border-y border-r border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden shadow-sm transition-all duration-300">
+                    <button
+                        class="cursor-pointer w-full px-6 py-4 text-left flex justify-between items-center font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition outline-none"
+                        onclick="toggleFaq(this.parentElement)">
+                        <span>Do you provide ongoing tax filing support?</span>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer bg-gray-50 dark:bg-slate-800/50 border-t border-gray-100 dark:border-slate-700">
+                        <div class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Yes, we offer monthly and annual retainer
+                            packages that cover all your GST, TDS, and Income Tax filing requirements.</div>
+                    </div>
+                </div>
+                <!-- FAQ Item 3 -->
+                <div class="faq-item bg-white dark:bg-slate-800 border-l-4 border-l-transparent active-border-blue border-y border-r border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden shadow-sm transition-all duration-300">
+                    <button
+                        class="cursor-pointer w-full px-6 py-4 text-left flex justify-between items-center font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition outline-none"
+                        onclick="toggleFaq(this.parentElement)">
+                        <span>Can you automate my customer support on WhatsApp?</span>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer bg-gray-50 dark:bg-slate-800/50 border-t border-gray-100 dark:border-slate-700">
+                        <div class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Absolutely! Our AI & Automation team specializes
+                            in building smart WhatsApp chatbots that can handle FAQs, bookings, and customer support
+                            24/7.</div>
+                    </div>
+                </div>
+                <!-- FAQ Item 4 -->
+                <div class="faq-item bg-white dark:bg-slate-800 border-l-4 border-l-transparent active-border-blue border-y border-r border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden shadow-sm transition-all duration-300">
+                    <button
+                        class="cursor-pointer w-full px-6 py-4 text-left flex justify-between items-center font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition outline-none"
+                        onclick="toggleFaq(this.parentElement)">
+                        <span>Are there any hidden costs?</span>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer bg-gray-50 dark:bg-slate-800/50 border-t border-gray-100 dark:border-slate-700">
+                        <div class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">No. We pride ourselves on transparent pricing. You
+                            will receive a detailed quotation before we begin any work, outlining all government fees
+                            and our professional charges.</div>
+                    </div>
+                </div>
+                <!-- FAQ Item 5 -->
+                <div class="faq-item bg-white dark:bg-slate-800 border-l-4 border-l-transparent active-border-blue border-y border-r border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden shadow-sm transition-all duration-300">
+                    <button
+                        class="cursor-pointer w-full px-6 py-4 text-left flex justify-between items-center font-bold text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition outline-none"
+                        onclick="toggleFaq(this.parentElement)">
+                        <span>Can you build a custom web application for my business?</span>
+                        <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer bg-gray-50 dark:bg-slate-800/50 border-t border-gray-100 dark:border-slate-700">
+                        <div class="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">Absolutely! We support clients pan-India and
+                            globally via Google Meet, Zoom, and WhatsApp. Most of our services can be completed 100%
+                            online.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
-    <section id="contact" class="bg-slate-100 py-12 md:py-16 px-4 md:px-6">
+    <section id="contact" class="bg-slate-100 dark:bg-slate-900 py-12 md:py-16 px-4 md:px-6 reveal transition-colors duration-300" style="scroll-margin-top:72px">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
-            
+
             <!-- Address & Phone -->
             <div class="space-y-6">
-                <span class="text-blue-600 text-xs font-semibold uppercase tracking-wider">Get in Touch</span>
-                <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Visit Our Office or Schedule a Consultation</h2>
-                <p class="text-gray-600 text-xs md:text-sm">Have questions about registration, tax compliance, or implementing AI in your business? Speak with our specialists today.</p>
+                <span class="text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-wider">Get in Touch</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">Visit Our Office or Schedule a Consultation
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 text-xs md:text-sm">Have questions about registration, tax compliance, or
+                    implementing AI in your business? Speak with our specialists today.</p>
 
                 <div class="space-y-4">
                     <div class="flex items-start gap-4">
-                        <div class="bg-blue-600 text-white p-3 rounded-lg"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="bg-blue-600 dark:bg-blue-700 text-white p-3 rounded-lg shrink-0"><i class="fa-solid fa-location-dot"></i></div>
                         <div>
-                            <h4 class="font-semibold text-slate-900 text-sm md:text-base">Office Address</h4>
-                            <p class="text-xs md:text-sm text-gray-600">M9, Bapat Road, Near Brilliant Aura, Above Apple Kitchens, Vijay Nagar, Indore</p>
+                            <h4 class="font-semibold text-slate-900 dark:text-white text-sm md:text-base">Office Address</h4>
+                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">M9, Bapat Road, Near Brilliant Aura, Above Apple Kitchens, Vijay Nagar, Indore</p>
                         </div>
                     </div>
 
                     <div class="flex items-start gap-4">
-                        <div class="bg-blue-600 text-white p-3 rounded-lg"><i class="fa-solid fa-phone"></i></div>
+                        <div class="bg-blue-600 dark:bg-blue-700 text-white p-3 rounded-lg shrink-0"><i class="fa-solid fa-phone"></i></div>
                         <div>
-                            <h4 class="font-semibold text-slate-900 text-sm md:text-base">Direct Phone</h4>
-                            <p class="text-xs md:text-sm text-gray-600">+91 81091 01811</p>
+                            <h4 class="font-semibold text-slate-900 dark:text-white text-sm md:text-base">Direct Phone</h4>
+                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">+91 81091 01811</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-600 dark:bg-blue-700 text-white p-3 rounded-lg shrink-0"><i class="fa-solid fa-envelope"></i></div>
+                        <div>
+                            <h4 class="font-semibold text-slate-900 dark:text-white text-sm md:text-base">Email</h4>
+                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">indore@quickconsulting.in</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="bg-blue-600 dark:bg-blue-700 text-white p-3 rounded-lg shrink-0"><i class="fa-solid fa-globe"></i></div>
+                        <div>
+                            <h4 class="font-semibold text-slate-900 dark:text-white text-sm md:text-base">Website</h4>
+                            <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">www.quickconsulting.in</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Inquiry Form -->
-            <div class="bg-white p-6 md:p-8 rounded-xl shadow-md border border-gray-100">
-                <h3 class="text-lg md:text-xl font-bold mb-4 text-slate-900">Request a Consultation</h3>
+            <div class="bg-white dark:bg-slate-800 p-6 md:p-8 rounded-xl shadow-md border border-gray-100 dark:border-slate-700">
+                <h3 class="text-lg md:text-xl font-bold mb-4 text-slate-900 dark:text-white">Request a Consultation</h3>
                 <form class="space-y-4" onsubmit="alert('Thank you! We will get back to you shortly.'); return false;">
                     <div>
-                        <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                        <input type="text" required class="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 outline-none">
+                        <label class="block text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
+                        <input type="text" required
+                            class="w-full px-3 py-2 text-sm border dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-600 outline-none transition-colors">
                     </div>
                     <div>
-                        <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                        <input type="tel" required class="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 outline-none">
+                        <label class="block text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone Number</label>
+                        <input type="tel" required
+                            class="w-full px-3 py-2 text-sm border dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-600 outline-none transition-colors">
                     </div>
                     <div>
-                        <label class="block text-xs md:text-sm font-medium text-gray-700 mb-1">Service Required</label>
-                        <select class="w-full px-3 py-2 text-sm border rounded-lg focus:ring-2 focus:ring-blue-600 outline-none">
+                        <label class="block text-xs md:text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Service Required</label>
+                        <select
+                            class="w-full px-3 py-2 text-sm border dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:ring-2 focus:ring-blue-600 outline-none transition-colors">
                             <option>Tax & Compliance</option>
                             <option>Business Registration</option>
                             <option>Accounting & Finance</option>
@@ -234,7 +669,9 @@
                             <option>Business Consulting</option>
                         </select>
                     </div>
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2.5 rounded-lg transition">Submit Request</button>
+                    <button type="submit"
+                        class="cursor-pointer active:scale-95 btn-glossy w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2.5 rounded-lg transition">Submit
+                        Request</button>
                 </form>
             </div>
 
@@ -242,28 +679,81 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-gray-400 py-6 text-center text-xs md:text-sm">
+    <footer class="bg-slate-900 dark:bg-black text-gray-400 py-6 text-center text-xs md:text-sm reveal">
         <p>&copy; Quick Consulting Services. All rights reserved.</p>
     </footer>
 
-    <script>
-        function filterServices(evt, category) {
-            const cards = document.querySelectorAll('.service-card');
-            const buttons = document.querySelectorAll('.tab-btn');
+    <!-- Bilingual Chat Widget -->
+    <div id="chat-widget" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex flex-col items-end">
+        <!-- Chat Window -->
+        <div id="chat-window"
+            class="chat-widget-window bg-white dark:bg-slate-800 w-full max-w-sm sm:w-80 rounded-2xl shadow-2xl border border-gray-200 dark:border-slate-700 mb-4 flex flex-col overflow-hidden hidden sm:flex fixed sm:static bottom-0 right-0 left-0 sm:left-auto sm:right-auto h-[80vh] sm:h-[450px]">
+            <!-- Header (also drag handle on desktop) -->
+            <div class="chat-drag-handle bg-blue-600/90 dark:bg-blue-800/90 backdrop-blur-md text-white px-4 py-3 flex justify-between items-center shrink-0 cursor-grab active:cursor-grabbing select-none">
+                <div class="flex items-center gap-2 pointer-events-none">
+                    <i class="fa-solid fa-robot text-xl"></i>
+                    <span class="font-bold text-sm">QuickBot</span>
+                </div>
+                <!-- Language Toggle -->
+                <div class="bg-blue-700 dark:bg-blue-900 rounded-full px-2 py-1 text-xs flex gap-1 shadow-inner" style="pointer-events:auto">
+                    <button onclick="switchLanguage('en')" id="lang-en"
+                        class="px-2 py-0.5 rounded-full font-bold text-blue-600 dark:text-blue-400 bg-white dark:bg-slate-800 transition">EN</button>
+                    <button onclick="switchLanguage('hi')" id="lang-hi"
+                        class="px-2 py-0.5 rounded-full text-white hover:bg-white/20 transition">HI</button>
+                </div>
+                <!-- Close Mobile -->
+                <button onclick="toggleChat()" class="sm:hidden text-white/80 hover:text-white" style="pointer-events:auto"><i
+                        class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
 
-            buttons.forEach(btn => btn.classList.remove('active'));
-            evt.currentTarget.classList.add('active');
+            <!-- Messages Area -->
+            <div id="chat-messages" class="chat-messages flex-1 p-4 overflow-y-auto bg-gray-50 dark:bg-slate-900 flex flex-col">
+                <!-- Messages will be injected here -->
+            </div>
 
-            cards.forEach(card => {
-                if (category === 'all' || card.classList.contains(category)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-    </script>
+            <!-- Quick Replies -->
+            <div
+                class="px-3 pb-2 pt-2 bg-gray-50 dark:bg-slate-900 flex gap-2 overflow-x-auto no-scrollbar shrink-0 border-t border-gray-100 dark:border-slate-800">
+                <button id="qr-services" onclick="handleQuickReply('services')"
+                    class="whitespace-nowrap text-xs bg-white dark:bg-slate-800 border border-blue-200 dark:border-blue-900 text-blue-600 dark:text-blue-400 px-3 py-1.5 rounded-full hover:bg-blue-50 dark:hover:bg-slate-700 transition">Our
+                    Services</button>
+                <button id="qr-quote" onclick="handleQuickReply('quote')"
+                    class="whitespace-nowrap text-xs bg-white dark:bg-slate-800 border border-blue-200 dark:border-blue-900 text-blue-600 dark:text-blue-400 px-3 py-1.5 rounded-full hover:bg-blue-50 dark:hover:bg-slate-700 transition">Get
+                    a Quote</button>
+                <button id="qr-contact" onclick="handleQuickReply('contact')"
+                    class="whitespace-nowrap text-xs bg-white dark:bg-slate-800 border border-blue-200 dark:border-blue-900 text-blue-600 dark:text-blue-400 px-3 py-1.5 rounded-full hover:bg-blue-50 dark:hover:bg-slate-700 transition">Contact
+                    Us</button>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-3 bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-700 flex gap-2 shrink-0">
+                <input type="text" id="chat-input" placeholder="Type a message..."
+                    class="flex-1 px-3 py-2 text-sm bg-gray-100 dark:bg-slate-700 dark:text-white rounded-lg outline-none focus:ring-1 focus:ring-blue-600">
+                <button onclick="sendChatMessage()"
+                    class="cursor-pointer active:scale-95 btn-glossy bg-blue-600 hover:bg-blue-700 text-white w-9 h-9 rounded-lg flex items-center justify-center transition"><i
+                        class="fa-solid fa-paper-plane text-sm"></i></button>
+            </div>
+        </div>
+
+        <!-- Toggle Button -->
+        <button id="chat-toggle-btn" onclick="toggleChat()"
+            class="cursor-pointer active:scale-95 chat-glow-pulse btn-glossy w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center hover:scale-105 transition hover:bg-blue-700 relative z-50">
+            <i id="chat-btn-icon" class="fa-solid fa-comment-dots text-2xl transition-transform duration-300"></i>
+            <span class="absolute -top-1 -right-1 flex h-4 w-4" style="pointer-events:none">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-white dark:border-slate-900"></span>
+            </span>
+        </button>
+    </div>
+
+    <!-- JS modules — load order matters -->
+    <script src="js/theme.js"></script>
+    <script src="js/filter.js"></script>
+    <script src="js/faq.js"></script>
+    <script src="js/counters.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/carousel.js"></script>
+    <script src="js/main.js"></script>
 </body>
-</html>
 
-```
+</html>

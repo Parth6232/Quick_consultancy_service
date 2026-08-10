@@ -1,0 +1,30 @@
+/**
+ * base.css
+ * Responsibility: Global resets, scroll behaviour, utility helpers (no-scrollbar),
+ * and body/html baseline styles. No component-specific rules here.
+ */
+
+/* ---------- Smooth scroll + nav offset ---------- */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Every anchor target gets breathing room so the sticky nav never covers it */
+section[id],
+header[id],
+div[id] {
+    scroll-margin-top: 72px; /* matches nav height; tweak if nav grows */
+}
+
+/* ---------- Scrollbar utilities ---------- */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ---------- Body dark-mode baseline ---------- */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.dark body {
+    background-color: #0f172a; /* slate-900 */
+    color: #e2e8f0;            /* slate-200 */
+}

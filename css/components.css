@@ -1,0 +1,134 @@
+/**
+ * components.css
+ * Responsibility: UI component styles — service tab buttons, FAQ accordion,
+ * chat widget window open/close transform, and chat scrollbar.
+ * No animations (those are in animations.css).
+ */
+
+/* ---------- Service tab buttons ---------- */
+.tab-btn {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    color: #475569; /* slate-600 */
+    transition: color 0.2s ease, border-color 0.2s ease;
+    padding-bottom: 6px;
+}
+.dark .tab-btn {
+    color: #94a3b8; /* slate-400 */
+}
+.tab-btn.active {
+    border-bottom-color: #2563eb;
+    color: #2563eb;
+    font-weight: 600;
+}
+.dark .tab-btn.active {
+    border-bottom-color: #60a5fa;
+    color: #60a5fa;
+}
+.tab-btn:hover:not(.active) {
+    color: #2563eb;
+}
+.dark .tab-btn:hover:not(.active) {
+    color: #60a5fa;
+}
+
+/* ---------- Service card filter visibility ---------- */
+/*
+ * We avoid mixing display:none with CSS transitions — instead we use
+ * visibility + opacity + scale.  JS sets data-hidden="true" and the
+ * setTimeout guard is replaced by transitionend.
+ */
+.service-card {
+    /* keep in flow, but invisible when hidden */
+    transition: opacity 0.35s ease, transform 0.35s ease, box-shadow 0.3s ease;
+}
+.service-card[data-hidden="true"] {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+}
+
+/* ---------- FAQ Accordion ---------- */
+.faq-answer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.32s ease-out;
+}
+/* THE FIX: inner wrapper must have min-height:0 AND overflow:hidden */
+.faq-answer > div {
+    overflow: hidden;
+    min-height: 0; /* critical — removes intrinsic height that caused the bleed */
+    padding-bottom: 0; /* no bottom gap when collapsed */
+}
+.faq-item.active .faq-answer {
+    grid-template-rows: 1fr;
+}
+
+/* ── Chevron icon ── */
+.fa-chevron-down {
+    transition: transform 0.3s ease, color 0.25s ease;
+    color: #94a3b8; /* slate-400 default */
+}
+.faq-item.active .fa-chevron-down {
+    transform: rotate(180deg);
+    color: #2563eb !important; /* blue-600 when open */
+}
+.dark .faq-item.active .fa-chevron-down {
+    color: #60a5fa !important; /* blue-400 in dark mode */
+}
+
+/* ── FAQ button padding — extra breathing room ── */
+.faq-item button {
+    padding-top: 1.25rem;    /* py-5 equivalent */
+    padding-bottom: 1.25rem;
+}
+
+/* ---------- Chat widget window ---------- */
+.chat-widget-window {
+    transform-origin: bottom right;
+    transform: scale(0.85);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                opacity   0.25s ease;
+}
+.chat-widget-window.open {
+    transform: scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Chat scrollbar */
+.chat-messages::-webkit-scrollbar { width: 5px; }
+.chat-messages::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 3px;
+}
+.dark .chat-messages::-webkit-scrollbar-thumb {
+    background-color: #475569;
+}
+
+/* ---------- FAQ Active Border & Color ---------- */
+.faq-item {
+    /* Extra breathing room between FAQ items */
+    margin-bottom: 0.75rem;
+}
+.faq-item.active {
+    border-left-color: #2563eb !important;
+    background-color: #eff6ff !important;
+}
+.dark .faq-item.active {
+    border-left-color: #3b82f6 !important;
+    background-color: #1e293b !important;
+}
+/* Chevron color when active (duplicated here for specificity) */
+.faq-item.active button i.fa-chevron-down {
+    color: #2563eb !important;
+}
+.dark .faq-item.active button i.fa-chevron-down {
+    color: #60a5fa !important;
+}
