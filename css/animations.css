@@ -150,6 +150,9 @@
     .chat-glow-pulse { animation: none !important; }
     /* Carousel: stop scroll, show static layout */
     .carousel-track { animation: none !important; }
+    /* Contact form: stop rings and card float */
+    .glowing-ring { animation: none !important; }
+    .form-float-card { animation: none !important; }
 }
 
 /* ---------- Carousel — infinite-scroll keyframe ---------- */
@@ -208,4 +211,103 @@
     .carousel-static-grid {
         grid-template-columns: repeat(4, 1fr);
     }
+}
+
+/* ---------- Contact Form — Ring Wrapper + Percentage-based Rings ---------- */
+
+/*
+ * .ring-wrapper is the shared coordinate system.
+ * The form card occupies 100% width of this container.
+ * All rings are sized and positioned as percentages of the wrapper,
+ * so they always scale proportionally with the card at every viewport.
+ */
+.ring-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 420px;        /* card max-width on desktop */
+    margin: 0 auto;
+}
+
+/* Common ring styles — sized as % of the wrapper so they track the card */
+.glowing-ring {
+    position: absolute;
+    border-radius: 50%;
+    width: 145%;            /* ring is 45% wider than the card */
+    height: 145%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid transparent;
+    opacity: 0.75;
+    pointer-events: none;
+    z-index: 20;            /* above the card (z-10) */
+}
+
+/* Tone down ring size on mobile so they don't push as far out of bounds */
+@media (max-width: 640px) {
+    .glowing-ring {
+        width: 125%;
+        height: 125%;
+    }
+}
+
+.ring-pink {
+    border-color: #ec4899;
+    box-shadow: 0 0 45px rgba(236, 72, 153, 0.65), inset 0 0 25px rgba(236, 72, 153, 0.45);
+    animation: ring-spin-1 14s linear infinite;
+    /* slight offset to loosen the orbit */
+    margin-top: -3%;
+    margin-left: -4%;
+}
+.ring-green {
+    border-color: #10b981;
+    box-shadow: 0 0 45px rgba(16, 185, 129, 0.65), inset 0 0 25px rgba(16, 185, 129, 0.45);
+    animation: ring-spin-2 18s ease-in-out infinite alternate;
+    margin-top: 3%;
+    margin-left: 2%;
+}
+.ring-yellow {
+    border-color: #eab308;
+    box-shadow: 0 0 45px rgba(234, 179, 8, 0.65), inset 0 0 25px rgba(234, 179, 8, 0.45);
+    animation: ring-spin-3 20s linear infinite reverse;
+    margin-top: 0%;
+    margin-left: 3%;
+}
+
+@keyframes ring-spin-1 {
+    0%   { transform: translate(-50%, -50%) rotate(0deg)   translate(3%, 2%); }
+    100% { transform: translate(-50%, -50%) rotate(360deg) translate(3%, 2%); }
+}
+@keyframes ring-spin-2 {
+    0%   { transform: translate(-50%, -50%) rotate(0deg)   translate(-2%, 3%); }
+    100% { transform: translate(-50%, -50%) rotate(360deg) translate(-2%, 3%); }
+}
+@keyframes ring-spin-3 {
+    0%   { transform: translate(-50%, -50%) rotate(0deg)   translate(4%, -1%); }
+    100% { transform: translate(-50%, -50%) rotate(360deg) translate(4%, -1%); }
+}
+
+/* ---------- Form Card — Gentle Asymmetric Shape + Floating Animation ---------- */
+.form-float-card {
+    /*
+     * Gently asymmetric per-corner radii using rem values (NOT %) so the
+     * shape never distorts against the card's rectangular content.
+     * Each corner sits between 1.25rem–2.5rem — visibly non-uniform but
+     * safely inset from any text, input, or button on all sides.
+     */
+    border-radius: 2rem 2.5rem 2rem 1.5rem / 1.75rem 2rem 2.5rem 1.75rem;
+    animation: form-float 8s ease-in-out infinite;
+    transition: border-radius 1s ease;
+}
+.form-float-card:focus-within {
+    animation-play-state: paused;
+}
+
+@keyframes form-float {
+    0%   { transform: translateY(0px)    translateX(0px)   rotate(0deg); }
+    20%  { transform: translateY(-7px)   translateX(3px)   rotate(0.5deg); }
+    40%  { transform: translateY(-4px)   translateX(-4px)  rotate(-0.4deg); }
+    60%  { transform: translateY(-9px)   translateX(2px)   rotate(0.7deg); }
+    80%  { transform: translateY(-3px)   translateX(-2px)  rotate(-0.3deg); }
+    100% { transform: translateY(0px)    translateX(0px)   rotate(0deg); }
 }

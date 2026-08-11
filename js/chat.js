@@ -44,6 +44,8 @@ const chatKB = {
    ========================================================= */
 let currentLang  = 'en';
 let isChatOpen   = false;
+let userName     = localStorage.getItem('chatUserName') || '';
+let askingName   = false;
 
 /* =========================================================
    Open / close
@@ -52,17 +54,59 @@ function toggleChat() {
     isChatOpen = !isChatOpen;
     const win     = document.getElementById('chat-window');
     const btnIcon = document.getElementById('chat-btn-icon');
+    const widget  = document.getElementById('chat-widget');
 
     if (isChatOpen) {
+        // Dynamic opening anchor based on screen position
+        if (widget) {
+            const rect = widget.getBoundingClientRect();
+            const toggleBtn = document.getElementById('chat-toggle-btn');
+
+            // Horizontal anchoring — window expands toward center of screen
+            if (rect.left < window.innerWidth / 2) {
+                // Widget is on LEFT side → expand window to the right
+                // Button stays on the LEFT of the window (default DOM order: window first, btn second with flex-col)
+                widget.classList.remove('items-end');
+                widget.classList.add('items-start');
+                if (toggleBtn) { toggleBtn.style.order = ''; }   // btn after window in DOM = bottom/right
+            } else {
+                // Widget is on RIGHT side → expand window to the left
+                widget.classList.remove('items-start');
+                widget.classList.add('items-end');
+                if (toggleBtn) { toggleBtn.style.order = ''; }
+            }
+
+            // Vertical anchoring — window expands toward center of screen
+            if (rect.top < window.innerHeight / 2) {
+                // Widget is near TOP → window expands downward (btn above window)
+                widget.classList.remove('flex-col');
+                widget.classList.add('flex-col-reverse');
+                win.classList.remove('mb-4');
+                win.classList.add('mt-4');
+                // btn is first in DOM; flex-col-reverse makes it appear BELOW the window
+                // We want the btn at the TOP (above window), so put it visually first → order:-1
+                if (toggleBtn) { toggleBtn.style.order = '-1'; }
+            } else {
+                // Widget is near BOTTOM → window expands upward (btn below window, default)
+                widget.classList.remove('flex-col-reverse');
+                widget.classList.add('flex-col');
+                win.classList.remove('mt-4');
+                win.classList.add('mb-4');
+                if (toggleBtn) { toggleBtn.style.order = ''; }
+            }
+        }
+
         win.classList.add('open');
         btnIcon.classList.replace('fa-comment-dots', 'fa-xmark');
         // Show welcome message only on first open
         const msgs = document.getElementById('chat-messages');
         if (msgs && msgs.children.length === 0) {
-            addMessage(
-                'Hello! How can we help you scale your business today? / नमस्ते! आज हम आपके व्यवसाय को बढ़ाने में कैसे मदद कर सकते हैं?',
-                'bot'
-            );
+            if (!userName) {
+                askingName = true;
+                addMessage('Hi! What\'s your name? / नमस्ते! आपका नाम क्या है?', 'bot');
+            } else {
+                addMessage(`Nice to meet you again, ${userName}! How can I help your business today? / आपसे दोबारा मिलकर अच्छा लगा, ${userName}! मैं आपके व्यवसाय में कैसे सहायता कर सकता हूँ?`, 'bot');
+            }
         }
     } else {
         win.classList.remove('open');
@@ -97,6 +141,7 @@ function switchLanguage(lang) {
    Messaging
    ========================================================= */
 function handleQuickReply(keyword) {
+    if (askingName) return;
     const btnEl = document.getElementById('qr-' + keyword);
     if (!btnEl) return;
     addMessage(btnEl.textContent.trim(), 'user');
@@ -111,7 +156,17 @@ function sendChatMessage() {
     if (!text) return;
     addMessage(text, 'user');
     input.value = '';
-    setTimeout(() => processUserMessage(text.toLowerCase()), 480);
+    
+    if (askingName) {
+        setTimeout(() => {
+            userName = text;
+            try { localStorage.setItem('chatUserName', userName); } catch(e) {}
+            askingName = false;
+            addMessage(`Nice to meet you, ${userName}! How can I help your business today? / आपसे मिलकर अच्छा लगा, ${userName}! मैं आपके व्यवसाय में कैसे सहायता कर सकता हूँ?`, 'bot');
+        }, 480);
+    } else {
+        setTimeout(() => processUserMessage(text.toLowerCase()), 480);
+    }
 }
 
 function processUserMessage(msg) {
@@ -238,10 +293,30 @@ function _onDragMove(e) {
     let y = e.clientY - _dragOffsetY;
 
     // Clamp to viewport
-    const W = _dragWidget.offsetWidth;
-    const H = _dragWidget.offsetHeight;
-    x = Math.max(0, Math.min(x, window.innerWidth  - W));
-    y = Math.max(0, Math.min(y, window.innerHeight - H));
+    let W = _dragWidget.offsetWidth;
+    let H = _dragWidget.offsetHeight;
+    
+    let minX = 0, minY = 0;
+    let maxX = window.innerWidth - W;
+    let maxY = window.innerHeight - H;
+
+    if (!isChatOpen) {
+        const toggleBtn = document.getElementById('chat-toggle-btn');
+        if (toggleBtn) {
+            const btnW = toggleBtn.offsetWidth;
+            const btnH = toggleBtn.offsetHeight;
+            const extraW = W - btnW;
+            const extraH = H - btnH;
+            
+            minX = -extraW;
+            minY = -extraH;
+            maxX = window.innerWidth - btnW - extraW;
+            maxY = window.innerHeight - btnH - extraH;
+        }
+    }
+
+    x = Math.max(minX, Math.min(x, maxX));
+    y = Math.max(minY, Math.min(y, maxY));
 
     _applyWidgetPos(_dragWidget, x, y);
 }
