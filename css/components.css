@@ -1,7 +1,7 @@
 /**
  * components.css
  * Responsibility: UI component styles — service tab buttons, FAQ accordion,
- * chat widget window open/close transform, and chat scrollbar.
+ * chat widget window open/close transform, mobile bottom-sheet, and chat scrollbar.
  * No animations (those are in animations.css).
  */
 
@@ -91,19 +91,84 @@
     padding-bottom: 1.25rem;
 }
 
-/* ---------- Chat widget window ---------- */
+/* ---------- Chat widget container ---------- */
+/*
+ * Max-size constraints ensure the widget never bleeds beyond the viewport
+ * and never causes a horizontal/vertical scrollbar to appear on the page.
+ */
+#chat-widget {
+    max-width: calc(100vw - 1.5rem);
+    max-height: calc(100dvh - 1.5rem);
+}
+
+/* ---------- Chat widget window — open / close ---------- */
+/*
+ * FIX #1 — DOUBLE SCROLLBAR / STUCK SCROLL:
+ *   When closed: visibility:hidden (with delay) removes the element from
+ *   painting and hit-testing completely, preventing any reflow / extra scroll.
+ *   pointer-events:none alone is not enough because the element still paints
+ *   and occupies space during CSS transitions.
+ *
+ * FIX #2 — MOBILE FULL-SCREEN BOTTOM SHEET:
+ *   On ≤640px the window becomes a fixed full-viewport bottom sheet
+ *   using 100dvh (dynamic viewport height) so the address-bar glitch is avoided.
+ *
+ * FIX #4/#5 — ANCHOR:
+ *   Window always opens above the toggle button (items-end flex-col mb-4).
+ *   No JS-driven anchor-flip needed; transform-origin stays bottom-right.
+ */
 .chat-widget-window {
     transform-origin: bottom right;
     transform: scale(0.85);
     opacity: 0;
     pointer-events: none;
+    /* visibility:hidden delayed so it kicks in AFTER the fade-out finishes */
+    visibility: hidden;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-                opacity   0.25s ease;
+                opacity   0.25s ease,
+                visibility 0s linear 0.3s; /* delay matches longest transition */
 }
 .chat-widget-window.open {
     transform: scale(1);
     opacity: 1;
     pointer-events: auto;
+    visibility: visible;
+    /* No delay when opening — appear immediately */
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                opacity   0.25s ease,
+                visibility 0s linear 0s;
+}
+
+/* ── Mobile bottom-sheet overrides (≤640px) ── */
+@media (max-width: 640px) {
+    .chat-widget-window {
+        /* Override fixed bottom-right positioning to full-screen sheet */
+        position: fixed !important;
+        inset: 0 !important;           /* top/right/bottom/left = 0 */
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100dvh !important;     /* dvh avoids mobile address-bar glitch */
+        max-height: 100dvh !important;
+        border-radius: 0 !important;
+        margin: 0 !important;          /* remove mb-4 */
+        transform-origin: bottom center;
+    }
+    /* Keep toggle button always visible at bottom-right on mobile */
+    #chat-widget {
+        position: fixed !important;
+        bottom: 1.5rem !important;
+        right: 1.5rem !important;
+        left: auto !important;
+        top: auto !important;
+    }
+}
+
+/* ── Prevent background scroll when chat is open on mobile ── */
+body.chat-open-mobile {
+    overflow: hidden;
+}
+@media (max-width: 640px) {
+    body:has(.chat-widget-window.open) { overflow: hidden; }
 }
 
 /* Chat scrollbar */

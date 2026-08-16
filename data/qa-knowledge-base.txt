@@ -1,0 +1,439 @@
+Q: What services do you offer?
+A_EN: We offer Tax & Compliance, Business Registration, Accounting & Finance, IT Consulting, AI & Automation, Web & Digital, and Business Consulting services.
+A_HI: हम टैक्स और कंप्लायंस, बिज़नेस रजिस्ट्रेशन, अकाउंटिंग और फाइनेंस, IT कंसल्टिंग, AI और ऑटोमेशन, वेब और डिजिटल, तथा बिज़नेस कंसल्टिंग सेवाएं देते हैं।
+
+Q: How much do your services cost?
+A_EN: Pricing depends on the specific service you need. Please click "Get a Quote" or contact us on WhatsApp for exact details.
+A_HI: कीमत सेवा पर निर्भर करती है। कृपया सही जानकारी के लिए "कोटेशन लें" पर क्लिक करें या व्हाट्सएप पर संपर्क करें।
+
+Q: Where is your office located?
+A_EN: We are located at M9, Bapat Road, Near Brilliant Aura, Above Apple Kitchens, Vijay Nagar, Indore.
+A_HI: हमारा ऑफिस M9, बापट रोड, ब्रिलियंट ऑरा के पास, अपल किचन के ऊपर, विजय नगर, इंदौर में है।
+
+Q: How can I contact you?
+A_EN: You can reach us at +91 81091 01811 or via WhatsApp, or email us at indore@quickconsulting.in.
+A_HI: आप हमें +91 81091 01811 पर कॉल कर सकते हैं, व्हाट्सएप कर सकते हैं, या indore@quickconsulting.in पर ईमेल कर सकते हैं।
+
+Q: How do I book a consultation?
+A_EN: To book a consultation, simply call us or send a message on WhatsApp. You can also fill out the form on our Contact section.
+A_HI: परामर्श बुक करने के लिए, बस हमें कॉल करें या व्हाट्सएप पर संदेश भेजें। आप हमारे Contact सेक्शन के फॉर्म को भी भर सकते हैं।
+
+Q: What is your email address?
+A_EN: Our email address is indore@quickconsulting.in.
+A_HI: हमारा ईमेल पता indore@quickconsulting.in है।
+
+Q: What is your phone number?
+A_EN: Our phone number is +91 81091 01811.
+A_HI: हमारा फोन नंबर +91 81091 01811 है।
+
+Q: Do you have a website?
+A_EN: Yes, our website is www.quickconsulting.in.
+A_HI: जी हाँ, हमारी वेबसाइट www.quickconsulting.in है।
+
+Q: What are your business hours?
+A_EN: Please contact us on WhatsApp or call to confirm our current working hours, as they may vary.
+A_HI: कृपया हमारे वर्तमान कार्य समय की पुष्टि के लिए व्हाट्सएप या कॉल पर संपर्क करें, क्योंकि यह बदल सकता है।
+
+Q: Do you provide services outside Indore?
+A_EN: Yes, we support clients pan-India and globally via Google Meet, Zoom, and WhatsApp. Most of our services can be completed 100% online.
+A_HI: जी हाँ, हम पूरे भारत और विदेश में भी Google Meet, Zoom और WhatsApp के ज़रिए ग्राहकों को सेवा देते हैं। हमारी अधिकांश सेवाएं 100% ऑनलाइन पूरी की जा सकती हैं।
+
+Q: How do I file my income tax return?
+A_EN: We handle complete Income Tax Return (ITR) filing for individuals and businesses. Contact us with your documents and we'll take care of the rest.
+A_HI: हम व्यक्तियों और व्यवसायों के लिए पूरी Income Tax Return (ITR) फाइलिंग करते हैं। अपने दस्तावेज़ों के साथ हमसे संपर्क करें, बाकी हम संभाल लेंगे।
+
+Q: What is GST registration?
+A_EN: GST registration is mandatory for businesses crossing a certain turnover threshold. We help with complete GST registration and ongoing return filing.
+A_HI: एक निश्चित टर्नओवर सीमा पार करने वाले व्यवसायों के लिए GST रजिस्ट्रेशन अनिवार्य है। हम पूरी GST रजिस्ट्रेशन और नियमित रिटर्न फाइलिंग में मदद करते हैं।
+
+Q: Do you help with GST return filing?
+A_EN: Yes, we offer end-to-end GST registration and GST return filing services.
+A_HI: जी हाँ, हम पूर्ण GST रजिस्ट्रेशन और GST रिटर्न फाइलिंग सेवाएं देते हैं।
+
+Q: What is TDS return filing?
+A_EN: TDS (Tax Deducted at Source) return filing is a quarterly compliance requirement. We manage full TDS return filing and compliance for businesses.
+A_HI: TDS (Tax Deducted at Source) रिटर्न फाइलिंग एक त्रैमासिक अनुपालन आवश्यकता है। हम व्यवसायों के लिए पूर्ण TDS रिटर्न फाइलिंग और अनुपालन संभालते हैं।
+
+Q: Can you help with tax planning?
+A_EN: Yes, our team provides tax planning and advisory services to help you legally optimize your tax liabilities.
+A_HI: जी हाँ, हमारी टीम आपकी टैक्स देनदारी को कानूनी रूप से कम करने के लिए टैक्स प्लानिंग और सलाहकार सेवाएं प्रदान करती है।
+
+Q: I received an income tax notice, can you help?
+A_EN: Yes, we assist clients with income tax notices and assessments. Please reach out with the notice details and we'll guide you through it.
+A_HI: जी हाँ, हम ग्राहकों को इनकम टैक्स नोटिस और असेसमेंट में सहायता करते हैं। कृपया नोटिस के विवरण के साथ संपर्क करें, हम आपका मार्गदर्शन करेंगे।
+
+Q: How long does business registration take?
+A_EN: Typically, a Private Limited Company or LLP registration takes 7-10 working days, provided all documents are in order. Proprietorships can be faster.
+A_HI: आमतौर पर, Private Limited Company या LLP रजिस्ट्रेशन में 7-10 कार्य दिवस लगते हैं, बशर्ते सभी दस्तावेज़ सही हों। प्रोप्राइटरशिप जल्दी हो सकती है।
+
+Q: What business structures can you register?
+A_EN: We can register Proprietorship, Partnership Firms, LLP, and Private Limited Companies.
+A_HI: हम प्रोप्राइटरशिप, पार्टनरशिप फर्म, LLP और प्राइवेट लिमिटेड कंपनी रजिस्टर कर सकते हैं।
+
+Q: What is LLP registration?
+A_EN: LLP (Limited Liability Partnership) registration gives your business a separate legal identity with limited liability protection for partners. We handle the complete process.
+A_HI: LLP (Limited Liability Partnership) रजिस्ट्रेशन आपके व्यवसाय को एक अलग कानूनी पहचान और साझेदारों के लिए सीमित देनदारी सुरक्षा देता है। हम पूरी प्रक्रिया संभालते हैं।
+
+Q: Can you register a Private Limited Company?
+A_EN: Yes, we handle end-to-end Private Limited Company registration including all documentation and government filings.
+A_HI: जी हाँ, हम सभी दस्तावेज़ीकरण और सरकारी फाइलिंग सहित पूरी Private Limited Company रजिस्ट्रेशन प्रक्रिया संभालते हैं।
+
+Q: Do you help with Startup India registration?
+A_EN: Yes, we assist with Startup India recognition and MSME (Udyam) registration.
+A_HI: जी हाँ, हम Startup India पंजीकरण और MSME (Udyam) रजिस्ट्रेशन में सहायता करते हैं।
+
+Q: What is Udyam registration?
+A_EN: Udyam registration is the official MSME registration for small businesses in India. We help you complete this registration.
+A_HI: Udyam रजिस्ट्रेशन भारत में छोटे व्यवसायों के लिए आधिकारिक MSME पंजीकरण है। हम इस रजिस्ट्रेशन को पूरा करने में मदद करते हैं।
+
+Q: Do you help get a PAN card for my business?
+A_EN: Yes, we assist with PAN, TAN, and Digital Signature Certificate (DSC) applications for businesses.
+A_HI: जी हाँ, हम व्यवसायों के लिए PAN, TAN और Digital Signature Certificate (DSC) आवेदन में सहायता करते हैं।
+
+Q: What is a Digital Signature Certificate?
+A_EN: A Digital Signature Certificate (DSC) is required for company filings and e-signing official documents. We help you obtain one.
+A_HI: कंपनी फाइलिंग और आधिकारिक दस्तावेज़ों पर ई-हस्ताक्षर के लिए Digital Signature Certificate (DSC) आवश्यक होता है। हम इसे प्राप्त करने में मदद करते हैं।
+
+Q: Do you provide bookkeeping services?
+A_EN: Yes, we offer complete bookkeeping and accounting services for businesses of all sizes.
+A_HI: जी हाँ, हम सभी आकार के व्यवसायों के लिए पूर्ण बहीखाता और अकाउंटिंग सेवाएं प्रदान करते हैं।
+
+Q: Can you handle payroll processing?
+A_EN: Yes, we provide complete payroll processing services including salary computation and statutory compliance.
+A_HI: जी हाँ, हम वेतन गणना और सांविधिक अनुपालन सहित पूर्ण पेरोल प्रोसेसिंग सेवाएं प्रदान करते हैं।
+
+Q: Do you prepare financial statements?
+A_EN: Yes, we prepare accurate financial statements for your business including balance sheets and P&L statements.
+A_HI: जी हाँ, हम बैलेंस शीट और P&L स्टेटमेंट सहित आपके व्यवसाय के लिए सटीक वित्तीय विवरण तैयार करते हैं।
+
+Q: What is a Virtual CFO?
+A_EN: A Virtual CFO service gives your business access to high-level financial strategy and oversight without hiring a full-time CFO. We offer this alongside internal audit services.
+A_HI: Virtual CFO सेवा आपके व्यवसाय को पूर्णकालिक CFO नियुक्त किए बिना उच्च-स्तरीय वित्तीय रणनीति और निगरानी प्रदान करती है। हम आंतरिक ऑडिट सेवाओं के साथ यह भी प्रदान करते हैं।
+
+Q: Do you offer internal audit services?
+A_EN: Yes, we provide internal audit services along with Virtual CFO support for growing businesses.
+A_HI: जी हाँ, हम बढ़ते व्यवसायों के लिए Virtual CFO सहायता के साथ आंतरिक ऑडिट सेवाएं प्रदान करते हैं।
+
+Q: What IT services do you provide?
+A_EN: We offer ERP & SAP Consulting, Power BI & Business Intelligence, Data Analytics, and Cloud & Digital Transformation services.
+A_HI: हम ERP और SAP कंसल्टिंग, Power BI और Business Intelligence, डेटा एनालिटिक्स, तथा क्लाउड और डिजिटल ट्रांसफॉर्मेशन सेवाएं प्रदान करते हैं।
+
+Q: Do you offer SAP consulting?
+A_EN: Yes, we provide ERP and SAP consulting services to help streamline your business operations.
+A_HI: जी हाँ, हम आपके व्यवसाय संचालन को सुव्यवस्थित करने के लिए ERP और SAP कंसल्टिंग सेवाएं प्रदान करते हैं।
+
+Q: Can you help with data analytics?
+A_EN: Yes, our IT consulting team offers data analytics and Power BI-based business intelligence solutions.
+A_HI: जी हाँ, हमारी IT कंसल्टिंग टीम डेटा एनालिटिक्स और Power BI आधारित बिजनेस इंटेलिजेंस समाधान प्रदान करती है।
+
+Q: Do you provide cloud migration services?
+A_EN: Yes, we assist businesses with cloud and digital transformation, including cloud migration.
+A_HI: जी हाँ, हम क्लाउड माइग्रेशन सहित व्यवसायों की क्लाउड और डिजिटल ट्रांसफॉर्मेशन में सहायता करते हैं।
+
+Q: Can you build an AI voice agent for my business?
+A_EN: Yes, our AI & Automation team builds custom AI voice agents to handle calls and customer interactions.
+A_HI: जी हाँ, हमारी AI और ऑटोमेशन टीम कॉल और ग्राहक इंटरैक्शन संभालने के लिए कस्टम AI वॉइस एजेंट बनाती है।
+
+Q: Can you automate my customer support on WhatsApp?
+A_EN: Absolutely! Our AI & Automation team specializes in building smart WhatsApp chatbots that can handle FAQs, bookings, and customer support 24/7.
+A_HI: बिल्कुल! हमारी AI और ऑटोमेशन टीम स्मार्ट WhatsApp चैटबॉट बनाने में विशेषज्ञ है जो FAQ, बुकिंग और 24/7 ग्राहक सहायता संभाल सकते हैं।
+
+Q: Do you build chatbots?
+A_EN: Yes, we develop custom chatbots for websites and WhatsApp to automate customer interactions.
+A_HI: जी हाँ, हम ग्राहक इंटरैक्शन को स्वचालित करने के लिए वेबसाइट और WhatsApp के लिए कस्टम चैटबॉट विकसित करते हैं।
+
+Q: What is workflow automation?
+A_EN: Workflow automation uses tools and GenAI to automate repetitive business tasks, saving time and reducing errors. We design and implement these systems for you.
+A_HI: Workflow automation दोहराए जाने वाले व्यावसायिक कार्यों को स्वचालित करने के लिए टूल्स और GenAI का उपयोग करता है, जिससे समय बचता है और गलतियाँ कम होती हैं। हम आपके लिए ऐसे सिस्टम डिज़ाइन और लागू करते हैं।
+
+Q: Can AI help my business save time?
+A_EN: Yes, our AI & Automation services including chatbots, voice agents, and workflow automation can significantly reduce manual work and save time.
+A_HI: जी हाँ, हमारी AI और ऑटोमेशन सेवाएं जैसे चैटबॉट, वॉइस एजेंट, और workflow automation मैनुअल काम को काफी हद तक कम कर सकती हैं और समय बचा सकती हैं।
+
+Q: Do you design websites?
+A_EN: Yes, we offer complete website design and development services tailored to your business needs.
+A_HI: जी हाँ, हम आपके व्यवसाय की आवश्यकताओं के अनुरूप पूर्ण वेबसाइट डिज़ाइन और डेवलपमेंट सेवाएं प्रदान करते हैं।
+
+Q: Can you build an e-commerce website?
+A_EN: Yes, we develop e-commerce websites with product listings, payment integration, and order management.
+A_HI: जी हाँ, हम प्रोडक्ट लिस्टिंग, पेमेंट इंटीग्रेशन और ऑर्डर प्रबंधन के साथ ई-कॉमर्स वेबसाइट विकसित करते हैं।
+
+Q: Do you offer SEO services?
+A_EN: Yes, we provide SEO and Google Business Profile optimization to help your business rank better online.
+A_HI: जी हाँ, हम आपके व्यवसाय को ऑनलाइन बेहतर रैंक दिलाने के लिए SEO और Google Business Profile ऑप्टिमाइज़ेशन प्रदान करते हैं।
+
+Q: Do you handle digital marketing?
+A_EN: Yes, we offer digital marketing and social media management services alongside web development.
+A_HI: जी हाँ, हम वेब डेवलपमेंट के साथ-साथ डिजिटल मार्केटिंग और सोशल मीडिया प्रबंधन सेवाएं भी प्रदान करते हैं।
+
+Q: Can you help with startup strategy?
+A_EN: Yes, we provide startup consulting and strategy services to help you plan and grow your business.
+A_HI: जी हाँ, हम आपके व्यवसाय की योजना बनाने और उसे बढ़ाने में मदद के लिए स्टार्टअप कंसल्टिंग और रणनीति सेवाएं प्रदान करते हैं।
+
+Q: Do you help improve business processes?
+A_EN: Yes, our business consulting team offers business process improvement services to increase efficiency.
+A_HI: जी हाँ, हमारी बिज़नेस कंसल्टिंग टीम दक्षता बढ़ाने के लिए व्यावसायिक प्रक्रिया सुधार सेवाएं प्रदान करती है।
+
+Q: Do you offer project management consulting?
+A_EN: Yes, we provide project management consulting to help you plan, execute, and deliver projects efficiently.
+A_HI: जी हाँ, हम आपको कुशलतापूर्वक प्रोजेक्ट की योजना बनाने, क्रियान्वयन और डिलीवर करने में मदद के लिए प्रोजेक्ट मैनेजमेंट कंसल्टिंग प्रदान करते हैं।
+
+Q: Can you help me find government schemes and subsidies?
+A_EN: Yes, we help businesses identify and apply for relevant government schemes and subsidies.
+A_HI: जी हाँ, हम व्यवसायों को प्रासंगिक सरकारी योजनाओं और सब्सिडी की पहचान करने और उनके लिए आवेदन करने में मदद करते हैं।
+
+Q: Are there any hidden costs?
+A_EN: No. We pride ourselves on transparent pricing. You will receive a detailed quotation before we begin any work, outlining all government fees and our professional charges.
+A_HI: नहीं। हमें पारदर्शी मूल्य निर्धारण पर गर्व है। काम शुरू करने से पहले आपको सभी सरकारी शुल्क और हमारी पेशेवर फीस का विस्तृत कोटेशन मिलेगा।
+
+Q: Do you provide ongoing tax filing support?
+A_EN: Yes, we offer monthly and annual retainer packages that cover all your GST, TDS, and Income Tax filing requirements.
+A_HI: जी हाँ, हम मासिक और वार्षिक रिटेनर पैकेज प्रदान करते हैं जो आपकी सभी GST, TDS और Income Tax फाइलिंग आवश्यकताओं को कवर करते हैं।
+
+Q: Can you build a custom web application for my business?
+A_EN: Yes, our web development team can build custom web applications tailored to your specific business requirements.
+A_HI: जी हाँ, हमारी वेब डेवलपमेंट टीम आपकी विशिष्ट व्यावसायिक आवश्यकताओं के अनुरूप कस्टम वेब एप्लीकेशन बना सकती है।
+
+Q: How do I get a quotation for my project?
+A_EN: Please click the "Get a Quote" button on our website, or message us directly on WhatsApp with your requirements.
+A_HI: कृपया हमारी वेबसाइट पर "कोटेशन लें" बटन पर क्लिक करें, या अपनी आवश्यकताओं के साथ सीधे WhatsApp पर संदेश भेजें।
+
+Q: Can I meet you online?
+A_EN: Yes, we support clients via Google Meet, Zoom, and WhatsApp calls, so you don't need to visit our office in person.
+A_HI: जी हाँ, हम Google Meet, Zoom और WhatsApp कॉल के माध्यम से ग्राहकों का सहयोग करते हैं, इसलिए आपको हमारे कार्यालय में व्यक्तिगत रूप से आने की आवश्यकता नहीं है।
+
+Q: Who are your typical clients?
+A_EN: We work with startups, small businesses, and established companies across India looking for tax, compliance, IT, AI, or web solutions.
+A_HI: हम पूरे भारत में स्टार्टअप्स, छोटे व्यवसायों और स्थापित कंपनियों के साथ काम करते हैं जो टैक्स, अनुपालन, IT, AI या वेब समाधान चाहते हैं।
+
+Q: Do you have client reviews or testimonials?
+A_EN: Yes, you can read client testimonials in the "Client Reviews" section of our website.
+A_HI: जी हाँ, आप हमारी वेबसाइट के "Client Reviews" सेक्शन में ग्राहकों की समीक्षाएं पढ़ सकते हैं।
+
+Q: What makes you different from other consultants?
+A_EN: We focus on transparent pricing, an expert team, fast turnaround, and end-to-end support — from planning to execution, we're with you at every step.
+A_HI: हम पारदर्शी मूल्य निर्धारण, विशेषज्ञ टीम, तेज़ टर्नअराउंड, और एंड-टू-एंड सहायता पर ध्यान केंद्रित करते हैं — योजना से लेकर क्रियान्वयन तक, हम हर कदम पर आपके साथ हैं।
+
+Q: What is your process for working with clients?
+A_EN: Our process has 5 steps: Understand your goals, Analyze the landscape, Plan a custom strategy, Implement the solutions, and Grow with ongoing guidance.
+A_HI: हमारी प्रक्रिया में 5 चरण हैं: आपके लक्ष्यों को समझना, परिदृश्य का विश्लेषण करना, एक कस्टम रणनीति बनाना, समाधान लागू करना, और निरंतर मार्गदर्शन के साथ आगे बढ़ना।
+
+Q: How fast is your turnaround time?
+A_EN: We prioritize fast and efficient service delivery without compromising on quality across all our services.
+A_HI: हम अपनी सभी सेवाओं में गुणवत्ता से समझौता किए बिना तेज़ और कुशल सेवा वितरण को प्राथमिकता देते हैं।
+
+Q: Is my data safe with you?
+A_EN: Yes, we handle all client data and documents with strict confidentiality and professional care.
+A_HI: जी हाँ, हम सभी ग्राहक डेटा और दस्तावेज़ों को सख्त गोपनीयता और व्यावसायिक देखभाल के साथ संभालते हैं।
+
+Q: Can you help with a partnership firm registration?
+A_EN: Yes, we assist with Partnership Firm registration along with Proprietorship, LLP, and Private Limited Company registrations.
+A_HI: जी हाँ, हम प्रोप्राइटरशिप, LLP और प्राइवेट लिमिटेड कंपनी रजिस्ट्रेशन के साथ-साथ पार्टनरशिप फर्म रजिस्ट्रेशन में भी सहायता करते हैं।
+
+Q: What documents do I need for business registration?
+A_EN: Document requirements vary by business type. Please contact us on WhatsApp and we'll send you the exact checklist for your chosen structure.
+A_HI: दस्तावेज़ आवश्यकताएं व्यवसाय के प्रकार के अनुसार अलग-अलग होती हैं। कृपया WhatsApp पर हमसे संपर्क करें, हम आपको आपकी चुनी हुई संरचना के लिए सटीक चेकलिस्ट भेज देंगे।
+
+Q: How do I contact you on WhatsApp?
+A_EN: You can chat with us directly on WhatsApp at +91 81091 01811, or click the WhatsApp button on our website.
+A_HI: आप सीधे WhatsApp पर +91 81091 01811 पर हमसे चैट कर सकते हैं, या हमारी वेबसाइट पर WhatsApp बटन पर क्लिक कर सकते हैं।
+
+Q: Can I call you directly?
+A_EN: Yes, you can call us directly at +91 81091 01811 during business hours.
+A_HI: जी हाँ, आप कार्य समय के दौरान सीधे +91 81091 01811 पर हमें कॉल कर सकते हैं।
+
+Q: Do you offer annual retainer packages?
+A_EN: Yes, we offer monthly and annual retainer packages covering GST, TDS, and Income Tax filing for ongoing compliance needs.
+A_HI: जी हाँ, हम निरंतर अनुपालन आवश्यकताओं के लिए GST, TDS और Income Tax फाइलिंग को कवर करने वाले मासिक और वार्षिक रिटेनर पैकेज प्रदान करते हैं।
+
+Q: What is the meaning of your tagline?
+A_EN: Our tagline "Find the Problem. Fix the Problem. Grow the Business." reflects our approach — diagnosing business challenges, solving them, and helping you scale.
+A_HI: हमारा टैगलाइन "Find the Problem. Fix the Problem. Grow the Business." हमारे दृष्टिकोण को दर्शाता है — व्यावसायिक चुनौतियों की पहचान करना, उन्हें हल करना, और आपको बढ़ने में मदद करना।
+
+Q: hello
+A_EN: Hello! How can I help you today?
+A_HI: नमस्ते! आज मैं आपकी कैसे मदद कर सकता हूँ?
+
+Q: hi
+A_EN: Hi there! How can I assist your business?
+A_HI: नमस्ते! मैं आपके व्यवसाय में कैसे सहायता कर सकता हूँ?
+
+Q: thank you
+A_EN: You're welcome! Let us know if you need anything else.
+A_HI: आपका स्वागत है! अगर आपको कुछ और चाहिए तो हमें बताएं।
+
+Q: bye
+A_EN: Goodbye! Feel free to reach out anytime via WhatsApp or call.
+A_HI: अलविदा! किसी भी समय WhatsApp या कॉल के ज़रिए संपर्क करने में संकोच न करें।
+
+Q: Are you a real person or a bot?
+A_EN: I'm QuickBot, an automated assistant. For detailed or complex queries, our human team is happy to help via WhatsApp or call.
+A_HI: मैं QuickBot हूँ, एक स्वचालित सहायक। विस्तृत या जटिल प्रश्नों के लिए, हमारी टीम WhatsApp या कॉल पर मदद करने में खुश होगी।
+
+Q: What industries do you work with?
+A_EN: We work across various industries including retail, manufacturing, IT, real estate, and professional services.
+A_HI: हम रिटेल, मैन्युफैक्चरिंग, IT, रियल एस्टेट और प्रोफेशनल सेवाओं सहित विभिन्न उद्योगों में काम करते हैं।
+
+Q: Can small businesses use your services?
+A_EN: Yes, we work with businesses of all sizes, from solo entrepreneurs and startups to established companies.
+A_HI: जी हाँ, हम सोलो उद्यमियों और स्टार्टअप्स से लेकर स्थापित कंपनियों तक, सभी आकार के व्यवसायों के साथ काम करते हैं।
+
+Q: What is MSME registration?
+A_EN: MSME (Udyam) registration gives your small business official recognition and access to government benefits and schemes. We handle the full registration for you.
+A_HI: MSME (Udyam) रजिस्ट्रेशन आपके छोटे व्यवसाय को आधिकारिक मान्यता और सरकारी लाभों तथा योजनाओं तक पहुंच प्रदान करता है। हम आपके लिए पूरी रजिस्ट्रेशन प्रक्रिया संभालते हैं।
+
+Q: Can you help me choose the right business structure?
+A_EN: Yes, our team can advise you on whether a Proprietorship, Partnership, LLP, or Private Limited Company best suits your business goals.
+A_HI: जी हाँ, हमारी टीम आपको सलाह दे सकती है कि प्रोप्राइटरशिप, पार्टनरशिप, LLP या प्राइवेट लिमिटेड कंपनी में से कौन सी संरचना आपके व्यावसायिक लक्ष्यों के लिए सबसे उपयुक्त है।
+
+Q: How often do I need to file GST returns?
+A_EN: GST return filing frequency depends on your registration type — usually monthly or quarterly. We manage this on your behalf as part of our compliance packages.
+A_HI: GST रिटर्न फाइलिंग की आवृत्ति आपके रजिस्ट्रेशन प्रकार पर निर्भर करती है — आमतौर पर मासिक या त्रैमासिक। हम अपने अनुपालन पैकेज के हिस्से के रूप में यह आपकी ओर से संभालते हैं।
+
+Q: What happens if I miss a tax filing deadline?
+A_EN: Missing deadlines can lead to penalties and interest. We recommend our retainer packages to ensure all your filings happen on time. Contact us for urgent help if you've already missed one.
+A_HI: डेडलाइन चूकने से जुर्माना और ब्याज लग सकता है। हम अनुशंसा करते हैं कि आप हमारे रिटेनर पैकेज लें ताकि आपकी सभी फाइलिंग समय पर हों। यदि आप पहले ही चूक चुके हैं, तो तत्काल सहायता के लिए संपर्क करें।
+
+Q: Can you help with a trademark registration?
+A_EN: Trademark registration isn't listed among our core services, but please contact our team directly — we may be able to guide you or refer you to the right resource.
+A_HI: ट्रेडमार्क रजिस्ट्रेशन हमारी मुख्य सेवाओं में सूचीबद्ध नहीं है, लेकिन कृपया सीधे हमारी टीम से संपर्क करें — हम आपका मार्गदर्शन कर सकते हैं या आपको सही संसाधन के लिए रेफर कर सकते हैं।
+
+Q: Do you offer legal services?
+A_EN: We are not a law firm, but many of our compliance and registration services overlap with legal requirements. For specific legal matters, we recommend consulting a lawyer, though we're happy to assist where we can.
+A_HI: हम एक लॉ फर्म नहीं हैं, लेकिन हमारी कई अनुपालन और रजिस्ट्रेशन सेवाएं कानूनी आवश्यकताओं से जुड़ी होती हैं। विशिष्ट कानूनी मामलों के लिए, हम वकील से परामर्श करने की सलाह देते हैं, हालांकि हम जहां संभव हो मदद करने में खुश हैं।
+
+Q: What is Power BI?
+A_EN: Power BI is a business intelligence tool used to visualize data and generate insights. Our IT consulting team helps set up Power BI dashboards for your business.
+A_HI: Power BI एक बिजनेस इंटेलिजेंस टूल है जिसका उपयोग डेटा को विज़ुअलाइज़ करने और इनसाइट्स जनरेट करने के लिए किया जाता है। हमारी IT कंसल्टिंग टीम आपके व्यवसाय के लिए Power BI डैशबोर्ड सेट अप करने में मदद करती है।
+
+Q: What is ERP consulting?
+A_EN: ERP consulting helps businesses implement enterprise resource planning systems like SAP to streamline operations. We offer this as part of our IT consulting services.
+A_HI: ERP कंसल्टिंग व्यवसायों को SAP जैसे एंटरप्राइज़ रिसोर्स प्लानिंग सिस्टम लागू करने में मदद करती है ताकि संचालन को सुव्यवस्थित किया जा सके। हम इसे अपनी IT कंसल्टिंग सेवाओं के हिस्से के रूप में प्रदान करते हैं।
+
+Q: Can you set up a Google Business Profile for me?
+A_EN: Yes, setting up and optimizing a Google Business Profile is part of our SEO and digital services.
+A_HI: जी हाँ, Google Business Profile सेट अप और ऑप्टिमाइज़ करना हमारी SEO और डिजिटल सेवाओं का हिस्सा है।
+
+Q: Do you manage social media accounts?
+A_EN: Yes, social media management is included in our digital marketing services.
+A_HI: जी हाँ, सोशल मीडिया प्रबंधन हमारी डिजिटल मार्केटिंग सेवाओं में शामिल है।
+
+Q: How do AI voice agents work?
+A_EN: AI voice agents use speech recognition and natural language processing to handle customer calls automatically — answering questions, booking appointments, and more. We build these custom for your business.
+A_HI: AI वॉइस एजेंट स्पीच रिकग्निशन और नेचुरल लैंग्वेज प्रोसेसिंग का उपयोग करके ग्राहक कॉल को स्वचालित रूप से संभालते हैं — प्रश्नों के उत्तर देना, अपॉइंटमेंट बुक करना, और भी बहुत कुछ। हम इन्हें आपके व्यवसाय के लिए कस्टम बनाते हैं।
+
+Q: Is WhatsApp automation expensive?
+A_EN: Cost depends on the complexity of automation needed. Contact us on WhatsApp for a customized quote based on your requirements.
+A_HI: लागत आवश्यक ऑटोमेशन की जटिलता पर निर्भर करती है। अपनी आवश्यकताओं के आधार पर कस्टमाइज़्ड कोटेशन के लिए WhatsApp पर हमसे संपर्क करें।
+
+Q: How long does it take to build a website?
+A_EN: Timeline depends on the complexity and features required. A basic business website typically takes 1-3 weeks; contact us for a project-specific estimate.
+A_HI: समयसीमा जटिलता और आवश्यक सुविधाओं पर निर्भर करती है। एक बुनियादी व्यावसायिक वेबसाइट में आमतौर पर 1-3 सप्ताह लगते हैं; प्रोजेक्ट-विशिष्ट अनुमान के लिए संपर्क करें।
+
+Q: Do you provide website maintenance?
+A_EN: Yes, we offer ongoing website maintenance and support as part of our Web & Digital services.
+A_HI: जी हाँ, हम अपनी वेब और डिजिटल सेवाओं के हिस्से के रूप में निरंतर वेबसाइट रखरखाव और सहायता प्रदान करते हैं।
+
+Q: Can I upgrade my proprietorship to a private limited company later?
+A_EN: Yes, it's possible to convert a proprietorship into a Private Limited Company as your business grows. We can guide you through this transition.
+A_HI: जी हाँ, जैसे-जैसे आपका व्यवसाय बढ़ता है, प्रोप्राइटरशिप को Private Limited Company में बदलना संभव है। हम इस बदलाव में आपका मार्गदर्शन कर सकते हैं।
+
+Q: What is the difference between LLP and Private Limited Company?
+A_EN: An LLP offers flexibility and lower compliance burden, while a Private Limited Company is better suited for raising investment and scaling. We can help you decide based on your goals.
+A_HI: LLP लचीलापन और कम अनुपालन बोझ प्रदान करता है, जबकि Private Limited Company निवेश जुटाने और विस्तार के लिए बेहतर उपयुक्त है। हम आपके लक्ष्यों के आधार पर निर्णय लेने में मदद कर सकते हैं।
+
+Q: Do you offer free consultations?
+A_EN: Please contact us on WhatsApp or call to check current consultation offers, as this may vary.
+A_HI: कृपया वर्तमान परामर्श ऑफर की जांच के लिए WhatsApp या कॉल पर संपर्क करें, क्योंकि यह बदल सकता है।
+
+Q: How do I know which service I need?
+A_EN: Not sure where to start? Message us on WhatsApp with a brief description of your business and challenges, and our team will recommend the right service.
+A_HI: पता नहीं कहाँ से शुरू करें? अपने व्यवसाय और चुनौतियों का संक्षिप्त विवरण देकर WhatsApp पर हमें संदेश भेजें, हमारी टीम सही सेवा की सिफारिश करेगी।
+
+Q: Do you sign an NDA before starting work?
+A_EN: We take client confidentiality seriously. Please discuss NDA requirements with our team directly for your specific project.
+A_HI: हम ग्राहक गोपनीयता को गंभीरता से लेते हैं। कृपया अपने विशिष्ट प्रोजेक्ट के लिए NDA आवश्यकताओं पर सीधे हमारी टीम से चर्चा करें।
+
+Q: Can you help with payroll compliance like PF and ESI?
+A_EN: Yes, statutory compliance including PF and ESI is part of our payroll processing services.
+A_HI: जी हाँ, PF और ESI सहित सांविधिक अनुपालन हमारी पेरोल प्रोसेसिंग सेवाओं का हिस्सा है।
+
+Q: What is your refund policy?
+A_EN: Refund terms depend on the specific service agreement. Please discuss this with our team before starting a project.
+A_HI: रिफंड की शर्तें विशिष्ट सेवा अनुबंध पर निर्भर करती हैं। कृपया प्रोजेक्ट शुरू करने से पहले इस पर हमारी टीम से चर्चा करें।
+
+Q: Can I pay in installments?
+A_EN: Payment terms vary by service and project size. Please ask our team about installment options when you request a quote.
+A_HI: भुगतान की शर्तें सेवा और प्रोजेक्ट के आकार के अनुसार अलग-अलग होती हैं। कोटेशन का अनुरोध करते समय कृपया किस्तों के विकल्पों के बारे में हमारी टीम से पूछें।
+
+Q: Do you offer AMC packages for IT support?
+A_EN: Please contact our IT consulting team to discuss Annual Maintenance Contract (AMC) options tailored to your systems.
+A_HI: अपने सिस्टम के अनुरूप वार्षिक रखरखाव अनुबंध (AMC) विकल्पों पर चर्चा के लिए कृपया हमारी IT कंसल्टिंग टीम से संपर्क करें।
+
+Q: What languages does your chatbot support?
+A_EN: This chatbot supports both English and Hindi. You can switch languages using the EN/HI toggle at the top of the chat window.
+A_HI: यह चैटबॉट अंग्रेज़ी और हिंदी दोनों भाषाओं का समर्थन करता है। आप चैट विंडो के ऊपर EN/HI टॉगल का उपयोग करके भाषा बदल सकते हैं।
+
+Q: What is Startup India recognition?
+A_EN: Startup India recognition provides eligible startups with tax benefits, easier compliance, and access to government schemes. We assist with the full application process.
+A_HI: Startup India मान्यता पात्र स्टार्टअप्स को टैक्स लाभ, आसान अनुपालन और सरकारी योजनाओं तक पहुंच प्रदान करती है। हम पूरी आवेदन प्रक्रिया में सहायता करते हैं।
+
+Q: What documents are required for GST registration?
+A_EN: Requirements typically include PAN, address proof, bank details, and business proof. Contact us on WhatsApp for the exact checklist based on your business type.
+A_HI: आवश्यकताओं में आमतौर पर PAN, पते का प्रमाण, बैंक विवरण और व्यवसाय प्रमाण शामिल होते हैं। अपने व्यवसाय प्रकार के आधार पर सटीक चेकलिस्ट के लिए WhatsApp पर संपर्क करें।
+
+Q: Can you help me set up a company bank account?
+A_EN: While we don't open bank accounts directly, we prepare and provide all the registration documents banks typically require, and can guide you through the process.
+A_HI: हालांकि हम सीधे बैंक खाता नहीं खोलते, हम बैंकों द्वारा आमतौर पर आवश्यक सभी रजिस्ट्रेशन दस्तावेज़ तैयार और प्रदान करते हैं, और प्रक्रिया में आपका मार्गदर्शन कर सकते हैं।
+
+Q: What is the cost of Private Limited Company registration?
+A_EN: Cost depends on government fees plus our professional charges, which vary by state and business structure. Please request a quote for exact pricing.
+A_HI: लागत सरकारी शुल्क और हमारी पेशेवर फीस पर निर्भर करती है, जो राज्य और व्यवसाय संरचना के अनुसार अलग-अलग होती है। सटीक मूल्य निर्धारण के लिए कृपया कोटेशन का अनुरोध करें।
+
+Q: Do you help NRIs register a business in India?
+A_EN: Yes, we assist NRIs and foreign nationals with business registration in India, subject to applicable regulations. Please contact us for details specific to your situation.
+A_HI: जी हाँ, हम लागू नियमों के अधीन, NRI और विदेशी नागरिकों को भारत में व्यवसाय रजिस्ट्रेशन में सहायता करते हैं। अपनी स्थिति के अनुसार विवरण के लिए कृपया संपर्क करें।
+
+Q: What is the minimum capital required to start a Private Limited Company?
+A_EN: There is no strict minimum capital requirement under current regulations, but it's best to discuss your specific plans with our team for accurate guidance.
+A_HI: वर्तमान नियमों के तहत कोई सख्त न्यूनतम पूंजी आवश्यकता नहीं है, लेकिन सटीक मार्गदर्शन के लिए अपनी विशिष्ट योजनाओं पर हमारी टीम से चर्चा करना सबसे अच्छा है।
+
+Q: Can you help convert my proprietorship into an LLP?
+A_EN: Yes, we can guide you through converting a proprietorship into an LLP as your business needs evolve.
+A_HI: जी हाँ, जैसे-जैसे आपके व्यवसाय की आवश्यकताएं बदलती हैं, हम प्रोप्राइटरशिप को LLP में बदलने में आपका मार्गदर्शन कर सकते हैं।
+
+Q: Do you offer combo packages for multiple services?
+A_EN: Please contact our team to ask about bundled or combo packages that may combine tax, accounting, and other services for cost savings.
+A_HI: लागत बचत के लिए टैक्स, अकाउंटिंग और अन्य सेवाओं को जोड़ने वाले बंडल या कॉम्बो पैकेज के बारे में पूछने के लिए कृपया हमारी टीम से संपर्क करें।
+
+Q: Can you help with company annual compliance filings?
+A_EN: Yes, we manage annual compliance filings for LLPs and Private Limited Companies as part of our retainer services.
+A_HI: जी हाँ, हम अपनी रिटेनर सेवाओं के हिस्से के रूप में LLP और Private Limited Company के लिए वार्षिक अनुपालन फाइलिंग प्रबंधित करते हैं।
+
+Q: What happens after I submit the consultation form?
+A_EN: Once you submit the form, our team will reach out to you via phone or WhatsApp to discuss your requirements in detail.
+A_HI: फॉर्म सबमिट करने के बाद, हमारी टीम आपकी आवश्यकताओं पर विस्तार से चर्चा करने के लिए फोन या WhatsApp के ज़रिए आपसे संपर्क करेगी।
+
+Q: Can I visit your office without an appointment?
+A_EN: We recommend calling or messaging us on WhatsApp beforehand to ensure our team is available when you visit.
+A_HI: हम सलाह देते हैं कि आप हमारी टीम की उपलब्धता सुनिश्चित करने के लिए पहले से कॉल करें या WhatsApp पर संदेश भेजें।
+
+Q: What is your company name?
+A_EN: We are Quick Consulting Services, based in Indore.
+A_HI: हम Quick Consulting Services हैं, जो इंदौर में स्थित है।
+
+Q: Who founded Quick Consulting Services?
+A_EN: I don't have that information. Please contact our team directly for details about our company background.
+A_HI: मुझे इसकी जानकारी नहीं है। हमारी कंपनी की पृष्ठभूमि के बारे में विवरण के लिए कृपया सीधे हमारी टीम से संपर्क करें।
+
+Q: Do you have any job openings?
+A_EN: I don't have current job opening details. Please email us at indore@quickconsulting.in or check our WhatsApp for current openings.
+A_HI: मेरे पास वर्तमान नौकरी रिक्तियों का विवरण नहीं है। कृपया indore@quickconsulting.in पर ईमेल करें या वर्तमान रिक्तियों के लिए हमारा WhatsApp देखें।
+
+Q: What are your payment methods?
+A_EN: I don't have specific payment method details. Please ask our team directly when discussing your service quote.
+A_HI: मेरे पास विशिष्ट भुगतान विधि विवरण नहीं है। अपने सेवा कोटेशन पर चर्चा करते समय कृपया सीधे हमारी टीम से पूछें।
+
+Q: Do you have a mobile app?
+A_EN: I don't have information about a mobile app. Please check our website www.quickconsulting.in for the latest updates.
+A_HI: मेरे पास मोबाइल ऐप के बारे में जानकारी नहीं है। नवीनतम अपडेट के लिए कृपया हमारी वेबसाइट www.quickconsulting.in देखें।

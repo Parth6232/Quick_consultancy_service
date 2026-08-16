@@ -1,116 +1,371 @@
 /**
  * chat.js
  * Responsibility: Chat widget — open/close, language switch, message handling,
- * bilingual knowledge base, draggable positioning with localStorage persistence,
+ * knowledge-base loading (fetch from data/qa-knowledge-base.txt), advanced
+ * bilingual NLP matching, draggable positioning with localStorage persistence,
  * and viewport-boundary clamping.
  *
- * Drag behaviour:
- *  - Desktop: entire #chat-widget is draggable by its header bar (.chat-drag-handle)
- *    when the window is open, OR by the toggle button when the window is closed.
- *  - Mobile (viewport ≤ 640 px): only the toggle button is draggable (the chat
- *    window is a full-screen bottom sheet on mobile so dragging it makes no sense).
+ * Architecture:
+ *  - KB is loaded once via fetch() at DOMContentLoaded.
+ *  - findBestAnswer() uses: normalize → synonym map → filler removal →
+ *    weighted TF scoring → Levenshtein fuzzy matching → small-talk fast-path
+ *    → minimum score threshold.
+ *  - toggleChat() uses simple fixed anchor: window always opens ABOVE the
+ *    toggle button (items-end, flex-col, mb-4). No dynamic anchor-flip.
+ *  - Drag is fully disabled on mobile (≤640px); CSS keeps the toggle button
+ *    fixed at bottom-right on mobile.
+ *  - body.chat-open-mobile is toggled to prevent background scroll on mobile.
  */
-
-/* =========================================================
-   Knowledge base
-   ========================================================= */
-const chatKB = {
-    en: {
-        services: 'We offer Tax & Compliance, Business Registration, Accounting, IT, AI & Automation, and Web Development. What do you need help with?',
-        price:    'Pricing depends on the service. Please click "Get a Quote" or contact us on WhatsApp for exact details.',
-        quote:    'Pricing depends on the service. Please click "Get a Quote" or contact us on WhatsApp for exact details.',
-        location: 'We are located at M9, Bapat Road, Near Brilliant Aura, Vijay Nagar, Indore.',
-        contact:  'You can reach us at +91 81091 01811 or via WhatsApp.',
-        book:     'To book a consultation, simply call us or send a message on WhatsApp!',
-        hello:    'Hello! How can I help you today?',
-        hi:       'Hi there! How can I assist your business?',
-        fallback: "I'm not sure about that. Please contact our team directly for detailed assistance.",
-    },
-    hi: {
-        services: 'हम टैक्स और कंप्लायंस, बिज़नेस रजिस्ट्रेशन, अकाउंटिंग, IT, AI और वेब डेवलपमेंट जैसी सेवाएं देते हैं। आपको किसमें मदद चाहिए?',
-        price:    'कीमत सेवा पर निर्भर करती है। कृपया सही जानकारी के लिए "कोटेशन लें" पर क्लिक करें या व्हाट्सएप पर संपर्क करें।',
-        quote:    'कीमत सेवा पर निर्भर करती है। कृपया सही जानकारी के लिए "कोटेशन लें" पर क्लिक करें या व्हाट्सएप पर संपर्क करें।',
-        location: 'हमारा ऑफिस M9, बापट रोड, ब्रिलियंट ऑरा के पास, विजय नगर, इंदौर में है।',
-        contact:  'आप हमें +91 81091 01811 पर कॉल कर सकते हैं या व्हाट्सएप कर सकते हैं।',
-        book:     'परामर्श बुक करने के लिए, बस हमें कॉल करें या व्हाट्सएप पर संदेश भेजें!',
-        hello:    'नमस्ते! आज मैं आपकी कैसे मदद कर सकता हूँ?',
-        hi:       'नमस्ते! मैं आपके व्यवसाय में कैसे सहायता कर सकता हूँ?',
-        fallback: 'मुझे इसके बारे में पक्का नहीं पता। कृपया विस्तृत सहायता के लिए सीधे हमारी टीम से संपर्क करें।',
-    },
-};
 
 /* =========================================================
    State
    ========================================================= */
-let currentLang  = 'en';
-let isChatOpen   = false;
-let userName     = localStorage.getItem('chatUserName') || '';
-let askingName   = false;
+let currentLang = 'en';
+let isChatOpen  = false;
+let userName    = localStorage.getItem('chatUserName') || '';
+let askingName  = false;
 
 /* =========================================================
-   Open / close
+   Knowledge Base — loaded from file via fetch()
+   ========================================================= */
+let kbEntries = [];   // Array of { q, en, hi }
+let kbLoaded  = false;
+
+/**
+ * Parse the raw text of qa-knowledge-base.txt into structured entries.
+ * Each block is separated by a blank line and has:
+ *   Q: <question>
+ *   A_EN: <english answer>
+ *   A_HI: <hindi answer>
+ */
+function parseKnowledgeBase(text) {
+    const blocks = text.split(/\r?\n\r?\n/);   // split on blank lines
+    const entries = [];
+    for (const block of blocks) {
+        const lines = block.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+        let q = '', en = '', hi = '';
+        for (const line of lines) {
+            if (line.startsWith('Q:'))    q  = line.slice(2).trim();
+            if (line.startsWith('A_EN:')) en = line.slice(5).trim();
+            if (line.startsWith('A_HI:')) hi = line.slice(5).trim();
+        }
+        if (q && (en || hi)) entries.push({ q, en, hi });
+    }
+    return entries;
+}
+
+async function loadKnowledgeBase() {
+    try {
+        const res  = await fetch('data/qa-knowledge-base.txt');
+        const text = await res.text();
+        kbEntries  = parseKnowledgeBase(text);
+        kbLoaded   = true;
+    } catch (err) {
+        console.warn('[QuickBot] Could not load knowledge base:', err);
+        kbLoaded = false;
+    }
+}
+
+/* =========================================================
+   NLP — Text Normalisation & Matching
+   ========================================================= */
+
+/**
+ * Synonym / contraction map.
+ * Keys are word-forms to replace, values are canonical forms.
+ * Applied AFTER lowercasing and punctuation removal.
+ */
+const SYNONYM_MAP = {
+    // English contractions & abbreviations
+    "ur":    "your",
+    "u":     "you",
+    "r":     "are",
+    "whats": "what is",
+    "hows":  "how is",
+    "dont":  "do not",
+    "cant":  "can not",
+    "wont":  "will not",
+    "isnt":  "is not",
+    "doesnt":"does not",
+    "ive":   "i have",
+    "im":    "i am",
+    "id":    "i would",
+    "ill":   "i will",
+    "thats": "that is",
+    "info":  "information",
+    "reg":   "registration",
+
+    // Hindi transliterations → English equivalents
+    "tumhara":    "your",
+    "aapka":      "your",
+    "apka":       "your",
+    "mera":       "my",
+    "meri":       "my",
+    "naam":       "name",
+    "kya":        "what",
+    "kaun":       "who",
+    "kaise":      "how",
+    "kahan":      "where",
+    "kab":        "when",
+    "kyun":       "why",
+    "kitna":      "how much",
+    "kitni":      "how much",
+    "batao":      "tell",
+    "bata":       "tell",
+    "bataye":     "tell",
+    "chahiye":    "need",
+    "karo":       "do",
+    "karna":      "do",
+    "chahta":     "want",
+    "chahti":     "want",
+    "milega":     "get",
+    "milegi":     "get",
+    "sewa":       "service",
+    "seva":       "service",
+    "madad":      "help",
+    "sampark":    "contact",
+    "pata":       "address",
+    "daftar":     "office",
+    "dakiya":     "email",
+    "price":      "price",
+    "daam":       "price",
+    "kitne":      "how much",
+    "lagega":     "cost",
+    "lagegi":     "cost",
+    "shuru":      "start",
+    "company":    "company",
+    "register":   "register",
+    "registration":"registration",
+    "nahi":       "not",
+    "nahin":      "not",
+    "haan":       "yes",
+    "ji":         "yes",
+};
+
+/** Filler words to strip (Hindi grammatical particles + common English fillers) */
+const FILLERS = new Set([
+    'hai', 'ho', 'ka', 'ki', 'ke', 'ko', 'se', 'me', 'mein',
+    'aur', 'bhi', 'toh', 'to', 'ab', 'ek', 'yeh', 'woh', 'par',
+    'the', 'a', 'an', 'is', 'of', 'in', 'on', 'at', 'do', 'i',
+    'and', 'or', 'for', 'with', 'my', 'me', 'can', 'you', 'we',
+    'please', 'help', 'want', 'need',
+]);
+
+/**
+ * Normalize a string:
+ *  1. Lowercase
+ *  2. Remove punctuation (preserve Devanagari and Latin characters + spaces)
+ *  3. Apply synonym map (word by word)
+ *  4. Re-split and remove filler words
+ * Returns an array of meaningful tokens.
+ */
+function normalizeTokens(str) {
+    // Step 1: lowercase
+    let s = str.toLowerCase();
+    // Step 2: remove punctuation (keep letters, digits, spaces, Devanagari range)
+    s = s.replace(/[^\w\s\u0900-\u097F]/g, ' ');
+    // Step 3: tokenize and apply synonym map
+    let tokens = s.split(/\s+/).filter(Boolean);
+    tokens = tokens.map(t => SYNONYM_MAP[t] || t);
+    // Re-split in case synonym expanded to multiple words (e.g. "whats" → "what is")
+    tokens = tokens.flatMap(t => t.split(/\s+/));
+    // Step 4: remove fillers
+    tokens = tokens.filter(t => t.length > 0 && !FILLERS.has(t));
+    return tokens;
+}
+
+/**
+ * Levenshtein distance between two strings.
+ * Used for fuzzy single-word matching.
+ */
+function levenshtein(a, b) {
+    const m = a.length, n = b.length;
+    const dp = Array.from({ length: m + 1 }, (_, i) => Array.from({ length: n + 1 }, (_, j) => i === 0 ? j : j === 0 ? i : 0));
+    for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+            if (a[i-1] === b[j-1]) dp[i][j] = dp[i-1][j-1];
+            else dp[i][j] = 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+        }
+    }
+    return dp[m][n];
+}
+
+/**
+ * Fuzzy match a query token against a set of question tokens.
+ * Returns the weight of the best match found (0 if none).
+ * Tolerance: distance ≤ 1 for words ≥5 chars, distance ≤ 2 for words ≥8 chars.
+ */
+function fuzzyTokenMatch(qToken, questionTokens) {
+    const qLen = qToken.length;
+    // Direct match (most common fast path)
+    if (questionTokens.has(qToken)) return 1.0;
+    // Short tokens: require exact match only
+    if (qLen < 4) return 0;
+    // Fuzzy tolerance
+    const maxDist = qLen >= 8 ? 2 : 1;
+    for (const t of questionTokens) {
+        if (Math.abs(t.length - qLen) > maxDist) continue;
+        if (levenshtein(qToken, t) <= maxDist) return 0.8;
+    }
+    return 0;
+}
+
+/**
+ * Weight for a token based on its length.
+ * Short tokens like "tax" or "gst" still matter — we only penalise 1-2 char tokens.
+ */
+function tokenWeight(token) {
+    if (token.length <= 2) return 0.3;
+    if (token.length === 3) return 0.7;
+    return 1.0;
+}
+
+/* Small-talk fast-path intents */
+const SMALL_TALK = {
+    en: {
+        greet:   'Hello! How can I help you today?',
+        thanks:  "You're welcome! Let us know if you need anything else.",
+        bye:     'Goodbye! Feel free to reach out anytime via WhatsApp or call.',
+        bot:     "I'm QuickBot, an automated assistant for Quick Consulting Services. For detailed queries, our human team is happy to help via WhatsApp or call.",
+        name:    "I'm QuickBot, the virtual assistant for Quick Consulting Services!",
+    },
+    hi: {
+        greet:   'नमस्ते! आज मैं आपकी कैसे मदद कर सकता हूँ?',
+        thanks:  'आपका स्वागत है! अगर आपको कुछ और चाहिए तो हमें बताएं।',
+        bye:     'अलविदा! किसी भी समय WhatsApp या कॉल के ज़रिए संपर्क करने में संकोच न करें।',
+        bot:     'मैं QuickBot हूँ, Quick Consulting Services का स्वचालित सहायक। विस्तृत प्रश्नों के लिए, हमारी टीम WhatsApp या कॉल पर मदद करने में खुश होगी।',
+        name:    'मैं QuickBot हूँ, Quick Consulting Services का वर्चुअल असिस्टेंट!',
+    },
+};
+
+const GREET_TOKENS  = new Set(['hello','hi','hey','namaste','namaskar','hola','howdy']);
+const THANKS_TOKENS = new Set(['thanks','thank','thankyou','shukriya','dhanyawad','shukriyaa','thx','ty']);
+const BYE_TOKENS    = new Set(['bye','goodbye','alvida','tata','see','later','cya']);
+const BOT_TOKENS    = new Set(['bot','robot','automated','real','person','human','ai','quickbot']);
+const NAME_TOKENS   = new Set(['name','naam']);
+
+/**
+ * Fast-path check for small-talk intents.
+ * Returns `{ en, hi }` if matched, else null.
+ */
+function checkSmallTalk(tokens) {
+    const tSet = new Set(tokens);
+    if ([...tSet].some(t => GREET_TOKENS.has(t)))  return { en: SMALL_TALK.en.greet,  hi: SMALL_TALK.hi.greet  };
+    if ([...tSet].some(t => THANKS_TOKENS.has(t))) return { en: SMALL_TALK.en.thanks, hi: SMALL_TALK.hi.thanks };
+    if ([...tSet].some(t => BYE_TOKENS.has(t)))    return { en: SMALL_TALK.en.bye,    hi: SMALL_TALK.hi.bye    };
+    if ([...tSet].some(t => BOT_TOKENS.has(t)))    return { en: SMALL_TALK.en.bot,    hi: SMALL_TALK.hi.bot    };
+    // "your name", "naam kya", "tumhara naam" etc.
+    if ([...tSet].some(t => NAME_TOKENS.has(t)) && [...tSet].some(t => ['your','what','who','tumhara','aapka','kya','batao'].includes(t) || t.startsWith('wh')))
+        return { en: SMALL_TALK.en.name, hi: SMALL_TALK.hi.name };
+    return null;
+}
+
+/** Minimum normalised score to accept a match (below this → fallback) */
+const MIN_SCORE_THRESHOLD = 0.15;
+
+/**
+ * findBestAnswer(rawQuery) → { en, hi } | null
+ *
+ * Scoring:
+ *  score += tokenWeight(qToken) * fuzzyMatch(qToken, questionTokenSet)
+ *  Normalise by total possible weight of query tokens.
+ *  Boost: if query tokens are fully contained in question (or vice versa).
+ */
+function findBestAnswer(rawQuery) {
+    // 1. Small-talk fast path
+    const tokens = normalizeTokens(rawQuery);
+    if (tokens.length === 0) return null;
+
+    const smallTalk = checkSmallTalk(tokens);
+    if (smallTalk) return smallTalk;
+
+    if (!kbLoaded || kbEntries.length === 0) return null;
+
+    let bestScore = 0;
+    let bestEntry = null;
+
+    // Total weight of query tokens (denominator for normalisation)
+    const totalQueryWeight = tokens.reduce((sum, t) => sum + tokenWeight(t), 0);
+    if (totalQueryWeight === 0) return null;
+
+    for (const entry of kbEntries) {
+        // Normalise the question text in the KB
+        const qTokens      = normalizeTokens(entry.q);
+        const qTokenSet    = new Set(qTokens);
+        const totalQWeight = qTokens.reduce((sum, t) => sum + tokenWeight(t), 0);
+
+        if (qTokens.length === 0) continue;
+
+        // Score: how well do query tokens match question tokens?
+        let score = 0;
+        for (const tok of tokens) {
+            score += tokenWeight(tok) * fuzzyTokenMatch(tok, qTokenSet);
+        }
+        // Also score in reverse: how well do question tokens match query?
+        let reverseScore = 0;
+        const queryTokenSet = new Set(tokens);
+        for (const tok of qTokens) {
+            reverseScore += tokenWeight(tok) * fuzzyTokenMatch(tok, queryTokenSet);
+        }
+
+        // Normalise both sides and take the geometric mean to balance
+        const normFwd = score        / totalQueryWeight;
+        const normRev = reverseScore / (totalQWeight || 1);
+        const combined = Math.sqrt(normFwd * normRev) * (normFwd + normRev) / 2;
+
+        if (combined > bestScore) {
+            bestScore = combined;
+            bestEntry = entry;
+        }
+    }
+
+    if (bestScore >= MIN_SCORE_THRESHOLD && bestEntry) {
+        return { en: bestEntry.en, hi: bestEntry.hi };
+    }
+    return null;
+}
+
+/* =========================================================
+   Fallback answers
+   ========================================================= */
+const FALLBACK = {
+    en: "I'm not sure about that. Please contact our team directly for detailed assistance.",
+    hi: 'मुझे इसके बारे में पक्का नहीं पता। कृपया विस्तृत सहायता के लिए सीधे हमारी टीम से संपर्क करें।',
+};
+
+/* =========================================================
+   Open / close  (FIX #4/#5: no more anchor-flip logic)
    ========================================================= */
 function toggleChat() {
     isChatOpen = !isChatOpen;
     const win     = document.getElementById('chat-window');
     const btnIcon = document.getElementById('chat-btn-icon');
-    const widget  = document.getElementById('chat-widget');
+    const isMobile = window.innerWidth <= 640;
 
     if (isChatOpen) {
-        // Dynamic opening anchor based on screen position
-        if (widget) {
-            const rect = widget.getBoundingClientRect();
-            const toggleBtn = document.getElementById('chat-toggle-btn');
-
-            // Horizontal anchoring — window expands toward center of screen
-            if (rect.left < window.innerWidth / 2) {
-                // Widget is on LEFT side → expand window to the right
-                // Button stays on the LEFT of the window (default DOM order: window first, btn second with flex-col)
-                widget.classList.remove('items-end');
-                widget.classList.add('items-start');
-                if (toggleBtn) { toggleBtn.style.order = ''; }   // btn after window in DOM = bottom/right
-            } else {
-                // Widget is on RIGHT side → expand window to the left
-                widget.classList.remove('items-start');
-                widget.classList.add('items-end');
-                if (toggleBtn) { toggleBtn.style.order = ''; }
-            }
-
-            // Vertical anchoring — window expands toward center of screen
-            if (rect.top < window.innerHeight / 2) {
-                // Widget is near TOP → window expands downward (btn above window)
-                widget.classList.remove('flex-col');
-                widget.classList.add('flex-col-reverse');
-                win.classList.remove('mb-4');
-                win.classList.add('mt-4');
-                // btn is first in DOM; flex-col-reverse makes it appear BELOW the window
-                // We want the btn at the TOP (above window), so put it visually first → order:-1
-                if (toggleBtn) { toggleBtn.style.order = '-1'; }
-            } else {
-                // Widget is near BOTTOM → window expands upward (btn below window, default)
-                widget.classList.remove('flex-col-reverse');
-                widget.classList.add('flex-col');
-                win.classList.remove('mt-4');
-                win.classList.add('mb-4');
-                if (toggleBtn) { toggleBtn.style.order = ''; }
-            }
-        }
-
         win.classList.add('open');
         btnIcon.classList.replace('fa-comment-dots', 'fa-xmark');
+        // Lock background scroll on mobile (FIX #1 / #2)
+        if (isMobile) document.body.classList.add('chat-open-mobile');
         // Show welcome message only on first open
         const msgs = document.getElementById('chat-messages');
         if (msgs && msgs.children.length === 0) {
             if (!userName) {
                 askingName = true;
-                addMessage('Hi! What\'s your name? / नमस्ते! आपका नाम क्या है?', 'bot');
+                addMessage("Hi! What's your name? / नमस्ते! आपका नाम क्या है?", 'bot');
             } else {
-                addMessage(`Nice to meet you again, ${userName}! How can I help your business today? / आपसे दोबारा मिलकर अच्छा लगा, ${userName}! मैं आपके व्यवसाय में कैसे सहायता कर सकता हूँ?`, 'bot');
+                addMessage(
+                    `Nice to meet you again, ${userName}! How can I help your business today? / ` +
+                    `आपसे दोबारा मिलकर अच्छा लगा, ${userName}! मैं आपके व्यवसाय में कैसे सहायता कर सकता हूँ?`,
+                    'bot'
+                );
             }
         }
     } else {
         win.classList.remove('open');
         btnIcon.classList.replace('fa-xmark', 'fa-comment-dots');
+        // Restore background scroll (FIX #1 / #2)
+        document.body.classList.remove('chat-open-mobile');
     }
 }
 
@@ -138,56 +393,67 @@ function switchLanguage(lang) {
 }
 
 /* =========================================================
-   Messaging
+   Quick-reply buttons (use KB lookup too)
    ========================================================= */
 function handleQuickReply(keyword) {
     if (askingName) return;
     const btnEl = document.getElementById('qr-' + keyword);
     if (!btnEl) return;
-    addMessage(btnEl.textContent.trim(), 'user');
+    const userText = btnEl.textContent.trim();
+    addMessage(userText, 'user');
     setTimeout(() => {
-        addMessage(chatKB[currentLang][keyword] || chatKB[currentLang].fallback, 'bot');
+        const result = findBestAnswer(keyword);  // keyword is always English
+        const answer = result
+            ? (currentLang === 'hi' ? result.hi : result.en)
+            : (currentLang === 'hi' ? FALLBACK.hi : FALLBACK.en);
+        addMessage(answer, 'bot');
     }, 480);
 }
 
+/* =========================================================
+   User message processing
+   ========================================================= */
 function sendChatMessage() {
     const input = document.getElementById('chat-input');
     const text  = input.value.trim();
     if (!text) return;
     addMessage(text, 'user');
     input.value = '';
-    
+
     if (askingName) {
         setTimeout(() => {
             userName = text;
             try { localStorage.setItem('chatUserName', userName); } catch(e) {}
             askingName = false;
-            addMessage(`Nice to meet you, ${userName}! How can I help your business today? / आपसे मिलकर अच्छा लगा, ${userName}! मैं आपके व्यवसाय में कैसे सहायता कर सकता हूँ?`, 'bot');
+            addMessage(
+                `Nice to meet you, ${userName}! How can I help your business today? / ` +
+                `आपसे मिलकर अच्छा लगा, ${userName}! मैं आपके व्यवसाय में कैसे सहायता कर सकता हूँ?`,
+                'bot'
+            );
         }, 480);
     } else {
-        setTimeout(() => processUserMessage(text.toLowerCase()), 480);
+        setTimeout(() => processUserMessage(text), 480);
     }
 }
 
-function processUserMessage(msg) {
-    const keywords = ['services', 'price', 'quote', 'location', 'contact', 'book', 'hello', 'hi'];
-    let matched = null;
-
-    for (const kw of keywords) {
-        if (msg.includes(kw) ||
-            (kw === 'price'    && (msg.includes('cost') || msg.includes('rate'))) ||
-            (kw === 'services' && msg.includes('सेवा')) ||
-            (kw === 'hello'    && msg.includes('नमस्ते')) ||
-            (kw === 'location' && (msg.includes('address') || msg.includes('office') || msg.includes('पता')))) {
-            matched = kw;
-            break;
-        }
+function processUserMessage(rawText) {
+    if (!kbLoaded) {
+        // KB still loading or failed — show loading/fallback
+        const msg = currentLang === 'hi'
+            ? 'ज्ञान आधार लोड हो रहा है, कृपया एक क्षण बाद पुनः प्रयास करें।'
+            : 'Knowledge base is loading, please try again in a moment.';
+        addMessage(msg, 'bot');
+        return;
     }
 
-    if (matched) {
-        addMessage(chatKB[currentLang][matched], 'bot');
+    const result = findBestAnswer(rawText);
+
+    if (result) {
+        const answer = currentLang === 'hi' ? result.hi : result.en;
+        addMessage(answer, 'bot');
     } else {
-        addMessage(chatKB[currentLang].fallback, 'bot');
+        // Fallback: show "I don't know" + contact options
+        addMessage(currentLang === 'hi' ? FALLBACK.hi : FALLBACK.en, 'bot');
         addMessageHTML(`
             <div class="mt-2 flex flex-col gap-2">
                 <a href="https://wa.me/918109101811" target="_blank"
@@ -202,6 +468,9 @@ function processUserMessage(msg) {
     }
 }
 
+/* =========================================================
+   DOM helpers
+   ========================================================= */
 function addMessage(text, sender) {
     const el = _createMsgEl(sender);
     el.textContent = text;
@@ -232,23 +501,22 @@ function _appendMsg(el) {
 }
 
 /* =========================================================
-   Draggable widget
+   Draggable widget  (FIX #3: drag fully disabled on mobile)
    ========================================================= */
 function initChatDrag() {
     const widget = document.getElementById('chat-widget');
     if (!widget) return;
 
-    // Restore saved position
-    const saved = _loadWidgetPos();
-    if (saved) {
-        _applyWidgetPos(widget, saved.x, saved.y);
+    // Restore saved position (desktop only)
+    if (window.innerWidth > 640) {
+        const saved = _loadWidgetPos();
+        if (saved) _applyWidgetPos(widget, saved.x, saved.y);
     }
 
-    // We allow dragging from the toggle button at all times,
-    // and from the chat-window header when the window is open.
+    // Drag handles: toggle button (always) + chat header bar (when open)
     const dragHandles = [
-        document.getElementById('chat-toggle-btn'),      // toggle button
-        document.querySelector('.chat-drag-handle'),      // header bar
+        document.getElementById('chat-toggle-btn'),
+        document.querySelector('.chat-drag-handle'),
     ].filter(Boolean);
 
     dragHandles.forEach(handle => {
@@ -260,17 +528,15 @@ let _dragging    = false;
 let _dragOffsetX = 0;
 let _dragOffsetY = 0;
 let _dragWidget  = null;
-let _hasMoved    = false;  // distinguish click vs drag on toggle button
+let _hasMoved    = false;   // distinguish click vs drag on toggle button
 
 function _onDragStart(e) {
-    // Mobile: only allow drag on the toggle button, not the chat header sheet
-    const isMobile = window.innerWidth <= 640;
-    const isHeaderHandle = e.currentTarget.classList.contains('chat-drag-handle');
-    if (isMobile && isHeaderHandle) return;
+    // FIX #3: Fully disable drag on mobile — button stays CSS-fixed bottom-right
+    if (window.innerWidth <= 640) return;
 
-    _dragging    = true;
-    _hasMoved    = false;
-    _dragWidget  = document.getElementById('chat-widget');
+    _dragging   = true;
+    _hasMoved   = false;
+    _dragWidget = document.getElementById('chat-widget');
 
     const rect   = _dragWidget.getBoundingClientRect();
     _dragOffsetX = e.clientX - rect.left;
@@ -292,25 +558,24 @@ function _onDragMove(e) {
     let x = e.clientX - _dragOffsetX;
     let y = e.clientY - _dragOffsetY;
 
-    // Clamp to viewport
-    let W = _dragWidget.offsetWidth;
-    let H = _dragWidget.offsetHeight;
-    
+    // Clamp to viewport bounds
+    const W = _dragWidget.offsetWidth;
+    const H = _dragWidget.offsetHeight;
+
     let minX = 0, minY = 0;
-    let maxX = window.innerWidth - W;
+    let maxX = window.innerWidth  - W;
     let maxY = window.innerHeight - H;
 
     if (!isChatOpen) {
         const toggleBtn = document.getElementById('chat-toggle-btn');
         if (toggleBtn) {
-            const btnW = toggleBtn.offsetWidth;
-            const btnH = toggleBtn.offsetHeight;
+            const btnW   = toggleBtn.offsetWidth;
+            const btnH   = toggleBtn.offsetHeight;
             const extraW = W - btnW;
             const extraH = H - btnH;
-            
             minX = -extraW;
             minY = -extraH;
-            maxX = window.innerWidth - btnW - extraW;
+            maxX = window.innerWidth  - btnW - extraW;
             maxY = window.innerHeight - btnH - extraH;
         }
     }
@@ -366,3 +631,12 @@ function initChatEnterKey() {
         if (e.key === 'Enter') sendChatMessage();
     });
 }
+
+/* =========================================================
+   Initialisation
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+    loadKnowledgeBase();   // async — non-blocking
+    initChatDrag();
+    initChatEnterKey();
+});
