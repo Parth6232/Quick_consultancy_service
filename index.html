@@ -40,7 +40,7 @@
       "email": "indore@quickconsulting.in",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "M9, Bapat Road, Near Brilliant Aura, Above Apple Kitchens, Vijay Nagar",
+        "streetAddress": "M9, Bapat Road, Near Brilliant Aura, Above Mapple Kitchens, Vijay Nagar",
         "addressLocality": "Indore",
         "addressRegion": "MP",
         "postalCode": "452010",
@@ -78,12 +78,13 @@
 
     <!-- Top Announcement Bar -->
     <div
-        class="hidden sm:block bg-slate-900 dark:bg-black text-gray-300 dark:text-gray-400 text-xs md:text-sm py-2 px-4 md:px-6 transition-colors duration-300">
+        class="hidden sm:block topbar-glossy text-gray-300 dark:text-gray-400 text-xs md:text-sm py-2 px-4 md:px-6 transition-colors duration-300">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-            <div class="flex items-center gap-2 text-center sm:text-left">
+            <a href="https://maps.app.goo.gl/fD9ppKFtUCsDKfsF9" target="_blank" rel="noopener"
+                class="flex items-center gap-2 text-center sm:text-left hover:text-white dark:hover:text-gray-200 transition">
                 <i class="fa-solid fa-location-dot text-blue-400"></i>
                 <span>M9, Bapat Road, Near Brilliant Aura, Vijay Nagar, Indore</span>
-            </div>
+            </a>
             <div class="flex flex-col sm:flex-row items-center sm:items-end gap-2 sm:gap-4 mt-2 sm:mt-0">
                 <a href="mailto:indore@quickconsulting.in"
                     class="hover:text-white dark:hover:text-gray-200 flex items-center gap-1 transition">
@@ -113,7 +114,7 @@
     <nav
         class="sticky top-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm dark:border-b dark:border-slate-800 z-50 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center">
-            <a href="#" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;"
+            <a href="https://maps.app.goo.gl/fD9ppKFtUCsDKfsF9" target="_blank" rel="noopener"
                 class="flex items-center gap-2 md:gap-3 cursor-pointer">
                 <img src="assets/logo.jpeg" alt="Quick Consulting Services Logo"
                     class="h-9 md:h-10 w-auto object-contain">
@@ -148,16 +149,33 @@
 
     <!-- Hero Section -->
     <header
-        class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-12 md:py-20 px-4 md:px-6 text-center relative overflow-hidden transition-colors duration-300">
+        class="hero-glossy text-white py-12 md:py-20 px-4 md:px-6 text-center transition-colors duration-300">
+        <div class="hero-top-sheen"></div>
         <div class="absolute top-10 left-10 opacity-20 text-4xl hero-icon-animate"><i class="fa-solid fa-chart-pie"></i>
+        </div>
+        
+        <!-- Left Floating Element -->
+        <div class="hero-float-left hidden lg:block">
+            <div class="hero-3d-bar-container">
+                <div class="hero-3d-bar"></div>
+                <div class="hero-3d-bar"></div>
+                <div class="hero-3d-bar"></div>
+                <i class="fa-solid fa-arrow-trend-up hero-arrow-up"></i>
+            </div>
+        </div>
+
+        <!-- Right Floating Element -->
+        <div class="hero-float-right hidden lg:block">
+            <div class="hero-3d-target hero-target-icon">
+            </div>
         </div>
         <div class="max-w-4xl mx-auto space-y-4 md:space-y-6">
             <span
-                class="bg-blue-600/30 text-blue-300 border border-blue-500/30 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider inline-block">
+                class="hero-badge-3d text-blue-100 text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider inline-block mb-2">
                 Comprehensive Business Solutions
             </span>
-            <h1 class="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
-                Accelerate Your Business Growth with Expert Consulting
+            <h1 class="hero-heading-3d text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight leading-tight">
+                Your Vision, Our Expertise, <span class="accent-line text-blue-400">Successful Business</span>
             </h1>
             <p class="text-gray-300 text-sm md:text-lg max-w-2xl mx-auto">
                 You have the idea. We help you implement it. From Tax & Compliance to cutting-edge AI Automation and
@@ -165,11 +183,11 @@
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-3 pt-4">
                 <a href="https://wa.me/918109101811" target="_blank"
-                    class="btn-glossy bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg flex items-center justify-center gap-2 text-sm transition">
+                    class="btn-glossy btn-3d-lift bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg flex items-center justify-center gap-2 text-sm transition">
                     <i class="fa-brands fa-whatsapp text-lg"></i> Chat on WhatsApp
                 </a>
                 <a href="#services"
-                    class="btn-glossy bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-lg border border-white/20 text-sm transition">
+                    class="btn-glossy btn-3d-lift bg-white/10 hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-lg border border-white/20 text-sm transition">
                     Explore Our Services
                 </a>
             </div>
@@ -760,8 +778,8 @@
 
                 <div class="space-y-4">
                     <!-- Office Address -->
-                    <a href="https://www.google.com/maps/search/?api=1&query=M9%2C+Bapat+Road%2C+Near+Brilliant+Aura%2C+Above+Apple+Kitchens%2C+Vijay+Nagar%2C+Indore"
-                        target="_blank" class="group flex items-start gap-4 transition-colors">
+                    <a href="https://maps.app.goo.gl/fD9ppKFtUCsDKfsF9"
+                        target="_blank" rel="noopener" class="group flex items-start gap-4 transition-colors">
                         <div class="bg-blue-600 text-white p-3 rounded-lg shrink-0"><i
                                 class="fa-solid fa-location-dot"></i></div>
                         <div>
@@ -769,7 +787,7 @@
                                 class="font-semibold text-white text-sm md:text-base group-hover:text-blue-400 transition-colors">
                                 Office Address</h4>
                             <p class="text-xs md:text-sm text-gray-400 group-hover:text-blue-300 transition-colors">M9,
-                                Bapat Road, Near Brilliant Aura, Above Apple Kitchens, Vijay Nagar, Indore</p>
+                                Bapat Road, Near Brilliant Aura, Above Mapple Kitchens, Vijay Nagar, Indore</p>
                         </div>
                     </a>
 
