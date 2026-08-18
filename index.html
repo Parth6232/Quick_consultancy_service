@@ -29,25 +29,25 @@
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Quick Consulting Services",
-      "image": "https://www.quickconsulting.in/assets/og-image.jpg",
-      "@id": "https://www.quickconsulting.in/",
-      "url": "https://www.quickconsulting.in/",
-      "telephone": "+918109101811",
-      "email": "indore@quickconsulting.in",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "M9, Bapat Road, Near Brilliant Aura, Above Mapple Kitchens, Vijay Nagar",
-        "addressLocality": "Indore",
-        "addressRegion": "MP",
-        "postalCode": "452010",
-        "addressCountry": "IN"
-      }
-    }
-    </script>
+        {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Quick Consulting Services",
+        "image": "https://www.quickconsulting.in/assets/og-image.jpg",
+        "@id": "https://www.quickconsulting.in/",
+        "url": "https://www.quickconsulting.in/",
+        "telephone": "+918109101811",
+        "email": "indore@quickconsulting.in",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "M9, Bapat Road, Near Brilliant Aura, Above Mapple Kitchens, Vijay Nagar",
+            "addressLocality": "Indore",
+            "addressRegion": "MP",
+            "postalCode": "452010",
+            "addressCountry": "IN"
+        }
+        }
+        </script>
 
     <!-- NOTE: If Hindi becomes a primary distinct route, add hreflang tags here -->
 
@@ -106,6 +106,14 @@
                     class="hover:text-white dark:hover:text-gray-200 flex items-center gap-1 transition">
                     <i class="fa-brands fa-facebook text-blue-400"></i> Facebook
                 </a>
+                <a href="https://www.instagram.com/quick_consulting_services?igsh=eGNlbTJ5anY3YWtv&igsi=eGNlbTJ5anY3YWtv" target="_blank" rel="noopener"
+                    class="hover:text-white dark:hover:text-gray-200 flex items-center gap-1 transition">
+                    <i class="fa-brands fa-instagram text-pink-500"></i> Instagram
+                </a>
+                <a href="https://youtube.com/@quick_consulting?si=2FQkXe3-3j5kbzm-" target="_blank" rel="noopener"
+                    class="hover:text-white dark:hover:text-gray-200 flex items-center gap-1 transition">
+                    <i class="fa-brands fa-youtube text-red-500"></i> YouTube
+                </a>
             </div>
         </div>
     </div>
@@ -148,12 +156,11 @@
     </nav>
 
     <!-- Hero Section -->
-    <header
-        class="hero-glossy text-white py-12 md:py-20 px-4 md:px-6 text-center transition-colors duration-300">
+    <header class="hero-glossy text-white py-12 md:py-20 px-4 md:px-6 text-center transition-colors duration-300">
         <div class="hero-top-sheen"></div>
         <div class="absolute top-10 left-10 opacity-20 text-4xl hero-icon-animate"><i class="fa-solid fa-chart-pie"></i>
         </div>
-        
+
         <!-- Left Floating Element -->
         <div class="hero-float-left hidden lg:block">
             <div class="hero-3d-bar-container">
@@ -322,6 +329,45 @@
             </div>
         </div>
     </section>
+
+    <!-- See Us In Action Video Section -->
+    <section class="py-12 md:py-16 px-4 md:px-6 bg-slate-50 dark:bg-slate-950 reveal transition-colors duration-300">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-10 md:mb-12">
+                <span class="text-blue-600 dark:text-blue-400 text-xs font-semibold uppercase tracking-widest mb-3 inline-block">See Us In Action</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">Our Work, In Motion</h2>
+            </div>
+            
+            <div class="flex sm:grid sm:grid-cols-2 gap-4 sm:gap-6 w-full sm:w-[80vw] max-w-4xl mx-auto justify-items-center overflow-x-auto sm:overflow-visible snap-x snap-mandatory no-scrollbar pb-4 sm:pb-0 px-4 sm:px-0" id="video-reels-container">
+                <!-- Video 1 -->
+                <div class="video-reel-card relative rounded-2xl overflow-hidden shadow-xl bg-black group flex-shrink-0">
+                    <video class="w-full h-full object-cover" 
+                           loop muted playsinline preload="metadata"
+                           poster="assets/videos/reel-1-poster.jpg"
+                           src="assets/videos/reel-1.mp4">
+                    </video>
+                    <button class="reel-mute-btn absolute bottom-4 right-4 w-10 h-10 rounded-full bg-black/50 text-white backdrop-blur-sm flex items-center justify-center hover:bg-black/70 transition" aria-label="Toggle mute">
+                        <i class="fa-solid fa-volume-xmark"></i>
+                    </button>
+                </div>
+                <!-- Video 2 -->
+                <div class="video-reel-card relative rounded-2xl overflow-hidden shadow-xl bg-black group flex-shrink-0">
+                    <video class="w-full h-full object-cover" 
+                           loop muted playsinline preload="metadata"
+                           poster="assets/videos/reel-2-poster.jpg"
+                           src="assets/videos/reel-2.mp4">
+                    </video>
+                    <button class="reel-mute-btn absolute bottom-4 right-4 w-10 h-10 rounded-full bg-black/50 text-white backdrop-blur-sm flex items-center justify-center hover:bg-black/70 transition" aria-label="Toggle mute">
+                        <i class="fa-solid fa-volume-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="text-center text-gray-500 mt-6 hidden reduced-motion-msg">
+                <p class="text-sm">Video paused (reduced motion enabled)</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Our Approach Carousel Section -->
     <section
         class="carousel-section py-12 md:py-16 bg-slate-900 dark:bg-black text-white overflow-hidden relative reveal transition-colors duration-300">
@@ -330,7 +376,8 @@
                 Work</span>
             <h2 class="text-2xl md:text-3xl font-bold">Our Approach <span class="text-blue-400">in Action</span></h2>
             <p class="text-gray-400 text-xs md:text-sm mt-2">Delivering excellence across every business domain —
-                <em>Your Vision + Our Expertise.</em></p>
+                <em>Your Vision + Our Expertise.</em>
+            </p>
         </div>
 
         <!-- Carousel Track Wrapper -->
@@ -764,7 +811,7 @@
 
     <!-- Contact Section -->
     <section id="contact"
-        class="bg-slate-950 py-20 md:py-28 px-4 md:px-6 transition-colors duration-300 relative overflow-x-hidden"
+        class="bg-slate-950 py-20 md:py-28 px-4 md:px-6 transition-colors duration-300 relative overflow-x-clip"
         style="scroll-margin-top:72px">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 relative z-10">
 
@@ -778,8 +825,8 @@
 
                 <div class="space-y-4">
                     <!-- Office Address -->
-                    <a href="https://maps.app.goo.gl/fD9ppKFtUCsDKfsF9"
-                        target="_blank" rel="noopener" class="group flex items-start gap-4 transition-colors">
+                    <a href="https://maps.app.goo.gl/fD9ppKFtUCsDKfsF9" target="_blank" rel="noopener"
+                        class="group flex items-start gap-4 transition-colors">
                         <div class="bg-blue-600 text-white p-3 rounded-lg shrink-0"><i
                                 class="fa-solid fa-location-dot"></i></div>
                         <div>
@@ -844,21 +891,49 @@
                                 facebook.com/QuickConsultingServices</p>
                         </div>
                     </a>
+
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/quick_consulting_services?igsh=eGNlbTJ5anY3YWtv&igsi=eGNlbTJ5anY3YWtv" target="_blank" rel="noopener"
+                        class="group flex items-start gap-4 transition-colors">
+                        <div class="bg-pink-600 text-white p-3 rounded-lg shrink-0"><i
+                                class="fa-brands fa-instagram"></i></div>
+                        <div>
+                            <h4
+                                class="font-semibold text-white text-sm md:text-base group-hover:text-pink-400 transition-colors">
+                                Instagram</h4>
+                            <p class="text-xs md:text-sm text-gray-400 group-hover:text-pink-300 transition-colors">
+                                @quick_consulting_services</p>
+                        </div>
+                    </a>
+
+                    <!-- YouTube -->
+                    <a href="https://youtube.com/@quick_consulting?si=2FQkXe3-3j5kbzm-" target="_blank" rel="noopener"
+                        class="group flex items-start gap-4 transition-colors">
+                        <div class="bg-red-600 text-white p-3 rounded-lg shrink-0"><i
+                                class="fa-brands fa-youtube"></i></div>
+                        <div>
+                            <h4
+                                class="font-semibold text-white text-sm md:text-base group-hover:text-red-400 transition-colors">
+                                YouTube</h4>
+                            <p class="text-xs md:text-sm text-gray-400 group-hover:text-red-300 transition-colors">
+                                @quick_consulting</p>
+                        </div>
+                    </a>
                 </div>
             </div>
 
             <!-- Inquiry Form with Glowing Rings -->
             <!-- ring-wrapper is the shared coordinate system: rings are % of this box -->
-            <div class="ring-wrapper flex justify-center items-center mt-10 lg:mt-0">
+            <div class="ring-wrapper flex justify-center items-center mt-10 lg:mt-0 p-4 sm:p-8">
 
-                <!-- Animated Glowing Rings — z-20 puts them above the card -->
+                <!-- Animated Glowing Rings — z-5 puts them below the card -->
                 <div class="glowing-ring ring-pink"></div>
                 <div class="glowing-ring ring-green"></div>
                 <div class="glowing-ring ring-yellow"></div>
 
                 <!-- Glassmorphic Form Card -->
                 <div
-                    class="form-float-card relative z-10 w-full bg-slate-900/80 backdrop-blur-xl p-7 md:p-9 shadow-2xl border border-slate-700/50">
+                    class="form-float-card relative z-[15] w-full bg-slate-900/60 backdrop-blur-2xl p-7 md:p-9 shadow-2xl border border-slate-700/50">
                     <h3 class="text-lg md:text-xl font-bold mb-5 text-white">Request a Consultation</h3>
                     <form id="consultation-form" class="space-y-5">
                         <div>
@@ -986,11 +1061,6 @@
         <button id="chat-toggle-btn" onclick="toggleChat()"
             class="cursor-pointer active:scale-95 chat-glow-pulse btn-glossy w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center hover:scale-105 transition hover:bg-blue-700 relative z-50">
             <i id="chat-btn-icon" class="fa-solid fa-comment-dots text-2xl transition-transform duration-300"></i>
-            <span class="absolute -top-1 -right-1 flex h-4 w-4" style="pointer-events:none">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span
-                    class="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-white dark:border-slate-900"></span>
-            </span>
         </button>
     </div>
 
@@ -1000,6 +1070,7 @@
     <script src="js/faq.js"></script>
     <script src="js/counters.js"></script>
     <script src="js/chat.js"></script>
+    <script src="js/video-reels.js"></script>
     <script src="js/form.js"></script>
     <script src="js/carousel.js"></script>
     <script src="js/main.js"></script>

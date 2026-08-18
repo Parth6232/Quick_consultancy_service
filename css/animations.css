@@ -224,30 +224,33 @@
 .ring-wrapper {
     position: relative;
     width: 100%;
-    max-width: 420px;        /* card max-width on desktop */
+    max-width: 520px;        /* increased from 420px to comfortably contain rings */
     margin: 0 auto;
+    overflow: visible;
 }
+
+#contact { overflow-x: clip; }
 
 /* Common ring styles — sized as % of the wrapper so they track the card */
 .glowing-ring {
     position: absolute;
     border-radius: 50%;
-    width: 145%;            /* ring is 45% wider than the card */
-    height: 145%;
+    width: 115%;            /* reduced from 145% to keep close to card */
+    height: 115%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border: 2px solid transparent;
     opacity: 0.75;
     pointer-events: none;
-    z-index: 20;            /* above the card (z-10) */
+    z-index: 5;            /* below the card (z-15) */
 }
 
 /* Tone down ring size on mobile so they don't push as far out of bounds */
 @media (max-width: 640px) {
     .glowing-ring {
-        width: 125%;
-        height: 125%;
+        width: 108%;
+        height: 108%;
     }
 }
 
@@ -292,12 +295,23 @@
     /*
      * Gently asymmetric per-corner radii using rem values (NOT %) so the
      * shape never distorts against the card's rectangular content.
-     * Each corner sits between 1.25rem–2.5rem — visibly non-uniform but
-     * safely inset from any text, input, or button on all sides.
      */
     border-radius: 2rem 2.5rem 2rem 1.5rem / 1.75rem 2rem 2.5rem 1.75rem;
     animation: form-float 8s ease-in-out infinite;
     transition: border-radius 1s ease;
+}
+.form-float-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 40%, transparent 60%, rgba(255, 255, 255, 0.05) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+.form-float-card > * {
+    position: relative;
+    z-index: 1;
 }
 .form-float-card:focus-within {
     animation-play-state: paused;
