@@ -17,7 +17,11 @@
  */
 
 import { readFileSync } from 'fs';
-import { join } from 'path';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // ---------------------------------------------------------------------------
 // Model fallback chain
@@ -51,8 +55,8 @@ const MODEL_FALLBACK_CHAIN = [
 // If the live check fails for any reason, we silently fall through to the
 // static MODEL_FALLBACK_CHAIN above.
 // ---------------------------------------------------------------------------
-let _modelCacheTime   = 0;
-let _cachedBestModel  = null;   // string | null
+let _modelCacheTime = 0;
+let _cachedBestModel = null;   // string | null
 const MODEL_CACHE_TTL = 60 * 60 * 1000; // 1 hour in ms
 
 /**
@@ -79,7 +83,7 @@ async function fetchBestAvailableModel(apiKey) {
         // Filter: must contain "flash" in the name (case-insensitive), must
         // support generateContent, and must NOT be explicitly marked deprecated.
         const flashModels = models.filter(m => {
-            const name    = (m.name || '').toLowerCase();
+            const name = (m.name || '').toLowerCase();
             const methods = m.supportedGenerationMethods || [];
             return (
                 name.includes('flash') &&
@@ -109,7 +113,7 @@ async function fetchBestAvailableModel(apiKey) {
         console.log('[Gemini] Live model check selected:', best);
 
         _cachedBestModel = best;
-        _modelCacheTime  = now;
+        _modelCacheTime = now;
         return best;
 
     } catch (err) {
@@ -130,7 +134,6 @@ async function fetchBestAvailableModel(apiKey) {
  */
 function isModelNotFoundError(status, bodyText) {
     if (status === 404) return true;
-    // Gemini sometimes returns 400 with a specific message for unknown models
     if (status === 400) {
         const lower = (bodyText || '').toLowerCase();
         return (
@@ -142,6 +145,16 @@ function isModelNotFoundError(status, bodyText) {
         );
     }
     return false;
+}
+
+/**
+ * Returns true if the HTTP status indicates a transient/overload error
+ * (server-side issue on Google's end, not specific to the request or key).
+ * These are also safe to retry with the next model in the fallback chain,
+ * since a different model is served by different backend capacity.
+ */
+function isRetriableAcrossModels(status) {
+    return status === 500 || status === 502 || status === 503;
 }
 
 // ---------------------------------------------------------------------------
@@ -199,11 +212,17 @@ async function callGeminiWithFallback(payload, apiKey) {
         }
 
         // Not OK — decide whether to try the next model or abort
-        const status   = geminiRes.status;
+        const status = geminiRes.status;
         const bodyText = await geminiRes.text().catch(() => '');
 
         if (isModelNotFoundError(status, bodyText)) {
             console.warn(`[Gemini] Model "${model}" not available (${status}) — trying next in chain.`);
+            lastModelNotFoundCount++;
+            continue;   // try the next model
+        }
+
+        if (isRetriableAcrossModels(status)) {
+            console.warn(`[Gemini] Model "${model}" temporarily overloaded (${status}) — trying next in chain.`);
             lastModelNotFoundCount++;
             continue;   // try the next model
         }
@@ -219,19 +238,19 @@ async function callGeminiWithFallback(payload, apiKey) {
         // Any other error (bad request, auth, server error) → abort chain
         console.error(`[Gemini] Non-retriable error on model "${model}": ${status}`, bodyText.slice(0, 300));
         const err = new Error(`Gemini API error ${status}`);
-        err.code  = 'UPSTREAM';
+        err.code = 'UPSTREAM';
         err.status = status;
         throw err;
     }
 
-    // All models were tried and failed with "not found" errors
+    // All models were tried and failed with "not found" / overload errors
     console.error(
         '[Gemini] All models in fallback chain are unavailable — ' +
         'update MODEL_FALLBACK_CHAIN in api/chat.js. ' +
-        `(${lastModelNotFoundCount} models tried, all returned not-found errors.)`
+        `(${lastModelNotFoundCount} models tried, all returned not-found/overload errors.)`
     );
     const err = new Error('All Gemini models unavailable.');
-    err.code  = 'ALL_MODELS_FAILED';
+    err.code = 'ALL_MODELS_FAILED';
     throw err;
 }
 
