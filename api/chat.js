@@ -299,6 +299,7 @@ STRICT RULES YOU MUST FOLLOW:
 4. Always reply in the language indicated by the lang field ('en' for English, 'hi' for Hindi/Roman Hindi/Devanagari). If the user wrote in Hindi or used Hindi words, reply in Hindi.
 5. Be warm, professional, and helpful.
 6. Set "in_scope" to true if you answered a relevant business question, or false if you redirected due to being out of scope.
+7. Output ONLY the raw JSON object matching the required schema. Do NOT add any preamble text, explanation, or markdown code fences (no \`\`\`json) before or after the JSON. Your entire response must be valid, parseable JSON and nothing else.
 `;
 
 // ---------------------------------------------------------------------------
@@ -367,18 +368,32 @@ export default async function handler(req, res) {
         }
 
         // Parse the structured JSON the model returned.
-        // Some models (especially older fallback ones) wrap JSON output in
-        // markdown code fences even when responseMimeType is 'application/json',
-        // so strip those defensively before parsing.
+        // Some models (especially newer/experimental ones) ignore
+        // responseMimeType: 'application/json' and instead wrap the JSON in
+        // markdown code fences, sometimes preceded by conversational preamble
+        // text like "Here is the JSON requested:". We defensively extract the
+        // JSON object regardless of what surrounds it.
         let parsed;
         try {
-            const cleanedText = rawText
-                .trim()
-                .replace(/^```json\s*/i, '')
-                .replace(/^```\s*/, '')
-                .replace(/```\s*$/, '')
-                .trim();
-            parsed = JSON.parse(cleanedText);
+            let text = rawText.trim();
+
+            // Case 1: JSON wrapped in a ```json ... ``` or ``` ... ``` fence,
+            // possibly with preamble text before it — extract fence contents.
+            const fenceMatch = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+            if (fenceMatch) {
+                text = fenceMatch[1].trim();
+            } else {
+                // Case 2: no fences, but there may still be stray preamble/
+                // trailing text around the JSON object — extract the substring
+                // between the first '{' and the last '}'.
+                const braceStart = text.indexOf('{');
+                const braceEnd = text.lastIndexOf('}');
+                if (braceStart !== -1 && braceEnd !== -1 && braceEnd > braceStart) {
+                    text = text.slice(braceStart, braceEnd + 1);
+                }
+            }
+
+            parsed = JSON.parse(text);
         } catch (parseErr) {
             console.error('[api/chat] Could not parse model JSON output:', rawText);
             return res.status(502).json({ error: 'Could not parse AI response.' });
