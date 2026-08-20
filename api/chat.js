@@ -352,7 +352,7 @@ export default async function handler(req, res) {
                 required: ['in_scope', 'reply']
             },
             temperature: 0.3,
-            maxOutputTokens: 300
+            maxOutputTokens: 500
         }
     };
 
@@ -366,10 +366,19 @@ export default async function handler(req, res) {
             return res.status(502).json({ error: 'Unexpected response from AI.' });
         }
 
-        // Parse the structured JSON the model returned
+        // Parse the structured JSON the model returned.
+        // Some models (especially older fallback ones) wrap JSON output in
+        // markdown code fences even when responseMimeType is 'application/json',
+        // so strip those defensively before parsing.
         let parsed;
         try {
-            parsed = JSON.parse(rawText);
+            const cleanedText = rawText
+                .trim()
+                .replace(/^```json\s*/i, '')
+                .replace(/^```\s*/, '')
+                .replace(/```\s*$/, '')
+                .trim();
+            parsed = JSON.parse(cleanedText);
         } catch (parseErr) {
             console.error('[api/chat] Could not parse model JSON output:', rawText);
             return res.status(502).json({ error: 'Could not parse AI response.' });
