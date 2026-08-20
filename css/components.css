@@ -596,16 +596,12 @@ body.chat-open-mobile {
 .video-reel-card {
     transition: transform 0.35s ease, box-shadow 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    aspect-ratio: 9 / 16;
-    height: 100%;
-    max-height: 520px;
     width: auto;
     max-width: 100%;
 }
 
 @media (max-width: 640px) {
     .video-reel-card {
-        max-height: 380px;
         flex: 0 0 85%;
         scroll-snap-align: center;
     }
@@ -630,4 +626,28 @@ body.chat-open-mobile {
 
 .reel-mute-btn:active {
     transform: scale(0.95);
+}
+
+/* ---------- Chat Typing Indicator ---------- */
+@keyframes typing-bounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30%           { transform: translateY(-4px); opacity: 1; }
+}
+
+.typing-dots {
+    display: inline-flex;
+    gap: 3px;
+    letter-spacing: 2px;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.typing-dots > * {
+    display: inline-block;
+}
+
+/* Animate each dot character with a stagger using nth-child on text nodes —
+   since text nodes aren't elements, we animate the whole span with a pulse */
+.typing-dots {
+    animation: typing-bounce 1.2s ease-in-out infinite;
 }

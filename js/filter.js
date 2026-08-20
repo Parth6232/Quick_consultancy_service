@@ -29,6 +29,10 @@ function filterServices(evt, category) {
             _hideCard(card);
         }
     });
+
+    if (typeof window.filterVideos === 'function') {
+        window.filterVideos(category);
+    }
 }
 
 /** Make a card visible with a smooth fade-in. */

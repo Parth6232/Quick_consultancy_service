@@ -437,23 +437,19 @@ function sendChatMessage() {
 }
 
 function processUserMessage(rawText) {
-    if (!kbLoaded) {
-        // KB still loading or failed — show loading/fallback
-        const msg = currentLang === 'hi'
-            ? 'ज्ञान आधार लोड हो रहा है, कृपया एक क्षण बाद पुनः प्रयास करें।'
-            : 'Knowledge base is loading, please try again in a moment.';
-        addMessage(msg, 'bot');
-        return;
+    // --- Typing indicator ---
+    const typingEl = _createMsgEl('bot');
+    typingEl.innerHTML = '<span class="typing-dots">●&nbsp;●&nbsp;●</span>';
+    typingEl.dataset.typing = 'true';
+    _appendMsg(typingEl);
+
+    // Helper: remove the typing indicator bubble
+    function removeTyping() {
+        if (typingEl.parentNode) typingEl.parentNode.removeChild(typingEl);
     }
 
-    const result = findBestAnswer(rawText);
-
-    if (result) {
-        const answer = currentLang === 'hi' ? result.hi : result.en;
-        addMessage(answer, 'bot');
-    } else {
-        // Fallback: show "I don't know" + contact options
-        addMessage(currentLang === 'hi' ? FALLBACK.hi : FALLBACK.en, 'bot');
+    // Helper: show WhatsApp + Call action buttons
+    function showContactButtons() {
         addMessageHTML(`
             <div class="mt-2 flex flex-col gap-2">
                 <a href="https://wa.me/918109101811" target="_blank"
@@ -466,7 +462,57 @@ function processUserMessage(rawText) {
                 </a>
             </div>`, 'bot');
     }
+
+    // Helper: local KB fallback
+    function localFallback() {
+        if (!kbLoaded) {
+            addMessage(
+                currentLang === 'hi'
+                    ? 'ज्ञान आधार लोड हो रहा है, कृपया एक क्षण बाद पुनः प्रयास करें।'
+                    : 'Knowledge base is loading, please try again in a moment.',
+                'bot'
+            );
+            return;
+        }
+        const result = findBestAnswer(rawText);
+        if (result) {
+            addMessage(currentLang === 'hi' ? result.hi : result.en, 'bot');
+        } else {
+            addMessage(currentLang === 'hi' ? FALLBACK.hi : FALLBACK.en, 'bot');
+            showContactButtons();
+        }
+    }
+
+    // --- Call /api/chat ---
+    fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: rawText, lang: currentLang })
+    })
+    .then(res => {
+        if (!res.ok) throw new Error('API responded with status ' + res.status);
+        return res.json();
+    })
+    .then(result => {
+        removeTyping();
+        if (result && typeof result.reply === 'string' && result.reply.trim()) {
+            addMessage(result.reply.trim(), 'bot');
+            // If out-of-scope, show contact buttons as well
+            if (result.in_scope === false) {
+                showContactButtons();
+            }
+        } else {
+            // Malformed response — fall back to local KB
+            localFallback();
+        }
+    })
+    .catch(err => {
+        console.warn('[QuickBot] /api/chat failed, falling back to local KB:', err.message);
+        removeTyping();
+        localFallback();
+    });
 }
+
 
 /* =========================================================
    DOM helpers
