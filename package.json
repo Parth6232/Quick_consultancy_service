@@ -1,21 +1,32 @@
 {
-  "name": "quick_consultancy_service",
+  "name": "quick-consulting-services",
+  "private": true,
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Parth6232/Quick_consultancy_service.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "module",
-  "bugs": {
-    "url": "https://github.com/Parth6232/Quick_consultancy_service/issues"
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint ."
   },
-  "homepage": "https://github.com/Parth6232/Quick_consultancy_service#readme"
+  "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@hookform/resolvers": "^3.9.0",
+    "@reduxjs/toolkit": "^2.2.7",
+    "framer-motion": "^11.3.19",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.52.2",
+    "react-icons": "^5.2.1",
+    "react-redux": "^9.1.2",
+    "react-router-dom": "^6.26.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.40",
+    "tailwindcss": "^3.4.7",
+    "vite": "^5.3.5"
+  }
 }
