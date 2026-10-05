@@ -3,8 +3,9 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import emailjs from '@emailjs/browser'
+import { useSearchParams } from 'react-router-dom'
 import Icon from '../../utils/iconMap.jsx'
-import { CONTACT, SERVICE_OPTIONS } from '../../constant/siteData.js'
+import { CONTACT, SERVICE_OPTIONS, SERVICE_ID_TO_OPTION } from '../../constant/siteData.js'
 import { EMAILJS_CONFIG, isEmailjsConfigured } from '../../constant/emailjsConfig.js'
 
 const schema = z.object({
@@ -16,6 +17,12 @@ const schema = z.object({
 })
 
 const ConsultationForm = () => {
+  const [searchParams] = useSearchParams()
+  const queryServiceId = searchParams.get('service')
+  const defaultService = queryServiceId && SERVICE_ID_TO_OPTION[queryServiceId] 
+    ? SERVICE_ID_TO_OPTION[queryServiceId] 
+    : SERVICE_OPTIONS[0]
+
   const [successMsg, setSuccessMsg] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
   const [sending, setSending] = useState(false)
@@ -28,8 +35,11 @@ const ConsultationForm = () => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: { name: '', phone: '', service: SERVICE_OPTIONS[0] },
+    defaultValues: { name: '', phone: '', service: defaultService },
   })
+
+  // We don't necessarily want to force reset on every URL change, but just initialize with it.
+  // The defaultValues handles the initial mount.
 
   const showSuccess = (msg) => {
     setSuccessMsg(msg)
@@ -45,9 +55,6 @@ const ConsultationForm = () => {
   const onSubmitEmail = async (data) => {
     const phone = '+91' + data.phone
 
-    // Once EmailJS keys are added to src/constant/emailjsConfig.js, this
-    // sends the request straight to your inbox. Until then, it falls back
-    // to opening the visitor's email app (mailto).
     if (isEmailjsConfigured()) {
       setSending(true)
       try {

@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { AnimatePresence, motion } from 'framer-motion'
+import { useSearchParams } from 'react-router-dom'
 import Reveal from '../../common/Reveal.jsx'
 import GradientBorderCard from '../../common/GradientBorderCard.jsx'
 import Icon from '../../utils/iconMap.jsx'
@@ -9,8 +10,22 @@ import { SERVICES, SERVICE_CATEGORIES } from '../../constant/siteData.js'
 const ServicesContainer = () => {
   const dispatch = useDispatch()
   const active = useSelector((s) => s.services.activeCategory)
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const visible = active === 'all' ? SERVICES : SERVICES.filter((s) => s.id === active)
+
+  const handleCardClick = (serviceId) => {
+    const newParams = new URLSearchParams(searchParams)
+    newParams.set('service', serviceId)
+    setSearchParams(newParams, { replace: true })
+  }
+
+  const handleKeyDown = (e, serviceId) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      handleCardClick(serviceId)
+    }
+  }
 
   return (
     <section
@@ -53,21 +68,26 @@ const ServicesContainer = () => {
               whileHover={{ scale: 1.03, rotateX: 4, rotateY: -4, y: -6 }}
               transition={{ duration: 0.35, type: 'spring', stiffness: 220, damping: 20 }}
               style={{ transformStyle: 'preserve-3d' }}
+              onClick={() => handleCardClick(service.id)}
+              onKeyDown={(e) => handleKeyDown(e, service.id)}
+              tabIndex={0}
+              role="button"
+              className="cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-xl"
             >
-              <GradientBorderCard rounded="rounded-xl" className="shadow-sm hover:shadow-glossy-lg transition-shadow duration-300">
-                <div className="group relative overflow-hidden bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700/60 p-6 rounded-xl">
+              <GradientBorderCard rounded="rounded-xl" className="h-full shadow-sm hover:shadow-glossy-lg transition-shadow duration-300">
+                <div className="group relative overflow-hidden bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700/60 p-6 rounded-xl h-full flex flex-col">
                   {/* shine sweep on hover */}
                   <span className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
                   <motion.div
                     whileHover={{ rotate: 360, scale: 1.1 }}
                     transition={{ duration: 0.6 }}
-                    className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-500/10 group-hover:bg-blue-100 dark:group-hover:bg-blue-500/20 text-blue-600 dark:text-blue-400 text-xl flex items-center justify-center mb-4 transition-colors relative"
+                    className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-500/10 group-hover:bg-blue-100 dark:group-hover:bg-blue-500/20 text-blue-600 dark:text-blue-400 text-xl flex items-center justify-center mb-4 transition-colors relative shrink-0"
                   >
                     <Icon name={service.icon} />
                   </motion.div>
                   <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-white relative">{service.title}</h3>
-                  <ul className="text-xs md:text-sm text-gray-600 dark:text-gray-400 space-y-1.5 relative">
+                  <ul className="text-xs md:text-sm text-gray-600 dark:text-gray-400 space-y-1.5 relative flex-1 mb-4">
                     {service.items.map((item, idx) => (
                       <motion.li
                         key={item}
@@ -82,6 +102,11 @@ const ServicesContainer = () => {
                       </motion.li>
                     ))}
                   </ul>
+
+                  <div className="relative text-sm font-semibold text-blue-600 dark:text-blue-400 flex items-center mt-auto">
+                    Learn more 
+                    <Icon name="FaArrowLeft" className="ml-1 text-[10px] rotate-180 transition-transform group-hover:translate-x-1" />
+                  </div>
                 </div>
               </GradientBorderCard>
             </motion.div>
