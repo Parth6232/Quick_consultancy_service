@@ -8,6 +8,7 @@ import BlogDetailPage from '../pages/BlogDetailPage.jsx'
 import CreateBlogPage from '../pages/CreateBlogPage.jsx'
 import PortfolioPage from '../pages/PortfolioPage.jsx'
 import AddPortfolioPage from '../pages/AddPortfolioPage.jsx'
+import AllReviewsPage from '../pages/AllReviewsPage.jsx'
 import WriteReviewPage from '../pages/WriteReviewPage.jsx'
 import SignupPage from '../pages/SignupPage.jsx'
 import LoginPage from '../pages/LoginPage.jsx'
@@ -56,6 +57,9 @@ const AppRoutes = () => {
           </ProtectedAdminRoute>
         }
       />
+      {/* Reviews routes */}
+      <Route path="/reviews" element={<AllReviewsPage />} />
+      <Route path="/reviews/write" element={<WriteReviewPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/admin-login" element={<AdminLoginPage />} />

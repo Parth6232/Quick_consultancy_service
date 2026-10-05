@@ -14,6 +14,9 @@ export default {
           700: '#1d4ed8',
         },
       },
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'Noto Sans Devanagari', 'sans-serif'],
+      },
       boxShadow: {
         glossy: '0 8px 30px rgba(37, 99, 235, 0.15)',
         'glossy-lg': '0 20px 60px rgba(2, 6, 23, 0.35)',

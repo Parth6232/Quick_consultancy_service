@@ -45,6 +45,8 @@ import {
   FaPlay,
   FaPenToSquare,
   FaTrash,
+  FaCrown,
+  FaRightFromBracket,
 } from 'react-icons/fa6'
 
 export const ICONS = {
@@ -94,6 +96,8 @@ export const ICONS = {
   FaPlay,
   FaPenToSquare,
   FaTrash,
+  FaCrown,
+  FaRightFromBracket,
 }
 
 const Icon = ({ name, className = '' }) => {

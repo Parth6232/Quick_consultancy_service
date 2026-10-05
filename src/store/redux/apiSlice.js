@@ -120,15 +120,24 @@ export const apiSlice = createApi({
 
     // ── Review Endpoints ───────────────────────────────────────────────────
     getReviews: builder.query({
-      query: () => '/reviews',
+      query: ({ page = 1, limit = 6 } = {}) => `/reviews?page=${page}&limit=${limit}`,
       providesTags: (result) =>
-        result
-          ? [...result.map(({ _id }) => ({ type: 'Review', id: _id })), { type: 'Review', id: 'LIST' }]
+        result?.reviews
+          ? [
+              ...result.reviews.map(({ _id }) => ({ type: 'Review', id: _id })),
+              { type: 'Review', id: 'LIST' },
+            ]
           : [{ type: 'Review', id: 'LIST' }],
     }),
 
     createReview: builder.mutation({
       query: (body) => ({ url: '/reviews', method: 'POST', body }),
+      invalidatesTags: [{ type: 'Review', id: 'LIST' }],
+    }),
+
+    // Admin: review delete karna
+    deleteReview: builder.mutation({
+      query: (id) => ({ url: `/reviews/${id}`, method: 'DELETE' }),
       invalidatesTags: [{ type: 'Review', id: 'LIST' }],
     }),
 
@@ -157,5 +166,6 @@ export const {
   useDeletePortfolioMutation,
   useGetReviewsQuery,
   useCreateReviewMutation,
+  useDeleteReviewMutation,
   useSendChatMessageMutation,
 } = apiSlice

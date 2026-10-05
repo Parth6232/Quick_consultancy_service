@@ -10,12 +10,15 @@ import Button from '../../common/Button.jsx'
 import Icon from '../../utils/iconMap.jsx'
 import { useCreateReviewMutation } from '../../store/redux/apiSlice'
 
+// Static schema — English validation messages only
 const schema = z.object({
+  title: z.string().max(80).optional(),
   role: z.string().max(80).optional(),
   quote: z.string().min(10, 'Please write at least 10 characters').max(500),
   rating: z.number().min(1, 'Please select a rating').max(5),
 })
 
+// ─── Star Picker ──────────────────────────────────────────────────────────────
 const StarPicker = ({ value, onChange }) => {
   const [hover, setHover] = useState(0)
   return (
@@ -40,6 +43,18 @@ const StarPicker = ({ value, onChange }) => {
   )
 }
 
+// ─── Input field wrapper ──────────────────────────────────────────────────────
+const Field = ({ label, error, children }) => (
+  <div>
+    <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5">
+      {label}
+    </label>
+    {children}
+    {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
+  </div>
+)
+
+// ─── Main component ───────────────────────────────────────────────────────────
 const AddReviewContainer = () => {
   const navigate = useNavigate()
   const token = useSelector((s) => s.auth.token)
@@ -55,13 +70,18 @@ const AddReviewContainer = () => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: { role: '', quote: '', rating: 0 },
+    defaultValues: { title: '', role: '', quote: '', rating: 0 },
   })
 
   const onSubmit = async (data) => {
     setErrorMsg('')
     try {
-      await createReview(data).unwrap()
+      await createReview({
+        title: data.title || undefined,
+        role: data.role || undefined,
+        quote: data.quote,
+        rating: data.rating,
+      }).unwrap()
       setDone(true)
       setTimeout(() => navigate('/'), 1800)
     } catch (err) {
@@ -69,6 +89,7 @@ const AddReviewContainer = () => {
     }
   }
 
+  // Not logged in
   if (!token) {
     return (
       <section className="py-20 px-4 text-center min-h-[60vh] flex flex-col items-center justify-center">
@@ -88,7 +109,7 @@ const AddReviewContainer = () => {
   return (
     <section className="py-12 md:py-16 px-4 md:px-6 max-w-xl mx-auto min-h-screen">
       <Reveal className="text-center mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">Share your experience</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">Write a Review</h1>
         <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">
           Posting as <span className="font-semibold">{user?.name}</span>
         </p>
@@ -108,6 +129,7 @@ const AddReviewContainer = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-2xl p-6 md:p-8 shadow-sm space-y-5"
           >
+            {/* Rating */}
             <div>
               <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-2">
                 Your Rating
@@ -120,22 +142,30 @@ const AddReviewContainer = () => {
               {errors.rating && <p className="text-xs text-red-500 mt-1">{errors.rating.message}</p>}
             </div>
 
-            <div>
-              <label htmlFor="role" className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5">
-                Your Role / Company <span className="text-gray-400 font-normal">(optional)</span>
-              </label>
+            {/* Review title (optional) */}
+            <Field label="Review title (optional)" error={errors.title?.message}>
+              <input
+                id="title"
+                {...register('title')}
+                placeholder="e.g. Excellent service!"
+                maxLength={80}
+                className="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition"
+              />
+            </Field>
+
+            {/* Role */}
+            <Field label="Your role / company (optional)" error={errors.role?.message}>
               <input
                 id="role"
                 {...register('role')}
                 placeholder="e.g. Founder, TechSolutions"
+                maxLength={80}
                 className="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition"
               />
-            </div>
+            </Field>
 
-            <div>
-              <label htmlFor="quote" className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5">
-                Your Review
-              </label>
+            {/* Review body */}
+            <Field label="Your Review" error={errors.quote?.message}>
               <textarea
                 id="quote"
                 rows={4}
@@ -143,12 +173,16 @@ const AddReviewContainer = () => {
                 placeholder="Tell us about your experience..."
                 className="w-full px-4 py-2.5 rounded-xl bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 text-sm text-slate-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition resize-none"
               />
-              {errors.quote && <p className="text-xs text-red-500 mt-1">{errors.quote.message}</p>}
-            </div>
+            </Field>
 
             {errorMsg && <p className="text-xs text-red-500">{errorMsg}</p>}
 
-            <Button type="submit" variant="primary" className="w-full justify-center" disabled={isLoading}>
+            <Button
+              type="submit"
+              variant="primary"
+              className="w-full justify-center"
+              disabled={isLoading}
+            >
               {isLoading ? 'Submitting…' : 'Submit Review'}
               <Icon name="FaPaperPlane" className="text-xs" />
             </Button>

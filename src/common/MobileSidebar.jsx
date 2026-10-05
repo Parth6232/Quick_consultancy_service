@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../store/redux/slices/authSlice.js'
 import Icon from '../utils/iconMap.jsx'
 import logo from '../assets/logo.jpeg'
+import UserAvatar from './UserAvatar.jsx'
 
 const BASE_NAV_LINKS = [
   { label: 'Home', to: '/', icon: 'FaHouse' },
@@ -95,14 +96,25 @@ const MobileSidebar = ({ open, onClose }) => {
             {/* Auth footer */}
             <div className="px-3 py-4 border-t border-gray-100 dark:border-slate-800">
               {user ? (
-                <div className="flex items-center justify-between px-4">
-                  <span className="text-xs font-semibold text-slate-700 dark:text-gray-300 truncate max-w-[120px]">
-                    {isAdmin ? '👑 Admin' : user.name}
-                  </span>
+                <div className="flex flex-col gap-4 px-2">
+                  <div className="flex items-center gap-3">
+                    <UserAvatar name={user.name} size="lg" isAdmin={isAdmin} />
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-slate-900 dark:text-white truncate">{user.name}</p>
+                      {isAdmin ? (
+                        <p className="text-xs text-gray-500 dark:text-gray-400">Administrator</p>
+                      ) : (
+                        user.email && (
+                          <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user.email}</p>
+                        )
+                      )}
+                    </div>
+                  </div>
                   <button
                     onClick={handleLogout}
-                    className="cursor-pointer text-xs font-semibold text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition"
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-xl transition cursor-pointer"
                   >
+                    <Icon name="FaRightFromBracket" className="text-xs shrink-0" />
                     Logout
                   </button>
                 </div>
