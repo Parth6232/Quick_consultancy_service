@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion'
-import { useSelector } from 'react-redux'
-import { useSearchParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import Reveal from '../../common/Reveal.jsx'
 import TiltCard from '../../common/TiltCard.jsx'
 import GradientBorderCard from '../../common/GradientBorderCard.jsx'
 import Icon from '../../utils/iconMap.jsx'
 import { APPROACH_CARDS } from '../../constant/siteData.js'
+import { openService } from '../../store/redux/slices/servicesSlice.js'
 
 const Card = ({ icon, title, desc, serviceId, onClick }) => {
   const handleKeyDown = (e) => {
@@ -50,14 +50,12 @@ const Card = ({ icon, title, desc, serviceId, onClick }) => {
 
 const CarouselContainer = () => {
   const cards = [...APPROACH_CARDS, ...APPROACH_CARDS]
-  const [searchParams, setSearchParams] = useSearchParams()
+  const dispatch = useDispatch()
   const activeServiceId = useSelector((s) => s.services.activeServiceId)
 
   const handleCardClick = (serviceId) => {
     if (!serviceId) return
-    const newParams = new URLSearchParams(searchParams)
-    newParams.set('service', serviceId)
-    setSearchParams(newParams, { replace: true })
+    dispatch(openService(serviceId))
   }
 
   const isPanelOpen = !!activeServiceId

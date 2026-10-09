@@ -9,8 +9,8 @@ const ContactPage = () => {
 
   return (
     <div>
-      <FaqContainer />
       <ContactContainer />
+      <FaqContainer />
     </div>
   )
 }

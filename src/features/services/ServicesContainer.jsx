@@ -1,23 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useSearchParams } from 'react-router-dom'
 import Reveal from '../../common/Reveal.jsx'
 import GradientBorderCard from '../../common/GradientBorderCard.jsx'
 import Icon from '../../utils/iconMap.jsx'
-import { setCategory } from '../../store/redux/slices/servicesSlice.js'
+import { setCategory, openService } from '../../store/redux/slices/servicesSlice.js'
 import { SERVICES, SERVICE_CATEGORIES } from '../../constant/siteData.js'
 
 const ServicesContainer = () => {
   const dispatch = useDispatch()
   const active = useSelector((s) => s.services.activeCategory)
-  const [searchParams, setSearchParams] = useSearchParams()
 
   const visible = active === 'all' ? SERVICES : SERVICES.filter((s) => s.id === active)
 
   const handleCardClick = (serviceId) => {
-    const newParams = new URLSearchParams(searchParams)
-    newParams.set('service', serviceId)
-    setSearchParams(newParams, { replace: true })
+    dispatch(openService(serviceId))
   }
 
   const handleKeyDown = (e, serviceId) => {
