@@ -56,6 +56,17 @@ import {
   FaExpand,
   FaArrowRight,
   FaCamera,
+  FaEye,
+  FaEyeSlash,
+  FaClock,
+  FaLock,
+  FaInbox,
+  FaSpinner,
+  FaUsers,
+  FaMagnifyingGlass,
+  FaArrowUpRightFromSquare,
+  FaFileLines,
+  FaFileArrowDown,
 } from 'react-icons/fa6'
 
 export const ICONS = {
@@ -116,11 +127,28 @@ export const ICONS = {
   FaExpand,
   FaArrowRight,
   FaCamera,
+  FaEye,
+  FaEyeSlash,
+  FaClock,
+  FaLock,
+  FaInbox,
+  FaSpinner,
+  FaUsers,
+  FaMapMarkerAlt: FaLocationDot,
+  FaSearch: FaMagnifyingGlass,
+  FaCalendarAlt: FaCalendarDays,
+  FaCloudUploadAlt: FaCloudArrowUp,
+  FaExternalLinkAlt: FaArrowUpRightFromSquare,
+  FaFileAlt: FaFileLines,
+  FaFileDownload: FaFileArrowDown,
 }
 
 const Icon = ({ name, className = '' }) => {
   const Cmp = ICONS[name]
-  if (!Cmp) return null
+  if (!Cmp) {
+    console.warn(`Icon "${name}" is missing in iconMap.jsx`)
+    return null
+  }
   return <Cmp className={className} />
 }
 

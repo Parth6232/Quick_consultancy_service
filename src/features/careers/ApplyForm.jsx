@@ -141,9 +141,9 @@ const ApplyForm = ({ jobId }) => {
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {/* Name */}
-          <div>
+          <div className="min-w-0">
             <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
               Full Name <span className="text-red-500">*</span>
             </label>
@@ -157,7 +157,7 @@ const ApplyForm = ({ jobId }) => {
           </div>
 
           {/* Email */}
-          <div>
+          <div className="min-w-0">
             <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
               Email <span className="text-red-500">*</span>
             </label>
@@ -171,7 +171,7 @@ const ApplyForm = ({ jobId }) => {
           </div>
 
           {/* Phone */}
-          <div>
+          <div className="min-w-0">
             <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
               Phone <span className="text-red-500">*</span>
             </label>
@@ -185,7 +185,7 @@ const ApplyForm = ({ jobId }) => {
           </div>
           
           {/* Location */}
-          <div>
+          <div className="min-w-0">
             <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
               Current Location
             </label>
@@ -198,7 +198,7 @@ const ApplyForm = ({ jobId }) => {
           </div>
 
           {/* Experience */}
-          <div>
+          <div className="min-w-0">
             <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
               Experience
             </label>
@@ -211,7 +211,7 @@ const ApplyForm = ({ jobId }) => {
           </div>
 
           {/* Current Company */}
-          <div>
+          <div className="min-w-0">
             <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
               Current Company
             </label>
@@ -224,7 +224,7 @@ const ApplyForm = ({ jobId }) => {
           </div>
 
           {/* Notice Period */}
-          <div>
+          <div className="min-w-0">
             <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
               Notice Period
             </label>
@@ -237,7 +237,7 @@ const ApplyForm = ({ jobId }) => {
           </div>
 
           {/* LinkedIn */}
-          <div>
+          <div className="min-w-0">
             <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
               LinkedIn Profile
             </label>

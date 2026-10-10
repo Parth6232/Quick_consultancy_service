@@ -6,6 +6,7 @@ import * as z from 'zod'
 import { useCreateJobMutation, useUpdateJobMutation, useGetJobByIdQuery } from '../../store/redux/apiSlice'
 import Reveal from '../../common/Reveal'
 import Icon from '../../utils/iconMap'
+import { unescapeNewlines } from '../../utils/formatText'
 
 const jobSchema = z.object({
   title: z.string().min(3, 'Title must be at least 3 characters'),
@@ -63,7 +64,7 @@ const CreateJobContainer = () => {
         experience: jobData.experience || '',
         salary: jobData.salary || '',
         skills: jobData.skills ? jobData.skills.join(', ') : '',
-        description: jobData.description || '',
+        description: unescapeNewlines(jobData.description) || '',
         isActive: jobData.isActive ?? true,
       })
     }

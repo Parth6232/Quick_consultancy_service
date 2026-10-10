@@ -8,6 +8,7 @@ import GradientBorderCard from '../../common/GradientBorderCard.jsx'
 import Reveal from '../../common/Reveal.jsx'
 import Icon from '../../utils/iconMap.jsx'
 import timeAgo from '../../utils/timeAgo.js'
+import { unescapeNewlines } from '../../utils/formatText'
 
 // ── Skeleton Card ──────────────────────────────────────────────────────────
 const SkeletonCard = () => (
@@ -111,8 +112,8 @@ const JobCard = ({ job, index, isAdmin }) => {
                 )}
               </div>
 
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1 line-clamp-3">
-                {job.description}
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1 line-clamp-3 whitespace-pre-line break-words">
+                {unescapeNewlines(job.description)}
               </p>
 
               {job.skills?.length > 0 && (
