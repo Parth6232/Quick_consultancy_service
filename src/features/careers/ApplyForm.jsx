@@ -128,7 +128,7 @@ const ApplyForm = ({ jobId }) => {
   }
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700/60 p-6 md:p-8">
+    <div className="w-full bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700/60 p-5 sm:p-6 lg:p-8">
       <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
         <Icon name="FaPaperPlane" className="text-blue-500" /> Apply for this Job
       </h3>
@@ -150,21 +150,21 @@ const ApplyForm = ({ jobId }) => {
             <input
               {...register('name')}
               type="text"
-              className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
+              className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
               placeholder="John Doe"
             />
             {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>}
           </div>
 
           {/* Email */}
-          <div className="min-w-0">
+          <div className="min-w-0 sm:col-span-2">
             <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
               Email <span className="text-red-500">*</span>
             </label>
             <input
               {...register('email')}
               type="email"
-              className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
+              className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
               placeholder="john@example.com"
             />
             {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
@@ -178,7 +178,7 @@ const ApplyForm = ({ jobId }) => {
             <input
               {...register('phone')}
               type="tel"
-              className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
+              className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
               placeholder="+1 234 567 8900"
             />
             {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone.message}</p>}
@@ -192,7 +192,7 @@ const ApplyForm = ({ jobId }) => {
             <input
               {...register('currentLocation')}
               type="text"
-              className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
+              className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
               placeholder="City, Country"
             />
           </div>
@@ -205,7 +205,7 @@ const ApplyForm = ({ jobId }) => {
             <input
               {...register('experience')}
               type="text"
-              className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
+              className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
               placeholder="e.g. 3 Years"
             />
           </div>
@@ -218,7 +218,7 @@ const ApplyForm = ({ jobId }) => {
             <input
               {...register('currentCompany')}
               type="text"
-              className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
+              className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
               placeholder="Company Name"
             />
           </div>
@@ -231,20 +231,20 @@ const ApplyForm = ({ jobId }) => {
             <input
               {...register('noticePeriod')}
               type="text"
-              className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
+              className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
               placeholder="e.g. 30 Days"
             />
           </div>
 
           {/* LinkedIn */}
-          <div className="min-w-0">
+          <div className="min-w-0 sm:col-span-2">
             <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
               LinkedIn Profile
             </label>
             <input
               {...register('linkedin')}
               type="url"
-              className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
+              className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow"
               placeholder="https://linkedin.com/in/..."
             />
             {errors.linkedin && <p className="mt-1 text-xs text-red-500">{errors.linkedin.message}</p>}
@@ -259,7 +259,7 @@ const ApplyForm = ({ jobId }) => {
           
           {!resumeFile ? (
             <div
-              className={`relative border-2 border-dashed rounded-xl p-6 text-center transition-colors
+              className={`relative border-2 border-dashed rounded-xl p-6 text-center transition-colors min-h-[120px] flex flex-col justify-center
                 ${fileError ? 'border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/10' : 'border-blue-200 dark:border-blue-800/50 bg-blue-50/50 dark:bg-slate-900/50 hover:bg-blue-50 dark:hover:bg-slate-800'}
               `}
             >
@@ -309,7 +309,7 @@ const ApplyForm = ({ jobId }) => {
           <textarea
             {...register('coverLetter')}
             rows="4"
-            className="w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow resize-y"
+            className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-700 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:text-white transition-shadow resize-y"
             placeholder="Introduce yourself and explain why you'd be a great fit..."
           />
           {errors.coverLetter && <p className="mt-1 text-xs text-red-500">{errors.coverLetter.message}</p>}

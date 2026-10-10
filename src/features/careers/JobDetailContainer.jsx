@@ -61,7 +61,7 @@ const JobDetailContainer = () => {
   }
 
   return (
-    <section className="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-20 min-h-screen">
+    <section className="max-w-[1400px] mx-auto px-4 md:px-6 py-12 md:py-20 min-h-screen">
       <Reveal>
         <Link to="/careers" className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 mb-8 transition-colors">
           <Icon name="FaArrowLeft" /> Back to all jobs
@@ -144,9 +144,9 @@ const JobDetailContainer = () => {
         </div>
       </Reveal>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         {/* Left: Job Details */}
-        <div className="lg:col-span-3 space-y-10">
+        <div className="lg:col-span-6 w-full min-w-0 space-y-10">
           <Reveal delay={0.2}>
             <div>
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Role Description</h2>
@@ -189,8 +189,8 @@ const JobDetailContainer = () => {
         </div>
 
         {/* Right: Application Form */}
-        <div className="lg:col-span-2">
-          <Reveal delay={0.5} className="lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto custom-scrollbar pr-1">
+        <div className="lg:col-span-6 w-full min-w-0">
+          <Reveal delay={0.5}>
             {job.isActive ? (
               <ApplyForm jobId={job._id} />
             ) : (
