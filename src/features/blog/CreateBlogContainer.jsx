@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCreateBlogMutation, useUpdateBlogMutation, useGetBlogByIdQuery } from '../../store/redux/apiSlice'
@@ -9,7 +9,6 @@ import Icon from '../../utils/iconMap.jsx'
 const FIELDS = [
   { id: 'title', label: 'Post Title', type: 'text', placeholder: 'e.g. Top 5 Tax-Saving Strategies for 2025', required: true },
   { id: 'author', label: 'Author Name', type: 'text', placeholder: 'e.g. QCS Editorial Team', required: false },
-  { id: 'image', label: 'Cover Image URL', type: 'url', placeholder: 'https://…', required: false },
 ]
 
 const CreateBlogContainer = () => {
@@ -22,9 +21,16 @@ const CreateBlogContainer = () => {
   const [updateBlog, { isLoading: isUpdating }] = useUpdateBlogMutation()
   const isSaving = isCreating || isUpdating
 
-  const [form, setForm] = useState({ title: '', author: '', image: '', content: '' })
+  const [form, setForm] = useState({ title: '', author: '', content: '' })
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
+
+  // Image states
+  const [imageFile, setImageFile] = useState(null)
+  const [imagePreview, setImagePreview] = useState('')
+  const [removeImage, setRemoveImage] = useState(false)
+  
+  const fileInputRef = useRef(null)
 
   // Edit mode mein existing post load hote hi form prefill karo
   useEffect(() => {
@@ -32,13 +38,66 @@ const CreateBlogContainer = () => {
       setForm({
         title: existingPost.title || '',
         author: existingPost.author || '',
-        image: existingPost.image || '',
         content: existingPost.content || '',
       })
+      if (existingPost.image) {
+        setImagePreview(existingPost.image)
+        setRemoveImage(false)
+      }
     }
   }, [isEditMode, existingPost])
 
+  // Cleanup object URLs
+  useEffect(() => {
+    return () => {
+      if (imageFile && imagePreview && !imagePreview.startsWith('http')) {
+        URL.revokeObjectURL(imagePreview)
+      }
+    }
+  }, [imageFile, imagePreview])
+
   const handleChange = (e) => setForm((f) => ({ ...f, [e.target.id]: e.target.value }))
+
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    processFile(file)
+  }
+
+  const handleDrop = (e) => {
+    e.preventDefault()
+    const file = e.dataTransfer.files?.[0]
+    if (!file) return
+    processFile(file)
+  }
+  
+  const processFile = (file) => {
+    setError('')
+    if (!file.type.startsWith('image/')) {
+      setError('Please select a valid image file.')
+      return
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      setError('Image must be less than 10MB.')
+      return
+    }
+    if (imageFile && imagePreview && !imagePreview.startsWith('http')) {
+      URL.revokeObjectURL(imagePreview)
+    }
+    setImageFile(file)
+    setImagePreview(URL.createObjectURL(file))
+    setRemoveImage(false)
+  }
+
+  const handleRemoveImage = () => {
+    if (imageFile && imagePreview && !imagePreview.startsWith('http')) {
+      URL.revokeObjectURL(imagePreview)
+    }
+    setImageFile(null)
+    setImagePreview('')
+    setRemoveImage(true)
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -47,18 +106,30 @@ const CreateBlogContainer = () => {
       setError('Title and Content are required.')
       return
     }
+
+    const formData = new FormData()
+    formData.append('title', form.title)
+    if (form.author) formData.append('author', form.author)
+    formData.append('content', form.content)
+    
+    if (imageFile) {
+      formData.append('image', imageFile)
+    } else if (removeImage) {
+      formData.append('removeImage', 'true')
+    }
+
     try {
       if (isEditMode) {
-        await updateBlog({ id, ...form }).unwrap()
+        await updateBlog({ id, body: formData }).unwrap()
         setSuccess(true)
         setTimeout(() => navigate(`/blog/${id}`), 1200)
       } else {
-        await createBlog(form).unwrap()
+        await createBlog(formData).unwrap()
         setSuccess(true)
         setTimeout(() => navigate('/blog'), 1200)
       }
-    } catch {
-      setError(isEditMode ? 'Failed to update. Please try again.' : 'Failed to publish. Please try again.')
+    } catch (err) {
+      setError(err?.data?.message || (isEditMode ? 'Failed to update. Please try again.' : 'Failed to publish. Please try again.'))
     }
   }
 
@@ -113,6 +184,52 @@ const CreateBlogContainer = () => {
             </div>
           ))}
 
+          {/* Cover Image Upload Area */}
+          <div>
+            <label className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5">
+              Cover Image (Max 10MB)
+            </label>
+            {!imagePreview ? (
+              <div
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={handleDrop}
+                onClick={() => fileInputRef.current?.click()}
+                className="border-2 border-dashed border-gray-300 dark:border-slate-600 rounded-2xl p-6 text-center cursor-pointer hover:border-blue-500 dark:hover:border-blue-400 transition bg-gray-50 dark:bg-slate-700/50"
+              >
+                <Icon name="FaCloudArrowUp" className="text-3xl text-gray-400 dark:text-gray-500 mx-auto mb-2" />
+                <p className="text-sm font-medium text-slate-700 dark:text-gray-300">Click or drag image to upload</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">JPEG, PNG, WEBP</p>
+              </div>
+            ) : (
+              <div className="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-slate-600 group w-full max-w-sm mx-auto">
+                <img src={imagePreview} alt="Preview" className="w-full h-48 object-cover" />
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-3 backdrop-blur-sm">
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="px-3 py-1.5 bg-white text-slate-900 rounded-lg text-xs font-semibold hover:bg-gray-100 transition"
+                  >
+                    Replace
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleRemoveImage}
+                    className="px-3 py-1.5 bg-red-500 text-white rounded-lg text-xs font-semibold hover:bg-red-600 transition"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            )}
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+            />
+          </div>
+
           <div>
             <label htmlFor="content" className="block text-xs font-semibold text-gray-600 dark:text-gray-300 mb-1.5">
               Content <span className="text-red-400">*</span>
@@ -155,7 +272,7 @@ const CreateBlogContainer = () => {
             className="w-full py-3 rounded-xl text-sm"
             disabled={isSaving || success}
           >
-            {isSaving ? (isEditMode ? 'Updating…' : 'Publishing…') : (isEditMode ? 'Update Post' : 'Publish Post')}
+            {isSaving ? (isEditMode ? 'Updating…' : 'Uploading & Publishing…') : (isEditMode ? 'Update Post' : 'Publish Post')}
             <Icon name="FaPaperPlane" className="text-xs" />
           </Button>
         </form>

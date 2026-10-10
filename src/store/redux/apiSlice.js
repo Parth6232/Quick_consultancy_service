@@ -46,7 +46,7 @@ export const apiSlice = createApi({
 
     // Admin: blog post edit karna
     updateBlog: builder.mutation({
-      query: ({ id, ...body }) => ({ url: `/blogs/${id}`, method: 'PATCH', body }),
+      query: ({ id, body }) => ({ url: `/blogs/${id}`, method: 'PATCH', body }),
       invalidatesTags: (result, error, { id }) => [
         { type: 'Blog', id },
         { type: 'Blog', id: 'LIST' },
@@ -102,7 +102,7 @@ export const apiSlice = createApi({
 
     // Admin: portfolio project edit karna
     updatePortfolio: builder.mutation({
-      query: ({ id, ...body }) => ({ url: `/portfolio/${id}`, method: 'PATCH', body }),
+      query: ({ id, body }) => ({ url: `/portfolio/${id}`, method: 'PATCH', body }),
       invalidatesTags: (result, error, { id }) => [
         { type: 'Portfolio', id },
         { type: 'Portfolio', id: 'LIST' },

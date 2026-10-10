@@ -7,6 +7,7 @@ import BlogPage from '../pages/BlogPage.jsx'
 import BlogDetailPage from '../pages/BlogDetailPage.jsx'
 import CreateBlogPage from '../pages/CreateBlogPage.jsx'
 import PortfolioPage from '../pages/PortfolioPage.jsx'
+import PortfolioDetailPage from '../pages/PortfolioDetailPage.jsx'
 import AddPortfolioPage from '../pages/AddPortfolioPage.jsx'
 import AllReviewsPage from '../pages/AllReviewsPage.jsx'
 import WriteReviewPage from '../pages/WriteReviewPage.jsx'
@@ -57,6 +58,7 @@ const AppRoutes = () => {
           </ProtectedAdminRoute>
         }
       />
+      <Route path="/portfolio/:id" element={<PortfolioDetailPage />} />
       {/* Reviews routes */}
       <Route path="/reviews" element={<AllReviewsPage />} />
       <Route path="/reviews/write" element={<WriteReviewPage />} />

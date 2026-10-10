@@ -47,6 +47,15 @@ import {
   FaTrash,
   FaCrown,
   FaRightFromBracket,
+  FaImage,
+  FaVideo,
+  FaCloudArrowUp,
+  FaPause,
+  FaChevronLeft,
+  FaChevronRight,
+  FaExpand,
+  FaArrowRight,
+  FaCamera,
 } from 'react-icons/fa6'
 
 export const ICONS = {
@@ -98,6 +107,15 @@ export const ICONS = {
   FaTrash,
   FaCrown,
   FaRightFromBracket,
+  FaImage,
+  FaVideo,
+  FaCloudArrowUp,
+  FaPause,
+  FaChevronLeft,
+  FaChevronRight,
+  FaExpand,
+  FaArrowRight,
+  FaCamera,
 }
 
 const Icon = ({ name, className = '' }) => {

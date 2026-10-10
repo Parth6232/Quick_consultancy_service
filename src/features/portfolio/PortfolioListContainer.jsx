@@ -15,10 +15,14 @@ const SkeletonCard = () => (
 )
 
 // ── Flip Card Front ────────────────────────────────────────────────────────
-const CardFront = ({ item }) => (
+const CardFront = ({ item }) => {
+  const cover = item.images?.[0] || item.image
+  const imgCount = item.images?.length || (item.image ? 1 : 0)
+  const vidCount = item.videos?.length || 0
+  return (
   <div className="w-full h-full relative overflow-hidden rounded-2xl bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700/60 shadow-sm">
-    {item.image ? (
-      <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+    {cover ? (
+      <img src={cover} alt={item.title} className="w-full h-full object-cover" loading="lazy" />
     ) : (
       <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-emerald-50 dark:from-blue-950 dark:to-emerald-950">
         <Icon name="FaBriefcase" className="text-5xl text-blue-300 dark:text-blue-700" />
@@ -32,6 +36,21 @@ const CardFront = ({ item }) => (
         {item.category}
       </span>
     )}
+    {/* Media counts */}
+    {(imgCount > 1 || vidCount > 0) && (
+      <div className="absolute top-3 right-3 flex items-center gap-1.5">
+        {imgCount > 1 && (
+          <span className="flex items-center gap-1 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+            <Icon name="FaImage" className="text-[9px]" />{imgCount}
+          </span>
+        )}
+        {vidCount > 0 && (
+          <span className="flex items-center gap-1 bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+            <Icon name="FaVideo" className="text-[9px]" />{vidCount}
+          </span>
+        )}
+      </div>
+    )}
     {/* Title */}
     <div className="absolute bottom-0 left-0 right-0 p-4">
       <h3 className="text-white font-bold text-base leading-snug">{item.title}</h3>
@@ -41,7 +60,8 @@ const CardFront = ({ item }) => (
       </p>
     </div>
   </div>
-)
+  )
+}
 
 // ── Flip Card Back ─────────────────────────────────────────────────────────
 const CardBack = ({ item }) => (
@@ -80,6 +100,14 @@ const CardBack = ({ item }) => (
           Visit Project
         </a>
       )}
+      <Link
+        to={`/portfolio/${item._id}`}
+        onClick={(e) => e.stopPropagation()}
+        className="inline-flex items-center gap-2 mt-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-4 py-2 rounded-xl transition active:scale-95 border border-white/20"
+      >
+        <Icon name="FaExpand" className="text-[10px]" />
+        View Details
+      </Link>
     </div>
   </div>
 )
