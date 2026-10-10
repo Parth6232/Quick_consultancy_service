@@ -81,6 +81,20 @@ const UserDropdown = ({ user, onClose }) => {
             <Icon name="FaBriefcase" className="text-blue-500 text-xs shrink-0" />
             Add Portfolio
           </button>
+          <button
+            onClick={() => handleNav('/careers/create')}
+            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-slate-700 transition cursor-pointer text-left"
+          >
+            <Icon name="FaPlus" className="text-blue-500 text-xs shrink-0" />
+            Post a Job
+          </button>
+          <button
+            onClick={() => handleNav('/admin/applications')}
+            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-slate-700 transition cursor-pointer text-left"
+          >
+            <Icon name="FaUsers" className="text-blue-500 text-xs shrink-0" />
+            Job Applications
+          </button>
         </div>
       )}
 
@@ -186,6 +200,7 @@ const Header = () => {
           <Link to="/services"  className="nav-link cursor-pointer">Services</Link>
           <Link to="/blog"      className="nav-link cursor-pointer">Blog</Link>
           <Link to="/portfolio" className="nav-link cursor-pointer">Portfolio</Link>
+          <Link to="/careers"   className="nav-link cursor-pointer">Careers</Link>
           <Link to="/contact"   className="nav-link cursor-pointer">Contact</Link>
         </div>
 

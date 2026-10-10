@@ -12,7 +12,7 @@ export const apiSlice = createApi({
       return headers
     }
   }),
-  tagTypes: ['Blog', 'Portfolio', 'Review'],
+  tagTypes: ['Blog', 'Portfolio', 'Review', 'Job', 'Application'],
   endpoints: (builder) => ({
     // ── Auth Endpoints ─────────────────────────────────────────────────────
     registerUser: builder.mutation({
@@ -145,6 +145,93 @@ export const apiSlice = createApi({
     sendChatMessage: builder.mutation({
       query: (body) => ({ url: '/chat', method: 'POST', body }),
     }),
+    // ── Job Endpoints ──────────────────────────────────────────────────────
+    getJobs: builder.query({
+      query: () => '/jobs',
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ _id }) => ({ type: 'Job', id: _id })),
+              { type: 'Job', id: 'LIST' },
+            ]
+          : [{ type: 'Job', id: 'LIST' }],
+    }),
+    getAllJobsAdmin: builder.query({
+      query: () => '/jobs/admin/all',
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ _id }) => ({ type: 'Job', id: _id })),
+              { type: 'Job', id: 'LIST' },
+            ]
+          : [{ type: 'Job', id: 'LIST' }],
+    }),
+    getJobById: builder.query({
+      query: (id) => `/jobs/${id}`,
+      providesTags: (result, error, id) => [{ type: 'Job', id }],
+    }),
+    createJob: builder.mutation({
+      query: (body) => ({ url: '/jobs', method: 'POST', body }),
+      invalidatesTags: [{ type: 'Job', id: 'LIST' }],
+    }),
+    updateJob: builder.mutation({
+      query: ({ id, body }) => ({ url: `/jobs/${id}`, method: 'PATCH', body }),
+      invalidatesTags: (result, error, { id }) => [
+        { type: 'Job', id },
+        { type: 'Job', id: 'LIST' },
+      ],
+    }),
+    deleteJob: builder.mutation({
+      query: (id) => ({ url: `/jobs/${id}`, method: 'DELETE' }),
+      invalidatesTags: (result, error, id) => [
+        { type: 'Job', id },
+        { type: 'Job', id: 'LIST' },
+      ],
+    }),
+
+    // ── Application Endpoints ──────────────────────────────────────────────
+    applyToJob: builder.mutation({
+      query: ({ jobId, body }) => ({ url: `/applications/apply/${jobId}`, method: 'POST', body }),
+      // Invalidate Application LIST so admin dashboard updates, though this is public
+      invalidatesTags: [{ type: 'Application', id: 'LIST' }],
+    }),
+    getApplications: builder.query({
+      query: (params) => {
+        let qs = '';
+        if (params) {
+          const search = new URLSearchParams();
+          if (params.job) search.append('job', params.job);
+          if (params.status) search.append('status', params.status);
+          qs = search.toString() ? `?${search.toString()}` : '';
+        }
+        return `/applications${qs}`;
+      },
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ _id }) => ({ type: 'Application', id: _id })),
+              { type: 'Application', id: 'LIST' },
+            ]
+          : [{ type: 'Application', id: 'LIST' }],
+    }),
+    getApplicationById: builder.query({
+      query: (id) => `/applications/${id}`,
+      providesTags: (result, error, id) => [{ type: 'Application', id }],
+    }),
+    updateApplicationStatus: builder.mutation({
+      query: ({ id, status }) => ({ url: `/applications/${id}/status`, method: 'PATCH', body: { status } }),
+      invalidatesTags: (result, error, { id }) => [
+        { type: 'Application', id },
+        { type: 'Application', id: 'LIST' },
+      ],
+    }),
+    deleteApplication: builder.mutation({
+      query: (id) => ({ url: `/applications/${id}`, method: 'DELETE' }),
+      invalidatesTags: (result, error, id) => [
+        { type: 'Application', id },
+        { type: 'Application', id: 'LIST' },
+      ],
+    }),
   }),
 })
 
@@ -168,4 +255,15 @@ export const {
   useCreateReviewMutation,
   useDeleteReviewMutation,
   useSendChatMessageMutation,
+  useGetJobsQuery,
+  useGetAllJobsAdminQuery,
+  useGetJobByIdQuery,
+  useCreateJobMutation,
+  useUpdateJobMutation,
+  useDeleteJobMutation,
+  useApplyToJobMutation,
+  useGetApplicationsQuery,
+  useGetApplicationByIdQuery,
+  useUpdateApplicationStatusMutation,
+  useDeleteApplicationMutation,
 } = apiSlice

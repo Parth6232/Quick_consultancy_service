@@ -14,6 +14,7 @@ const BASE_NAV_LINKS = [
   { label: 'Services', to: '/services', icon: 'FaChartLine' },
   { label: 'Blog', to: '/blog', icon: 'FaNewspaper' },
   { label: 'Portfolio', to: '/portfolio', icon: 'FaBriefcase' },
+  { label: 'Careers', to: '/careers', icon: 'FaBriefcase' },
   { label: 'Contact', to: '/contact', icon: 'FaEnvelope' },
 ]
 

@@ -15,6 +15,10 @@ import SignupPage from '../pages/SignupPage.jsx'
 import LoginPage from '../pages/LoginPage.jsx'
 import AdminLoginPage from '../pages/AdminLoginPage.jsx'
 import ProtectedAdminRoute from '../common/ProtectedAdminRoute.jsx'
+import CareersPage from '../pages/CareersPage.jsx'
+import JobDetailPage from '../pages/JobDetailPage.jsx'
+import CreateJobPage from '../pages/CreateJobPage.jsx'
+import AdminApplicationsPage from '../pages/AdminApplicationsPage.jsx'
 
 const AppRoutes = () => {
   return (
@@ -65,6 +69,32 @@ const AppRoutes = () => {
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/admin-login" element={<AdminLoginPage />} />
+      <Route path="/careers" element={<CareersPage />} />
+      <Route
+        path="/careers/create"
+        element={
+          <ProtectedAdminRoute>
+            <CreateJobPage />
+          </ProtectedAdminRoute>
+        }
+      />
+      <Route
+        path="/careers/edit/:id"
+        element={
+          <ProtectedAdminRoute>
+            <CreateJobPage />
+          </ProtectedAdminRoute>
+        }
+      />
+      <Route path="/careers/:id" element={<JobDetailPage />} />
+      <Route
+        path="/admin/applications"
+        element={
+          <ProtectedAdminRoute>
+            <AdminApplicationsPage />
+          </ProtectedAdminRoute>
+        }
+      />
       <Route path="*" element={<HomePage />} />
     </Routes>
   )
