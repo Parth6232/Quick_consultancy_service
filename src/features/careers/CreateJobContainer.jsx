@@ -30,6 +30,11 @@ const CreateJobContainer = () => {
   const [updateJob, { isLoading: isUpdating }] = useUpdateJobMutation()
 
   const [serverError, setServerError] = useState(null)
+  const [coverImageFile, setCoverImageFile] = useState(null)
+  const [previewUrl, setPreviewUrl] = useState('')
+  const [removeCoverImage, setRemoveCoverImage] = useState(false)
+  const [imageError, setImageError] = useState(null)
+  const [isDragging, setIsDragging] = useState(false)
 
   const {
     register,
@@ -67,27 +72,113 @@ const CreateJobContainer = () => {
         description: unescapeNewlines(jobData.description) || '',
         isActive: jobData.isActive ?? true,
       })
+      if (jobData.coverImage) {
+        setPreviewUrl(jobData.coverImage)
+        setRemoveCoverImage(false)
+        setCoverImageFile(null)
+      }
     }
   }, [isEditMode, jobData, reset])
 
+  // Cleanup object URLs on unmount or replace
+  useEffect(() => {
+    return () => {
+      if (previewUrl && previewUrl.startsWith('blob:')) {
+        URL.revokeObjectURL(previewUrl)
+      }
+    }
+  }, [previewUrl])
+
+  const handleFileChange = (file) => {
+    setImageError(null)
+    if (!file) return
+
+    if (!file.type.startsWith('image/')) {
+      setImageError('Only image files (JPG, PNG, WebP) are allowed.')
+      return
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      setImageError('Image size must be less than or equal to 10MB.')
+      return
+    }
+
+    if (previewUrl && previewUrl.startsWith('blob:')) {
+      URL.revokeObjectURL(previewUrl)
+    }
+
+    setCoverImageFile(file)
+    setPreviewUrl(URL.createObjectURL(file))
+    setRemoveCoverImage(false)
+  }
+
+  const handleDragOver = (e) => {
+    e.preventDefault()
+    setIsDragging(true)
+  }
+
+  const handleDragLeave = (e) => {
+    e.preventDefault()
+    setIsDragging(false)
+  }
+
+  const handleDrop = (e) => {
+    e.preventDefault()
+    setIsDragging(false)
+    const file = e.dataTransfer.files?.[0]
+    if (file) {
+      handleFileChange(file)
+    }
+  }
+
+  const handleRemoveImage = () => {
+    if (previewUrl && previewUrl.startsWith('blob:')) {
+      URL.revokeObjectURL(previewUrl)
+    }
+    setCoverImageFile(null)
+    setPreviewUrl('')
+    setImageError(null)
+    if (isEditMode) {
+      setRemoveCoverImage(true)
+    }
+  }
+
   const onSubmit = async (data) => {
     setServerError(null)
-    
-    // Process skills: split by comma, trim, remove empty
-    const skillsArray = data.skills
-      ? data.skills.split(',').map(s => s.trim()).filter(s => s)
-      : []
 
-    const payload = {
-      ...data,
-      skills: skillsArray,
+    // Process skills: split by comma, trim, filter non-empty, join as ONE comma-separated string
+    const skillsString = data.skills
+      ? data.skills.split(',').map(s => s.trim()).filter(Boolean).join(', ')
+      : ''
+
+    const formData = new FormData()
+    formData.append('title', data.title || '')
+    formData.append('department', data.department || '')
+    formData.append('location', data.location || '')
+    formData.append('jobType', data.jobType || 'Full-time')
+    formData.append('experience', data.experience || '')
+    formData.append('salary', data.salary || '')
+    formData.append('skills', skillsString)
+    formData.append('description', data.description || '')
+
+    if (isEditMode) {
+      formData.append('isActive', String(Boolean(data.isActive)))
+      if (coverImageFile) {
+        formData.append('coverImage', coverImageFile)
+      } else if (removeCoverImage) {
+        formData.append('removeCoverImage', 'true')
+      }
+    } else {
+      if (coverImageFile) {
+        formData.append('coverImage', coverImageFile)
+      }
     }
 
     try {
       if (isEditMode) {
-        await updateJob({ id, body: payload }).unwrap()
+        await updateJob({ id, body: formData }).unwrap()
       } else {
-        await createJob(payload).unwrap()
+        await createJob(formData).unwrap()
       }
       navigate('/careers')
     } catch (err) {
@@ -137,6 +228,115 @@ const CreateJobContainer = () => {
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Cover Image */}
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
+                  Cover Image <span className="text-gray-400 font-normal">(optional)</span>
+                </label>
+
+                {previewUrl ? (
+                  <div className="space-y-3">
+                    <div className="relative aspect-[2/1] max-w-md rounded-xl overflow-hidden border border-gray-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 group shadow-sm">
+                      <img
+                        src={previewUrl}
+                        alt="Cover preview"
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                        <label
+                          htmlFor="coverImageInput"
+                          className="cursor-pointer px-3.5 py-1.5 bg-white/90 hover:bg-white text-slate-800 text-xs font-semibold rounded-lg shadow-sm transition backdrop-blur-sm"
+                        >
+                          Replace
+                        </label>
+                        <button
+                          type="button"
+                          onClick={handleRemoveImage}
+                          aria-label="Remove image"
+                          className="cursor-pointer px-3.5 py-1.5 bg-red-600/90 hover:bg-red-600 text-white text-xs font-semibold rounded-lg shadow-sm transition backdrop-blur-sm flex items-center gap-1.5"
+                        >
+                          <Icon name="FaTrash" className="text-xs" />
+                          Remove
+                        </button>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleRemoveImage}
+                        aria-label="Remove cover image"
+                        className="absolute top-2 right-2 p-1.5 rounded-full bg-black/60 hover:bg-black/80 text-white transition md:opacity-0 md:group-hover:opacity-100"
+                      >
+                        <Icon name="FaXmark" className="text-xs" />
+                      </button>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <label
+                        htmlFor="coverImageInput"
+                        className="cursor-pointer text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline"
+                      >
+                        Replace Image
+                      </label>
+                      <span className="text-xs text-gray-300 dark:text-gray-600">•</span>
+                      <button
+                        type="button"
+                        onClick={handleRemoveImage}
+                        className="text-xs font-medium text-red-500 hover:underline cursor-pointer"
+                      >
+                        Remove Image
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                    className={`relative border-2 border-dashed rounded-2xl p-6 text-center transition-all ${
+                      isDragging
+                        ? 'border-blue-500 bg-blue-50/50 dark:bg-blue-950/20'
+                        : 'border-gray-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-500/50 bg-slate-50/50 dark:bg-slate-900/30'
+                    }`}
+                  >
+                    <div className="flex flex-col items-center justify-center space-y-2">
+                      <div className="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                        <Icon name="FaCloudArrowUp" className="text-xl" />
+                      </div>
+                      <div className="text-sm font-medium text-slate-700 dark:text-gray-300">
+                        <label
+                          htmlFor="coverImageInput"
+                          className="cursor-pointer text-blue-600 dark:text-blue-400 hover:underline focus:outline-none"
+                        >
+                          Click to upload
+                        </label>{' '}
+                        or drag and drop
+                      </div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        Recommended 1200 × 600 px (2:1) · JPG, PNG or WebP · max 10MB
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                <input
+                  id="coverImageInput"
+                  type="file"
+                  accept="image/*"
+                  className="sr-only"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0]
+                    if (file) handleFileChange(file)
+                    e.target.value = ''
+                  }}
+                />
+
+                {imageError && (
+                  <p className="mt-2 text-xs text-red-500 flex items-center gap-1.5">
+                    <Icon name="FaXmark" className="text-xs" />
+                    {imageError}
+                  </p>
+                )}
+              </div>
+
               {/* Title */}
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">

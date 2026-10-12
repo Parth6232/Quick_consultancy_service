@@ -12,18 +12,29 @@ import { unescapeNewlines } from '../../utils/formatText'
 
 // ── Skeleton Card ──────────────────────────────────────────────────────────
 const SkeletonCard = () => (
-  <div className="rounded-xl overflow-hidden bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700/60 animate-pulse">
-    <div className="p-5 space-y-3">
-      <div className="h-5 bg-gray-200 dark:bg-slate-700 rounded w-3/4 mb-4" />
-      <div className="flex gap-2 mb-2">
-         <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-16" />
-         <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-20" />
+  <div className="h-[544px] rounded-2xl overflow-hidden bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700/60 animate-pulse flex flex-col">
+    <div className="h-48 w-full bg-gray-200 dark:bg-slate-700 shrink-0" />
+    <div className="p-5 flex-1 flex flex-col">
+      <div className="h-14 space-y-2 mb-2">
+        <div className="h-5 bg-gray-200 dark:bg-slate-700 rounded w-3/4" />
+        <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-1/2" />
       </div>
-      <div className="h-3 bg-gray-200 dark:bg-slate-700 rounded w-full" />
-      <div className="h-3 bg-gray-200 dark:bg-slate-700 rounded w-5/6" />
-      <div className="h-3 bg-gray-200 dark:bg-slate-700 rounded w-4/6" />
-      <div className="pt-4 flex justify-between">
-         <div className="h-8 bg-gray-200 dark:bg-slate-700 rounded w-24" />
+      <div className="mt-2 h-[60px] flex gap-2">
+        <div className="h-6 bg-gray-200 dark:bg-slate-700 rounded w-20" />
+        <div className="h-6 bg-gray-200 dark:bg-slate-700 rounded w-24" />
+      </div>
+      <div className="mt-3 h-[72px] space-y-2">
+        <div className="h-3.5 bg-gray-200 dark:bg-slate-700 rounded w-full" />
+        <div className="h-3.5 bg-gray-200 dark:bg-slate-700 rounded w-5/6" />
+        <div className="h-3.5 bg-gray-200 dark:bg-slate-700 rounded w-4/6" />
+      </div>
+      <div className="mt-3 h-7 flex gap-1.5">
+        <div className="h-5 bg-gray-200 dark:bg-slate-700 rounded w-16" />
+        <div className="h-5 bg-gray-200 dark:bg-slate-700 rounded w-16" />
+      </div>
+      <div className="mt-auto pt-4 border-t border-gray-100 dark:border-slate-700 flex justify-between items-center">
+        <div className="h-4 bg-gray-200 dark:bg-slate-700 rounded w-20" />
+        <div className="h-8 bg-gray-200 dark:bg-slate-700 rounded w-24" />
       </div>
     </div>
   </div>
@@ -48,99 +59,138 @@ const JobCard = ({ job, index, isAdmin }) => {
   }
 
   return (
-    <Reveal delay={index * 0.05}>
+    <Reveal delay={index * 0.05} className="h-full">
       <div className="relative h-full">
-        {isAdmin && (
-          <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5">
-             <button
-              onClick={handleToggleActive}
-              title={job.isActive ? "Close applications" : "Open applications"}
-              className={`cursor-pointer w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 ${job.isActive ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'} backdrop-blur-sm flex items-center justify-center shadow hover:bg-white dark:hover:bg-slate-900 transition`}
-            >
-              <Icon name={job.isActive ? "FaEye" : "FaEyeSlash"} className="text-xs" />
-            </button>
-            <Link
-              to={`/careers/edit/${job._id}`}
-              onClick={(e) => e.stopPropagation()}
-              title="Edit Job"
-              className="cursor-pointer w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 text-blue-600 dark:text-blue-400 backdrop-blur-sm flex items-center justify-center shadow hover:bg-white dark:hover:bg-slate-900 transition"
-            >
-              <Icon name="FaPenToSquare" className="text-xs" />
-            </Link>
-            <button
-              onClick={handleDelete}
-              disabled={isDeleting}
-              title="Delete Job"
-              className="cursor-pointer w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 text-red-600 dark:text-red-400 backdrop-blur-sm flex items-center justify-center shadow hover:bg-white dark:hover:bg-slate-900 transition"
-            >
-              <Icon name="FaTrash" className="text-xs" />
-            </button>
-          </div>
-        )}
-
         <TiltCard maxTilt={5} className="h-full">
-          <GradientBorderCard rounded="rounded-xl" className="shadow-sm hover:shadow-glossy-lg transition-shadow duration-300 h-full">
-            <div className="group relative bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700/60 rounded-xl h-full flex flex-col p-5">
-              
-              {!job.isActive && (
-                <div className="absolute -top-3 -left-3 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 text-xs px-3 py-1 rounded-full font-semibold border border-red-200 dark:border-red-800/50 shadow-sm z-10">
-                  Closed
-                </div>
-              )}
+          <GradientBorderCard
+            rounded="rounded-2xl"
+            className="shadow-sm hover:shadow-glossy-lg transition-shadow duration-300 h-full"
+            innerClassName="h-full"
+          >
+            <div className="group relative bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700/60 rounded-2xl h-[544px] overflow-hidden flex flex-col">
+              {/* Image area */}
+              <div className="relative h-48 w-full shrink-0 overflow-hidden">
+                {job.coverImage ? (
+                  <img
+                    src={job.coverImage}
+                    alt={job.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-blue-600 to-emerald-500 flex items-center justify-center">
+                    <Icon name="FaBriefcase" className="text-5xl text-white/80" />
+                  </div>
+                )}
 
-              <div className="mb-2">
-                <h3 className="font-bold text-lg md:text-xl text-slate-900 dark:text-white line-clamp-2">
+                {/* Subtle scrim */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 pointer-events-none" />
+
+                {/* Closed badge */}
+                {!job.isActive && (
+                  <div className="absolute top-3 left-3 z-20 bg-red-100 dark:bg-red-900/80 text-red-700 dark:text-red-200 text-xs px-3 py-1 rounded-full font-semibold border border-red-200 dark:border-red-700/50 shadow-sm backdrop-blur-sm">
+                    Closed
+                  </div>
+                )}
+
+                {/* Admin controls */}
+                {isAdmin && (
+                  <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5">
+                    <button
+                      onClick={handleToggleActive}
+                      title={job.isActive ? 'Close applications' : 'Open applications'}
+                      aria-label={job.isActive ? 'Close applications' : 'Open applications'}
+                      className={`cursor-pointer w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 ${job.isActive ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'} backdrop-blur-sm flex items-center justify-center shadow hover:bg-white dark:hover:bg-slate-900 transition`}
+                    >
+                      <Icon name={job.isActive ? 'FaEye' : 'FaEyeSlash'} className="text-xs" />
+                    </button>
+                    <Link
+                      to={`/careers/edit/${job._id}`}
+                      onClick={(e) => e.stopPropagation()}
+                      title="Edit Job"
+                      aria-label="Edit Job"
+                      className="cursor-pointer w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 text-blue-600 dark:text-blue-400 backdrop-blur-sm flex items-center justify-center shadow hover:bg-white dark:hover:bg-slate-900 transition"
+                    >
+                      <Icon name="FaPenToSquare" className="text-xs" />
+                    </Link>
+                    <button
+                      onClick={handleDelete}
+                      disabled={isDeleting}
+                      title="Delete Job"
+                      aria-label="Delete Job"
+                      className="cursor-pointer w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 text-red-600 dark:text-red-400 backdrop-blur-sm flex items-center justify-center shadow hover:bg-white dark:hover:bg-slate-900 transition"
+                    >
+                      <Icon name="FaTrash" className="text-xs" />
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Body */}
+              <div className="flex-1 flex flex-col p-5 min-h-0 bg-white dark:bg-slate-800">
+                {/* Title */}
+                <h3 className="h-14 font-bold text-lg md:text-xl text-slate-900 dark:text-white line-clamp-2">
                   {job.title}
                 </h3>
-              </div>
-              
-              <div className="flex flex-wrap gap-2 mb-4">
-                {job.department && (
-                   <span className="inline-flex items-center gap-1 text-xs font-medium text-blue-700 bg-blue-50 dark:bg-blue-900/30 dark:text-blue-300 px-2 py-1 rounded-md">
-                     <Icon name="FaBriefcase" className="text-[10px]" /> {job.department}
-                   </span>
-                )}
-                {job.location && (
-                   <span className="inline-flex items-center gap-1 text-xs font-medium text-purple-700 bg-purple-50 dark:bg-purple-900/30 dark:text-purple-300 px-2 py-1 rounded-md">
-                     <Icon name="FaMapMarkerAlt" className="text-[10px]" /> {job.location}
-                   </span>
-                )}
-                {job.jobType && (
-                   <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-700 bg-emerald-50 dark:bg-emerald-900/30 dark:text-emerald-300 px-2 py-1 rounded-md">
-                     <Icon name="FaClock" className="text-[10px]" /> {job.jobType}
-                   </span>
-                )}
-              </div>
 
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 flex-1 line-clamp-3 whitespace-pre-line break-words">
-                {unescapeNewlines(job.description)}
-              </p>
-
-              {job.skills?.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mb-5">
-                  {job.skills.slice(0, 4).map((skill, idx) => (
-                    <span key={idx} className="text-[10px] uppercase font-bold tracking-wide text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded">
-                      {skill}
+                {/* Tags row */}
+                <div className="mt-2 h-[60px] overflow-hidden flex flex-wrap content-start gap-2">
+                  {job.department && (
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-blue-700 bg-blue-50 dark:bg-blue-900/30 dark:text-blue-300 px-2 py-1 rounded-md shrink-0">
+                      <Icon name="FaBriefcase" className="text-[10px]" /> {job.department}
                     </span>
-                  ))}
-                  {job.skills.length > 4 && (
-                    <span className="text-[10px] uppercase font-bold tracking-wide text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-slate-700/50 px-2 py-0.5 rounded">
-                      +{job.skills.length - 4} more
+                  )}
+                  {job.location && (
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-purple-700 bg-purple-50 dark:bg-purple-900/30 dark:text-purple-300 px-2 py-1 rounded-md max-w-full truncate">
+                      <Icon name="FaMapMarkerAlt" className="text-[10px] shrink-0" /> <span className="truncate">{job.location}</span>
+                    </span>
+                  )}
+                  {job.jobType && (
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-700 bg-emerald-50 dark:bg-emerald-900/30 dark:text-emerald-300 px-2 py-1 rounded-md shrink-0">
+                      <Icon name="FaClock" className="text-[10px]" /> {job.jobType}
                     </span>
                   )}
                 </div>
-              )}
 
-              <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-slate-700">
-                <div className="text-xs text-gray-500 dark:text-gray-400">
-                  {timeAgo(job.createdAt)}
+                {/* Description */}
+                <p className="mt-3 h-[72px] text-sm leading-6 text-gray-600 dark:text-gray-400 line-clamp-3 whitespace-pre-line break-words overflow-hidden">
+                  {unescapeNewlines(job.description)}
+                </p>
+
+                {/* Skills row */}
+                {job.skills && job.skills.length > 0 ? (
+                  <div className="mt-3 h-7 overflow-hidden flex flex-nowrap gap-1.5 items-center">
+                    {job.skills.slice(0, 3).map((skill, idx) => (
+                      <span
+                        key={idx}
+                        className="shrink-0 max-w-[110px] truncate text-[10px] uppercase font-bold tracking-wide text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-slate-700 px-2 py-1 rounded"
+                        title={skill}
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                    {job.skills.length > 3 && (
+                      <span className="shrink-0 text-[10px] uppercase font-bold tracking-wide text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-slate-700/50 px-2 py-1 rounded">
+                        +{job.skills.length - 3} more
+                      </span>
+                    )}
+                  </div>
+                ) : (
+                  <div className="mt-3 h-7" aria-hidden="true" />
+                )}
+
+                {/* Footer */}
+                <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-slate-700">
+                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                    {timeAgo(job.createdAt)}
+                  </div>
+                  <Link
+                    to={`/careers/${job._id}`}
+                    className="cursor-pointer text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 px-4 py-1.5 rounded-lg transition-colors shadow-sm"
+                  >
+                    {job.isActive ? 'Apply Now' : 'View Details'}
+                  </Link>
                 </div>
-                <Link
-                  to={`/careers/${job._id}`}
-                  className="cursor-pointer text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 px-4 py-1.5 rounded-lg transition-colors shadow-sm"
-                >
-                  {job.isActive ? "Apply Now" : "View Details"}
-                </Link>
               </div>
             </div>
           </GradientBorderCard>
@@ -225,7 +275,7 @@ const CareersContainer = () => {
 
       {/* Loading */}
       {isLoading && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
           {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
         </div>
       )}
@@ -249,12 +299,13 @@ const CareersContainer = () => {
 
       {/* Grid */}
       {!isLoading && !isError && filteredJobs?.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" style={{ perspective: 1000 }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch" style={{ perspective: 1000 }}>
           <AnimatePresence mode="popLayout">
             {filteredJobs.map((job, i) => (
               <motion.div
                 key={job._id}
                 layout
+                className="h-full"
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9 }}

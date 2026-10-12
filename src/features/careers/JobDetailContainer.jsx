@@ -73,9 +73,10 @@ const JobDetailContainer = () => {
         <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 md:p-10 mb-10 shadow-sm border border-gray-100 dark:border-slate-700/60 relative">
           
           {isAdmin && (
-            <div className="absolute top-6 right-6 flex items-center gap-2">
+            <div className="absolute top-6 right-6 z-10 flex items-center gap-2">
               <button
                 onClick={handleToggleActive}
+                aria-label={job.isActive ? "Close applications" : "Open applications"}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors ${
                   job.isActive 
                     ? 'border-green-200 text-green-700 bg-green-50 hover:bg-green-100 dark:border-green-800/50 dark:text-green-400 dark:bg-green-900/20' 
@@ -87,6 +88,7 @@ const JobDetailContainer = () => {
               </button>
               <Link
                 to={`/careers/edit/${job._id}`}
+                aria-label="Edit Job"
                 className="flex items-center justify-center w-9 h-9 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 transition-colors"
               >
                 <Icon name="FaPenToSquare" />
@@ -94,6 +96,7 @@ const JobDetailContainer = () => {
               <button
                 onClick={handleDelete}
                 disabled={isDeleting}
+                aria-label="Delete Job"
                 className="flex items-center justify-center w-9 h-9 rounded-lg bg-red-50 text-red-600 hover:bg-red-100 dark:bg-red-900/30 dark:text-red-400 transition-colors"
               >
                 <Icon name="FaTrash" />
@@ -101,46 +104,103 @@ const JobDetailContainer = () => {
             </div>
           )}
 
-          {!job.isActive && !isAdmin && (
-            <div className="mb-4 inline-block bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 px-3 py-1 rounded-full text-sm font-semibold border border-red-200 dark:border-red-800/50">
-              Applications Closed
+          {job.coverImage ? (
+            <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
+              <div className="md:w-[420px] md:h-[210px] w-full aspect-[2/1] md:aspect-auto shrink-0 rounded-2xl overflow-hidden border border-gray-100 dark:border-slate-700/60 shadow-sm">
+                <img
+                  src={job.coverImage}
+                  alt={job.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <div className="flex-1 min-w-0 w-full">
+                {!job.isActive && !isAdmin && (
+                  <div className="mb-4 inline-block bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 px-3 py-1 rounded-full text-sm font-semibold border border-red-200 dark:border-red-800/50">
+                    Applications Closed
+                  </div>
+                )}
+
+                <h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 pr-0 md:pr-32">
+                  {job.title}
+                </h1>
+
+                <div className="flex flex-wrap gap-4 md:gap-8 items-center text-sm font-medium text-slate-700 dark:text-gray-300">
+                  {job.department && (
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                        <Icon name="FaBriefcase" />
+                      </div>
+                      {job.department}
+                    </div>
+                  )}
+                  {job.location && (
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                        <Icon name="FaMapMarkerAlt" />
+                      </div>
+                      {job.location}
+                    </div>
+                  )}
+                  {job.jobType && (
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                        <Icon name="FaClock" />
+                      </div>
+                      {job.jobType}
+                    </div>
+                  )}
+                  <div className="flex items-center gap-2 md:ml-auto text-gray-500 dark:text-gray-400 text-xs">
+                    <Icon name="FaCalendarAlt" />
+                    Posted {timeAgo(job.createdAt)}
+                  </div>
+                </div>
+              </div>
             </div>
+          ) : (
+            <>
+              {!job.isActive && !isAdmin && (
+                <div className="mb-4 inline-block bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 px-3 py-1 rounded-full text-sm font-semibold border border-red-200 dark:border-red-800/50">
+                  Applications Closed
+                </div>
+              )}
+
+              <h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 pr-32">
+                {job.title}
+              </h1>
+
+              <div className="flex flex-wrap gap-4 md:gap-8 items-center text-sm font-medium text-slate-700 dark:text-gray-300">
+                {job.department && (
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                      <Icon name="FaBriefcase" />
+                    </div>
+                    {job.department}
+                  </div>
+                )}
+                {job.location && (
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                      <Icon name="FaMapMarkerAlt" />
+                    </div>
+                    {job.location}
+                  </div>
+                )}
+                {job.jobType && (
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                      <Icon name="FaClock" />
+                    </div>
+                    {job.jobType}
+                  </div>
+                )}
+                <div className="flex items-center gap-2 ml-auto text-gray-500 dark:text-gray-400 text-xs">
+                  <Icon name="FaCalendarAlt" />
+                  Posted {timeAgo(job.createdAt)}
+                </div>
+              </div>
+            </>
           )}
-
-          <h1 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 pr-32">
-            {job.title}
-          </h1>
-
-          <div className="flex flex-wrap gap-4 md:gap-8 items-center text-sm font-medium text-slate-700 dark:text-gray-300">
-            {job.department && (
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                  <Icon name="FaBriefcase" />
-                </div>
-                {job.department}
-              </div>
-            )}
-            {job.location && (
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-purple-50 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
-                  <Icon name="FaMapMarkerAlt" />
-                </div>
-                {job.location}
-              </div>
-            )}
-            {job.jobType && (
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
-                  <Icon name="FaClock" />
-                </div>
-                {job.jobType}
-              </div>
-            )}
-            <div className="flex items-center gap-2 ml-auto text-gray-500 dark:text-gray-400 text-xs">
-              <Icon name="FaCalendarAlt" />
-              Posted {timeAgo(job.createdAt)}
-            </div>
-          </div>
         </div>
       </Reveal>
 
