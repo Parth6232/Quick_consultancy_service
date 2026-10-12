@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -12,7 +12,7 @@ import { unescapeNewlines } from '../../utils/formatText'
 
 // ── Skeleton Card ──────────────────────────────────────────────────────────
 const SkeletonCard = () => (
-  <div className="h-[544px] rounded-2xl overflow-hidden bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700/60 animate-pulse flex flex-col">
+  <div className="h-[568px] rounded-2xl overflow-hidden bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700/60 animate-pulse flex flex-col">
     <div className="h-48 w-full bg-gray-200 dark:bg-slate-700 shrink-0" />
     <div className="p-5 flex-1 flex flex-col">
       <div className="h-14 space-y-2 mb-2">
@@ -23,7 +23,7 @@ const SkeletonCard = () => (
         <div className="h-6 bg-gray-200 dark:bg-slate-700 rounded w-20" />
         <div className="h-6 bg-gray-200 dark:bg-slate-700 rounded w-24" />
       </div>
-      <div className="mt-3 h-[72px] space-y-2">
+      <div className="mt-3 h-24 space-y-2">
         <div className="h-3.5 bg-gray-200 dark:bg-slate-700 rounded w-full" />
         <div className="h-3.5 bg-gray-200 dark:bg-slate-700 rounded w-5/6" />
         <div className="h-3.5 bg-gray-200 dark:bg-slate-700 rounded w-4/6" />
@@ -45,6 +45,10 @@ const JobCard = ({ job, index, isAdmin }) => {
   const [deleteJob, { isLoading: isDeleting }] = useDeleteJobMutation()
   const [updateJob] = useUpdateJobMutation()
 
+  const [expanded, setExpanded] = useState(false)
+  const [isTruncated, setIsTruncated] = useState(false)
+  const descRef = useRef(null)
+
   const handleDelete = async (e) => {
     e.preventDefault()
     e.stopPropagation()
@@ -58,6 +62,53 @@ const JobCard = ({ job, index, isAdmin }) => {
     await updateJob({ id: job._id, body: { isActive: !job.isActive } })
   }
 
+  // Measure truncation in collapsed state
+  useEffect(() => {
+    if (expanded) return
+
+    const el = descRef.current
+    if (!el) return
+
+    const checkTruncation = () => {
+      if (!descRef.current) return
+      const hasOverflow =
+        descRef.current.scrollHeight > descRef.current.clientHeight + 1 ||
+        (descRef.current.firstElementChild &&
+          descRef.current.firstElementChild.scrollHeight > descRef.current.clientHeight + 1)
+      setIsTruncated(Boolean(hasOverflow))
+    }
+
+    checkTruncation()
+
+    const ro = new ResizeObserver(() => {
+      checkTruncation()
+    })
+    ro.observe(el)
+
+    window.addEventListener('resize', checkTruncation)
+
+    return () => {
+      ro.disconnect()
+      window.removeEventListener('resize', checkTruncation)
+    }
+  }, [job.description, expanded])
+
+  const handleToggleExpand = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (expanded) {
+      if (descRef.current) {
+        descRef.current.scrollTop = 0
+      }
+      setExpanded(false)
+    } else {
+      setExpanded(true)
+    }
+  }
+
+  const hasMore = isTruncated || (job.skills && job.skills.length > 3)
+  const showToggleBtn = expanded || hasMore
+
   return (
     <Reveal delay={index * 0.05} className="h-full">
       <div className="relative h-full">
@@ -67,7 +118,7 @@ const JobCard = ({ job, index, isAdmin }) => {
             className="shadow-sm hover:shadow-glossy-lg transition-shadow duration-300 h-full"
             innerClassName="h-full"
           >
-            <div className="group relative bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700/60 rounded-2xl h-[544px] overflow-hidden flex flex-col">
+            <div className="group relative bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700/60 rounded-2xl h-[568px] overflow-hidden flex flex-col">
               {/* Image area */}
               <div className="relative h-48 w-full shrink-0 overflow-hidden">
                 {job.coverImage ? (
@@ -152,44 +203,80 @@ const JobCard = ({ job, index, isAdmin }) => {
                   )}
                 </div>
 
-                {/* Description */}
-                <p className="mt-3 h-[72px] text-sm leading-6 text-gray-600 dark:text-gray-400 line-clamp-3 whitespace-pre-line break-words overflow-hidden">
-                  {unescapeNewlines(job.description)}
-                </p>
+                {/* Description Area */}
+                <div
+                  ref={descRef}
+                  onWheel={(e) => e.stopPropagation()}
+                  onTouchMove={(e) => e.stopPropagation()}
+                  className={`mt-3 transition-[height] duration-300 text-sm leading-6 break-words text-gray-600 dark:text-gray-400 ${
+                    expanded
+                      ? 'h-[136px] whitespace-pre-line overflow-y-auto pr-2 [scrollbar-width:thin] [scrollbar-color:theme(colors.slate.400)_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300 dark:[&::-webkit-scrollbar-thumb]:bg-slate-600'
+                      : 'h-24 line-clamp-4 whitespace-pre-line overflow-hidden'
+                  }`}
+                >
+                  <div>{unescapeNewlines(job.description)}</div>
+                  {expanded && job.skills && job.skills.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mt-3">
+                      {job.skills.map((skill, idx) => (
+                        <span
+                          key={idx}
+                          className="text-[10px] uppercase font-bold tracking-wide text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
 
-                {/* Skills row */}
-                {job.skills && job.skills.length > 0 ? (
-                  <div className="mt-3 h-7 overflow-hidden flex flex-nowrap gap-1.5 items-center">
-                    {job.skills.slice(0, 3).map((skill, idx) => (
-                      <span
-                        key={idx}
-                        className="shrink-0 max-w-[110px] truncate text-[10px] uppercase font-bold tracking-wide text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-slate-700 px-2 py-1 rounded"
-                        title={skill}
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                    {job.skills.length > 3 && (
-                      <span className="shrink-0 text-[10px] uppercase font-bold tracking-wide text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-slate-700/50 px-2 py-1 rounded">
-                        +{job.skills.length - 3} more
-                      </span>
-                    )}
-                  </div>
-                ) : (
-                  <div className="mt-3 h-7" aria-hidden="true" />
+                {/* Skills row (Collapsed state only) */}
+                {!expanded && (
+                  job.skills && job.skills.length > 0 ? (
+                    <div className="mt-3 h-7 overflow-hidden flex flex-nowrap gap-1.5 items-center">
+                      {job.skills.slice(0, 3).map((skill, idx) => (
+                        <span
+                          key={idx}
+                          className="shrink-0 max-w-[110px] truncate text-[10px] uppercase font-bold tracking-wide text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-slate-700 px-2 py-0.5 rounded"
+                          title={skill}
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                      {job.skills.length > 3 && (
+                        <span className="shrink-0 text-[10px] uppercase font-bold tracking-wide text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-slate-700/50 px-2 py-0.5 rounded">
+                          +{job.skills.length - 3} more
+                        </span>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="mt-3 h-7" aria-hidden="true" />
+                  )
                 )}
 
                 {/* Footer */}
-                <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-slate-700">
-                  <div className="text-xs text-gray-500 dark:text-gray-400">
+                <div className="flex items-center justify-between gap-2 mt-auto pt-4 border-t border-gray-100 dark:border-slate-700">
+                  <div className="text-xs text-gray-500 dark:text-gray-400 truncate min-w-0">
                     {timeAgo(job.createdAt)}
                   </div>
-                  <Link
-                    to={`/careers/${job._id}`}
-                    className="cursor-pointer text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 px-4 py-1.5 rounded-lg transition-colors shadow-sm"
-                  >
-                    {job.isActive ? 'Apply Now' : 'View Details'}
-                  </Link>
+                  <div className="flex items-center gap-2 shrink-0">
+                    {showToggleBtn && (
+                      <button
+                        type="button"
+                        onClick={handleToggleExpand}
+                        aria-expanded={expanded}
+                        className="border border-blue-600/30 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 px-3 py-1.5 rounded-lg text-sm font-semibold whitespace-nowrap flex items-center gap-1.5 cursor-pointer transition-colors"
+                      >
+                        <span>{expanded ? 'View less' : 'Read more'}</span>
+                        <Icon name={expanded ? 'FaChevronUp' : 'FaChevronDown'} className="text-[10px]" />
+                      </button>
+                    )}
+                    <Link
+                      to={`/careers/${job._id}`}
+                      className="cursor-pointer text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 px-4 py-1.5 rounded-lg transition-colors shadow-sm whitespace-nowrap"
+                    >
+                      {job.isActive ? 'Apply Now' : 'View Details'}
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
