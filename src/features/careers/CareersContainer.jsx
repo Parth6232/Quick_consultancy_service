@@ -9,6 +9,7 @@ import Reveal from '../../common/Reveal.jsx'
 import Icon from '../../utils/iconMap.jsx'
 import timeAgo from '../../utils/timeAgo.js'
 import { unescapeNewlines } from '../../utils/formatText'
+import ShareJobModal from './ShareJobModal.jsx'
 
 // ── Skeleton Card ──────────────────────────────────────────────────────────
 const SkeletonCard = () => (
@@ -41,7 +42,7 @@ const SkeletonCard = () => (
 )
 
 // ── Job Card ──────────────────────────────────────────────────────────────
-const JobCard = ({ job, index, isAdmin }) => {
+const JobCard = ({ job, index, isAdmin, onShare }) => {
   const [deleteJob, { isLoading: isDeleting }] = useDeleteJobMutation()
   const [updateJob] = useUpdateJobMutation()
 
@@ -144,37 +145,53 @@ const JobCard = ({ job, index, isAdmin }) => {
                   </div>
                 )}
 
-                {/* Admin controls */}
-                {isAdmin && (
-                  <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5">
-                    <button
-                      onClick={handleToggleActive}
-                      title={job.isActive ? 'Close applications' : 'Open applications'}
-                      aria-label={job.isActive ? 'Close applications' : 'Open applications'}
-                      className={`cursor-pointer w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 ${job.isActive ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'} backdrop-blur-sm flex items-center justify-center shadow hover:bg-white dark:hover:bg-slate-900 transition`}
-                    >
-                      <Icon name={job.isActive ? 'FaEye' : 'FaEyeSlash'} className="text-xs" />
-                    </button>
-                    <Link
-                      to={`/careers/edit/${job._id}`}
-                      onClick={(e) => e.stopPropagation()}
-                      title="Edit Job"
-                      aria-label="Edit Job"
-                      className="cursor-pointer w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 text-blue-600 dark:text-blue-400 backdrop-blur-sm flex items-center justify-center shadow hover:bg-white dark:hover:bg-slate-900 transition"
-                    >
-                      <Icon name="FaPenToSquare" className="text-xs" />
-                    </Link>
-                    <button
-                      onClick={handleDelete}
-                      disabled={isDeleting}
-                      title="Delete Job"
-                      aria-label="Delete Job"
-                      className="cursor-pointer w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 text-red-600 dark:text-red-400 backdrop-blur-sm flex items-center justify-center shadow hover:bg-white dark:hover:bg-slate-900 transition"
-                    >
-                      <Icon name="FaTrash" className="text-xs" />
-                    </button>
-                  </div>
-                )}
+                {/* Actions (Share + Admin controls) */}
+                <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      onShare()
+                    }}
+                    title="Share job"
+                    aria-label="Share job"
+                    className="cursor-pointer w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 backdrop-blur-sm flex items-center justify-center shadow hover:bg-white dark:hover:bg-slate-900 transition"
+                  >
+                    <Icon name="FaShareNodes" className="text-xs" />
+                  </button>
+
+                  {isAdmin && (
+                    <>
+                      <button
+                        onClick={handleToggleActive}
+                        title={job.isActive ? 'Close applications' : 'Open applications'}
+                        aria-label={job.isActive ? 'Close applications' : 'Open applications'}
+                        className={`cursor-pointer w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 ${job.isActive ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'} backdrop-blur-sm flex items-center justify-center shadow hover:bg-white dark:hover:bg-slate-900 transition`}
+                      >
+                        <Icon name={job.isActive ? 'FaEye' : 'FaEyeSlash'} className="text-xs" />
+                      </button>
+                      <Link
+                        to={`/careers/edit/${job._id}`}
+                        onClick={(e) => e.stopPropagation()}
+                        title="Edit Job"
+                        aria-label="Edit Job"
+                        className="cursor-pointer w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 text-blue-600 dark:text-blue-400 backdrop-blur-sm flex items-center justify-center shadow hover:bg-white dark:hover:bg-slate-900 transition"
+                      >
+                        <Icon name="FaPenToSquare" className="text-xs" />
+                      </Link>
+                      <button
+                        onClick={handleDelete}
+                        disabled={isDeleting}
+                        title="Delete Job"
+                        aria-label="Delete Job"
+                        className="cursor-pointer w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 text-red-600 dark:text-red-400 backdrop-blur-sm flex items-center justify-center shadow hover:bg-white dark:hover:bg-slate-900 transition"
+                      >
+                        <Icon name="FaTrash" className="text-xs" />
+                      </button>
+                    </>
+                  )}
+                </div>
               </div>
 
               {/* Body */}
@@ -295,6 +312,7 @@ const CareersContainer = () => {
   
   const [searchTerm, setSearchTerm] = useState('')
   const [typeFilter, setTypeFilter] = useState('All')
+  const [shareJob, setShareJob] = useState(null)
 
   const isLoading = isAdmin ? isAdminLoading : isPublicLoading
   const isError = isAdmin ? isAdminError : isPublicError
@@ -398,12 +416,14 @@ const CareersContainer = () => {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.35, type: 'spring', stiffness: 220, damping: 20 }}
               >
-                <JobCard job={job} index={i} isAdmin={isAdmin} />
+                <JobCard job={job} index={i} isAdmin={isAdmin} onShare={() => setShareJob(job)} />
               </motion.div>
             ))}
           </AnimatePresence>
         </div>
       )}
+
+      <ShareJobModal job={shareJob} onClose={() => setShareJob(null)} />
     </section>
   )
 }

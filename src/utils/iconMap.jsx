@@ -68,6 +68,10 @@ import {
   FaArrowUpRightFromSquare,
   FaFileLines,
   FaFileArrowDown,
+  FaShareNodes,
+  FaLinkedinIn,
+  FaFacebookF,
+  FaXTwitter,
 } from 'react-icons/fa6'
 
 export const ICONS = {
@@ -143,6 +147,10 @@ export const ICONS = {
   FaExternalLinkAlt: FaArrowUpRightFromSquare,
   FaFileAlt: FaFileLines,
   FaFileDownload: FaFileArrowDown,
+  FaShareNodes,
+  FaLinkedinIn,
+  FaFacebookF,
+  FaXTwitter,
 }
 
 const Icon = ({ name, className = '' }) => {

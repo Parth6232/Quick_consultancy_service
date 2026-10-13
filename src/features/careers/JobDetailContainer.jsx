@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useGetJobByIdQuery, useDeleteJobMutation, useUpdateJobMutation } from '../../store/redux/apiSlice'
@@ -6,12 +7,14 @@ import Icon from '../../utils/iconMap'
 import timeAgo from '../../utils/timeAgo'
 import ApplyForm from './ApplyForm'
 import { unescapeNewlines } from '../../utils/formatText'
+import ShareJobModal from './ShareJobModal'
 
 const JobDetailContainer = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const { data: job, isLoading, isError } = useGetJobByIdQuery(id)
   const isAdmin = useSelector((s) => s.auth.user?.role === 'admin')
+  const [shareOpen, setShareOpen] = useState(false)
   
   const [deleteJob, { isLoading: isDeleting }] = useDeleteJobMutation()
   const [updateJob] = useUpdateJobMutation()
@@ -150,9 +153,20 @@ const JobDetailContainer = () => {
                       {job.jobType}
                     </div>
                   )}
-                  <div className="flex items-center gap-2 md:ml-auto text-gray-500 dark:text-gray-400 text-xs">
-                    <Icon name="FaCalendarAlt" />
-                    Posted {timeAgo(job.createdAt)}
+                  <div className="flex items-center gap-3 md:ml-auto">
+                    <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-xs">
+                      <Icon name="FaCalendarAlt" />
+                      Posted {timeAgo(job.createdAt)}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setShareOpen(true)}
+                      aria-label="Share job"
+                      className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-gray-200 dark:border-slate-700 text-slate-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors"
+                    >
+                      <Icon name="FaShareNodes" className="text-xs" />
+                      <span>Share</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -194,9 +208,20 @@ const JobDetailContainer = () => {
                     {job.jobType}
                   </div>
                 )}
-                <div className="flex items-center gap-2 ml-auto text-gray-500 dark:text-gray-400 text-xs">
-                  <Icon name="FaCalendarAlt" />
-                  Posted {timeAgo(job.createdAt)}
+                <div className="flex items-center gap-3 ml-auto">
+                  <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-xs">
+                    <Icon name="FaCalendarAlt" />
+                    Posted {timeAgo(job.createdAt)}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShareOpen(true)}
+                    aria-label="Share job"
+                    className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-gray-200 dark:border-slate-700 text-slate-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors"
+                  >
+                    <Icon name="FaShareNodes" className="text-xs" />
+                    <span>Share</span>
+                  </button>
                 </div>
               </div>
             </>
@@ -270,6 +295,8 @@ const JobDetailContainer = () => {
           </Reveal>
         </div>
       </div>
+
+      <ShareJobModal job={shareOpen ? job : null} onClose={() => setShareOpen(false)} />
     </section>
   )
 }
