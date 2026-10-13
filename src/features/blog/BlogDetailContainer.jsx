@@ -184,7 +184,7 @@ const BlogDetailContainer = () => {
       </Reveal>
 
       {/* Content */}
-      <Reveal delay={0.15}>
+      <Reveal delay={0.15} amount="some">
         <div className="prose prose-gray dark:prose-invert max-w-none text-sm md:text-base leading-relaxed text-gray-700 dark:text-gray-300 whitespace-pre-wrap mb-10">
           {post.content}
         </div>

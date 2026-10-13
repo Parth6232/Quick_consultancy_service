@@ -401,7 +401,7 @@ const PortfolioDetailContainer = () => {
           </Reveal>
 
           {/* ── Right: Details ── */}
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} amount="some">
             <div className="space-y-5">
               {item.category && (
                 <span className="inline-block bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 text-xs font-bold px-3 py-1.5 rounded-full border border-blue-100 dark:border-blue-500/20 uppercase tracking-wide">

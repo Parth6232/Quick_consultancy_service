@@ -207,7 +207,7 @@ const JobDetailContainer = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         {/* Left: Job Details */}
         <div className="lg:col-span-6 w-full min-w-0 space-y-10">
-          <Reveal delay={0.2}>
+          <Reveal delay={0.2} amount="some">
             <div>
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Role Description</h2>
               <div className="prose prose-slate dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 whitespace-pre-line leading-relaxed break-words">
